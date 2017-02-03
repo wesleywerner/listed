@@ -2,11 +2,21 @@
 
 _Predictive shopping list_
 
-# Tests
+# Developing
+
+You are expected to install the dependencies with `npm install` before anything else.
+
+You should symlink any source dependencies into `source/` for easier development, run `npm run link` to do this.
+
+## Testing
 
 The test suite can run in either CLI or the browser, except for the tests that depend on a browser environment, localStorage for example, these will be skipped in the CLI environment.
 
-Install the dependencies with `npm install`, followed by `npm test` for the CLI, or open `test/browser.html` in your browser.
+Run `npm test` for the CLI, or open `test/browser.html` in your browser.
+
+## Building
+
+Install the dependencies with `npm install`, followed by `npm run build` to clean and release everything into `dist/` for you.
 
 # License
 

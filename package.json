@@ -11,5 +11,12 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "mocha": "^3.2.0"
+  },
+  "scripts": {
+    "clean": "rm -r dist/*",
+    "build:deps": "cp node_modules/localforage/dist/localforage.min.js dist/js/",
+    "build:src": "cp -r source/* dist/",
+    "build": "mkdir -p dist/js && npm run clean && npm run build:src && npm run build:deps",
+    "link": "ln -s node_modules/localforage/dist/localforage.min.js source/js/"
   }
 }
