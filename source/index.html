@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Listed - Predictive Shopping</title>
+    </head>
+    <body>
+        <script type="text/javascript" src="js/localforage.min.js"></script>
+        <script type="text/javascript" src="js/vue.min.js"></script>
+        <script type="text/javascript" src="js/listed.components.js"></script>
+        <script type="text/javascript" src="js/listed.js"></script>
+        
+        <div id="app">
+        
+            <label>Add an item:
+            <input list="historicalItems" v-model="newItemText" /></label>
+            <datalist id="historicalItems">
+              <option v-for="item in history" v-bind:value="item.text">
+            </datalist>
+            <button v-on:click="addItem(newItemText)">Add</button>
+
+          <h3>items</h3>
+          
+          <ul>
+              <list-item v-for="item in list" v-bind:item="item"></list-item>
+          </ul>
+        </div>
+
+        <script type="text/javascript" src="js/listed.bind.js"></script>
+    </body>
+</html>
