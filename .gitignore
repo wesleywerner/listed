@@ -1,4 +1,5 @@
 dist/
 npm-debug.log
 source/js/localforage.min.js
+source/js/vue.min.js
 
