@@ -2,6 +2,12 @@
 
 _Predictive shopping list_
 
+# Tests
+
+The test suite can run in either CLI or the browser, except for the tests that depend on a browser environment, localStorage for example, these will be skipped in the CLI environment.
+
+Install the dependencies with `npm install`, followed by `npm test` for the CLI, or open `test/browser.html` in your browser.
+
 # License
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
