@@ -6,7 +6,7 @@ _Predictive shopping list_
 
 You are expected to install the dependencies with `npm install` before anything else.
 
-You should symlink any source dependencies into `source/` for easier development, run `npm run link` to do this.
+You should copy any source dependencies into `source/` for easier development, run `npm run link` to do this.
 
 ## Testing
 

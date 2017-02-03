@@ -4,11 +4,12 @@
   "description": "Predictive shopping list",
   "main": "index.js",
   "scripts": {
+    "test": "mocha",
     "clean": "rm -r dist/*",
     "build:deps": "cp node_modules/localforage/dist/localforage.min.js dist/js/ && cp node_modules/vue/dist/vue.min.js dist/js/",
     "build:src": "cp -r source/* dist/",
     "build": "mkdir -p dist/js && npm run clean && npm run build:src && npm run build:deps",
-    "link": "ln -sf node_modules/localforage/dist/localforage.min.js source/js/ && ln -sf node_modules/vue/dist/vue.min.js source/js/"
+    "link": "cp node_modules/localforage/dist/localforage.min.js source/js/ && cp node_modules/vue/dist/vue.min.js source/js/"
   },
   "author": "Wesley Werner",
   "license": "GPL-3.0",
