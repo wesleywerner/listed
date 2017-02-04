@@ -5,11 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "clean": "rm -r dist/*",
-    "build:deps": "cp node_modules/localforage/dist/localforage.min.js dist/js/ && cp node_modules/vue/dist/vue.min.js dist/js/",
-    "build:src": "cp -r source/* dist/",
-    "build": "mkdir -p dist/js && npm run clean && npm run build:src && npm run build:deps",
-    "link": "cp node_modules/localforage/dist/localforage.min.js source/js/ && cp node_modules/vue/dist/vue.min.js source/js/"
+    "clean": "mkdir -p dist/js && rm -r dist/*",
+    "cp:moment": "cp node_modules/moment/min/moment.min.js dist/js/",
+    "cp:localforage": "cp node_modules/localforage/dist/localforage.min.js dist/js/",
+    "cp:vue": "cp node_modules/vue/dist/vue.min.js dist/js/",
+    "cp:src": "cp -r source/* dist/",
+    "build": "npm run clean && npm run cp:src && npm run cp:vue && npm run cp:localforage && npm run cp:moment",
+    "link:vue": "cp node_modules/vue/dist/vue.min.js source/js/",
+    "link:localforage": "cp node_modules/localforage/dist/localforage.min.js source/js/",
+    "link:moment": "cp node_modules/moment/min/moment.min.js source/js/",
+    "link": "npm run link:vue && npm run link:localforage && npm run link:moment"
   },
   "author": "Wesley Werner",
   "license": "GPL-3.0",
@@ -19,6 +24,7 @@
   },
   "dependencies": {
     "localforage": "^1.4.3",
+    "moment": "^2.17.1",
     "vue": "^2.1.10"
   }
 }
