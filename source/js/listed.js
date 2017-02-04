@@ -10,9 +10,17 @@ Listed.data.list = [];
 
 Listed.data.newItemText = 'new item';
 
+Listed.factory = {};
+
+Listed.factory.History = function (text, date) {
+  return {
+    'text': text,
+    'dates': [date]
+  }
+}
+
 // method context is scoped via Vue so that 'this' references the Listed.data object
 Listed.methods = {};
-
 
 Listed.methods.findItemAt = function (text) {
   var idx = Listed.data.list.findIndex( function(n) { 
@@ -70,11 +78,11 @@ Listed.methods.addHistory = function (text, today) {
   // remove the time part
   today = today.startOf('day');
   if (item == null) {
-    Listed.data.history.push({'text':text, dates:[today]});
+    Listed.data.history.push(new Listed.factory.History(text, today));
   }
   else {
     var dateExists = item.dates.find( function(n) {
-      return n.toString() == today.toString();
+      return moment(n).isSame(moment(today));
     });
     if (!dateExists) {
       item.dates.push(today);

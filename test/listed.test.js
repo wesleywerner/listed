@@ -137,7 +137,6 @@ describe('Listed Test Suite', function() {
       Listed.methods.addItem('item DA');
       var item = Listed.methods.findItem('item DA');
       expect(item).to.have.all.keys('text', 'checked');
-      //expect(item).to.deep.equal({'text':'item DA', checked:false});
     });
     
     it('should contain history props', function() {
@@ -155,6 +154,8 @@ describe('Listed Test Suite', function() {
       expect(item.dates).to.have.lengthOf(1);
       expect(moment(item.dates[0]).isSame(moment('2017-02-04'))).to.be.true;
     });
+    
+    it.skip('should limit history length');
 
   });
   
