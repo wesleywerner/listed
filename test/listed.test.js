@@ -125,8 +125,18 @@ describe('Listed Test Suite', function() {
       expect(idx).to.equal(1);
     });
 
-    it.skip('should merge two histories', function() {
-      
+    it('should merge two histories', function() {
+      Listed.methods.addHistory('item BL', moment('2017-02-01'));
+      Listed.methods.addHistory('item BL', moment('2017-02-02'));
+      Listed.methods.addHistory('item BM', moment('2017-02-02'));
+      Listed.methods.addHistory('item BM', moment('2017-02-03'));
+      Listed.methods.addHistory('item BM', moment('2017-02-04'));
+      expect(Listed.data.history).to.have.lengthOf(2);
+      Listed.methods.mergeHistory('item BL', 'item BM');
+      expect(Listed.data.history).to.have.lengthOf(1);
+      var item = Listed.methods.findHistory('item BL');
+      expect(item).to.not.be.null;
+      expect(item.dates).to.have.lengthOf(4);
     });
 
   });

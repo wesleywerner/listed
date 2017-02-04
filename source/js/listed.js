@@ -108,6 +108,22 @@ Listed.methods.amendHistory = function (text, amendment) {
   }
 }
 
+Listed.methods.mergeHistory = function (itemA, itemB) {
+  var a = Listed.methods.findHistory(itemA);
+  var b = Listed.methods.findHistory(itemB);
+  if (a == null || b == null) return;
+  b.dates.forEach( function(m) {
+    var dateExists = a.dates.find( function(findItem) { 
+      return findItem.isSame(m) 
+    });
+    if (!dateExists) {
+      a.dates.push(m);
+    }
+  });
+  var idx = Listed.methods.findHistoryAt(itemB);
+  Listed.data.history.splice(idx, 1);
+}
+
 
 // make available to cli unit tests
 if (typeof module != 'undefined') {
