@@ -139,6 +139,16 @@ describe('Listed Test Suite', function() {
       expect(item.dates).to.have.lengthOf(4);
     });
 
+    it('should not append same history date', function() {
+      Listed.methods.addHistory('item DC', moment('2017-02-04 12:00'));
+      Listed.methods.addHistory('item DC', moment('2017-02-04'));
+      var item = Listed.methods.findHistory('item DC');
+      expect(item.dates).to.have.lengthOf(1);
+      expect(moment(item.dates[0]).isSame(moment('2017-02-04'))).to.be.true;
+    });
+    
+    it.skip('should limit history length');
+
   });
   
   describe('model integrity', function(){
@@ -157,16 +167,6 @@ describe('Listed Test Suite', function() {
       expect(item.dates[0]).to.be.instanceof(moment);
     });
     
-    it('should not append same history date', function() {
-      Listed.methods.addHistory('item DC', moment('2017-02-04 12:00'));
-      Listed.methods.addHistory('item DC', moment('2017-02-04'));
-      var item = Listed.methods.findHistory('item DC');
-      expect(item.dates).to.have.lengthOf(1);
-      expect(moment(item.dates[0]).isSame(moment('2017-02-04'))).to.be.true;
-    });
-    
-    it.skip('should limit history length');
-
   });
   
   describe('local storage methods', function() {
