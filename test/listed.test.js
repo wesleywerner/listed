@@ -2,6 +2,7 @@
 if (typeof require != 'undefined') {
   var assert = require('chai').assert;
   var expect = require('chai').expect;
+  var moment = require('moment');
   var Listed = require('../source/js/listed.js');
 }
 
@@ -144,15 +145,15 @@ describe('Listed Test Suite', function() {
       var item = Listed.methods.findHistory('item DB');
       expect(item).to.have.all.keys('text', 'dates');
       expect(item.dates).to.have.lengthOf(1);
-      expect(item.dates[0]).to.be.instanceof(Date);
+      expect(item.dates[0]).to.be.instanceof(moment);
     });
     
     it('should not append same history date', function() {
-      Listed.methods.addHistory('item DC', new Date(2017, 02, 04, 12));
-      Listed.methods.addHistory('item DC', new Date(2017, 02, 04));
+      Listed.methods.addHistory('item DC', moment('2017-02-04 12:00'));
+      Listed.methods.addHistory('item DC', moment('2017-02-04'));
       var item = Listed.methods.findHistory('item DC');
       expect(item.dates).to.have.lengthOf(1);
-      expect(item.dates[0].toString()).to.be.equal((new Date(2017, 02, 04)).toString());
+      expect(moment(item.dates[0]).isSame(moment('2017-02-04'))).to.be.true;
     });
 
   });

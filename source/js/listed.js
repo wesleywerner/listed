@@ -1,3 +1,8 @@
+// make available to cli unit tests
+if (typeof require != 'undefined') {
+  var moment = require('moment');
+}
+
 var Listed = { 'version': 1 };
 Listed.data = {};
 Listed.data.history = [];
@@ -61,7 +66,9 @@ Listed.methods.findHistory = function (text) {
 
 Listed.methods.addHistory = function (text, today) {
   var item = Listed.methods.findHistory(text);
-  var today = today || new Date();
+  today = today || moment();
+  // remove the time part
+  today = today.startOf('day');
   if (item == null) {
     Listed.data.history.push({'text':text, dates:[today]});
   }
