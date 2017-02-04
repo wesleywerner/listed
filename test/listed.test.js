@@ -7,31 +7,36 @@ if (typeof require != 'undefined') {
 
 describe('Listed Test Suite', function() {
 
-  describe('shopping list management methods', function() {
+  describe('list management methods', function() {
     
     beforeEach(function() {
       Listed.data.list = [];
     });
     
-    it('should find an item', function() {
+    it('should find item index', function() {
       Listed.data.list = [{'text':'item AA'},{'text':'item AB'},{'text':'item AC'}];
       var idx = Listed.methods.findItemAt('item AB');
       expect(idx).to.be.equal(1);
     });
     
+    it('should find item data', function() {
+      Listed.data.list = [{'text':'item AA'},{'text':'item AB'},{'text':'item AC'}];
+      var item = Listed.methods.findItem('item AB');
+      expect(item).to.not.be.null;
+      expect(item).to.deep.equal({'text':'item AB'});
+    });
+    
     it('should add a new item', function() {
       Listed.methods.addItem('item AD');
       expect(Listed.data.list).to.have.lengthOf(1);
-      expect(Listed.data.list[0].text).to.equal('item AD');
-      expect(Listed.data.list[0].checked).to.be.false;
+      var idx = Listed.methods.findItemAt('item AD');
+      expect(idx).to.equal(0);
     });
 
     it('should not add a duplicate item', function() {
       Listed.methods.addItem('item AE');
       Listed.methods.addItem('item AE');
       expect(Listed.data.list).to.have.lengthOf(1);
-      expect(Listed.data.list[0].text).to.equal('item AE');
-      expect(Listed.data.list[0].checked).to.be.false;
     });
     
     it('should remove an item', function() {
@@ -69,37 +74,103 @@ describe('Listed Test Suite', function() {
 
   });
 
-  describe('history list management methods', function() {
-    
-    var history = Listed.data.history;
+  describe('history management methods', function() {
     
     beforeEach(function() {
       Listed.data.history = [];
     });
     
-    it.skip('should add a new item', function() {
-
+    it('should find history index', function() {
+      Listed.data.history = [{'text':'item BA'},{'text':'item BB'},{'text':'item BC'}];
+      var idx = Listed.methods.findHistoryAt('item BB');
+      expect(idx).to.be.equal(1);
+    });
+    
+    it('should find history data', function() {
+      Listed.data.history = [{'text':'item BA'},{'text':'item BB'},{'text':'item BC'}];
+      var item = Listed.methods.findHistory('item BB');
+      expect(item).to.not.be.null;
+      expect(item).to.deep.equal({'text':'item BB'});
+    });
+    
+    it('should add history', function() {
+      Listed.methods.addHistory('item BD');
+      expect(Listed.data.history).to.have.lengthOf(1);
+      var idx = Listed.methods.findHistoryAt('item BD');
+      expect(idx).to.equal(0);
     });
 
-    it.skip('should not add a duplicate item', function() {
+    it('should not add duplicate histories', function() {
+      Listed.methods.addHistory('item BE');
+      Listed.methods.addHistory('item BE');
+      expect(Listed.data.history).to.have.lengthOf(1);
+    });
+
+    it('should amend history', function() {
+      Listed.methods.addHistory('item BF');
+      Listed.methods.addHistory('item BG');
+      Listed.methods.addHistory('item BH');
+      Listed.methods.amendHistory('item BG', 'item Amended');
+      var idx = Listed.methods.findHistoryAt('item Amended');
+      expect(idx).to.equal(1);
+    });
+    
+    it('should not amend history to existing', function() {
+      Listed.methods.addHistory('item BI');
+      Listed.methods.addHistory('item BJ');
+      Listed.methods.addHistory('item BK');
+      Listed.methods.amendHistory('item BJ', 'item BK');
+      var idx = Listed.methods.findHistoryAt('item BJ');
+      expect(idx).to.equal(1);
+    });
+
+    it.skip('should merge two histories', function() {
       
     });
 
-    it.skip('should amend an item', function() {
-      
+  });
+  
+  describe('model integrity', function(){
+    
+    it('should contain list item props', function() {
+      Listed.methods.addItem('item DA');
+      var item = Listed.methods.findItem('item DA');
+      expect(item).to.have.all.keys('text', 'checked');
+      //expect(item).to.deep.equal({'text':'item DA', checked:false});
+    });
+    
+    it('should contain history props', function() {
+      Listed.methods.addHistory('item DB');
+      var item = Listed.methods.findHistory('item DB');
+      expect(item).to.have.all.keys('text', 'dates');
+      expect(item.dates).to.have.lengthOf(1);
+      expect(item.dates[0]).to.be.instanceof(Date);
+    });
+    
+    it('should not append same history date', function() {
+      Listed.methods.addHistory('item DC', new Date(2017, 02, 04, 12));
+      Listed.methods.addHistory('item DC', new Date(2017, 02, 04));
+      var item = Listed.methods.findHistory('item DC');
+      expect(item.dates).to.have.lengthOf(1);
+      expect(item.dates[0].toString()).to.be.equal((new Date(2017, 02, 04)).toString());
     });
 
   });
   
   describe('local storage methods', function() {
     var iscli = typeof localforage == 'undefined';
-      it('save to local storage', function(){
-          if (iscli) {
-              this.skip();
-          }
-          else {
-              return true;
-          }
+      it('save to local storage', function(done) {
+        if (iscli) {
+            this.skip();
+        }
+        else {
+          var data = 'Hello Listed! '; + (new Date()).toString();
+          localforage.clear();
+          localforage.setItem('test message', data, function(err, value) {
+            if (err) done(err);
+            else localforage.getItem('test message', done);
+          });
+        }
       })
   })
 
