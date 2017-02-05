@@ -23,7 +23,7 @@
           <h3>items</h3>
           
           <ul>
-              <list-item v-for="item in list" v-bind:item="item"></list-item>
+              <list-item v-for="item in list" v-bind:item="item" v-on:remove="removeItem(arguments[0])"></list-item>
           </ul>
         </div>
 
