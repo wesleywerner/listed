@@ -19,11 +19,7 @@
     "cp:localforage": "cp node_modules/localforage/dist/localforage.min.js dist/js/",
     "cp:vue": "cp node_modules/vue/dist/vue.min.js dist/js/",
     "cp:src": "cp -r source/* dist/",
-    "build": "npm run clean && npm run cp:src && npm run cp:vue && npm run cp:localforage && npm run cp:moment",
-    "link:vue": "cp node_modules/vue/dist/vue.min.js source/js/",
-    "link:localforage": "cp node_modules/localforage/dist/localforage.min.js source/js/",
-    "link:moment": "cp node_modules/moment/min/moment.min.js source/js/",
-    "link": "npm run link:vue && npm run link:localforage && npm run link:moment"
+    "build": "npm run clean && npm run cp:src && npm run cp:vue && npm run cp:localforage && npm run cp:moment"
   },
   "author": "Wesley Werner",
   "license": "GPL-3.0",
