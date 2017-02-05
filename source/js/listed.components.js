@@ -24,13 +24,13 @@ Vue.component('list-item', {
  *    selected: fired when the enter key is used on the input.
  */
 Vue.component('item-autocomplete', {
-  props: ['id', 'history', 'autoClear'],
+  props: ['value', 'id', 'history', 'autoClear'],
   data: function() {
     return {
       inputValue: ''
     }
   },
-  template: '<span> <input v-bind:list="id" v-model="inputValue" v-on:keyup.enter="selected" /> \
+  template: '<span> <input v-bind:list="id" v-model="inputValue" v-on:keyup.enter="selected" v-on:input="updateInput" /> \
             <datalist v-bind:id="id"> \
               <option v-for="item in history" v-bind:value="item.text"> \
             </datalist> </span>',
@@ -40,6 +40,29 @@ Vue.component('item-autocomplete', {
       if (this.autoClear == 'true') {
         this.inputValue = '';
       }
+    },
+    updateInput: function() {
+      this.$emit('input', this.inputValue);
+    }
+  }
+})
+
+
+Vue.component('merge-selection', {
+  props: ['history'],
+  data: function() {
+    return {
+      mergeAText: '',
+      mergeBText: ''
+    }
+  },
+  template: '<span> \
+          <item-autocomplete id="merge-A" v-bind:history="history" v-model="mergeAText"></item-autocomplete> \
+          <item-autocomplete id="merge-B" v-bind:history="history" v-model="mergeBText"></item-autocomplete> \
+          <button v-on:click="doMerge">Merge</button> </span>',
+  methods: {
+    doMerge: function() {
+      this.$emit('do-merge', this.mergeAText, this.mergeBText);
     }
   }
 })
