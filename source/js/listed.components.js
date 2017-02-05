@@ -30,10 +30,10 @@ Vue.component('item-autocomplete', {
       inputValue: ''
     }
   },
-  template: '<div> <input v-bind:list="id" v-model="inputValue" v-on:keyup.enter="selected" /> \
+  template: '<span> <input v-bind:list="id" v-model="inputValue" v-on:keyup.enter="selected" /> \
             <datalist v-bind:id="id"> \
               <option v-for="item in history" v-bind:value="item.text"> \
-            </datalist> </div>',
+            </datalist> </span>',
   methods: {
     selected: function() {
       this.$emit('selected', this.inputValue);
