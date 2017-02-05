@@ -5,7 +5,9 @@
   "main": "index.js",
   "watch": {
     "build": {
-      "patterns": ["source"],
+      "patterns": [
+        "source"
+      ],
       "extensions": "js,html",
       "ignore": "",
       "quiet": true
@@ -18,8 +20,9 @@
     "cp:moment": "cp node_modules/moment/min/moment.min.js dist/js/",
     "cp:localforage": "cp node_modules/localforage/dist/localforage.min.js dist/js/",
     "cp:vue": "cp node_modules/vue/dist/vue.min.js dist/js/",
+    "cp:materialize": "cp -r node_modules/materialize-css/dist/* dist/",
     "cp:src": "cp -r source/* dist/",
-    "build": "npm run clean && npm run cp:src && npm run cp:vue && npm run cp:localforage && npm run cp:moment"
+    "build": "npm run clean && npm run cp:src && npm run cp:vue && npm run cp:localforage && npm run cp:moment && npm run cp:materialize"
   },
   "author": "Wesley Werner",
   "license": "GPL-3.0",
@@ -30,6 +33,7 @@
   },
   "dependencies": {
     "localforage": "^1.4.3",
+    "materialize-css": "^0.98.0",
     "moment": "^2.17.1",
     "vue": "^2.1.10"
   }

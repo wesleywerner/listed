@@ -2,16 +2,16 @@
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
-        <title>Listed - Predictive Shopping</title>
-        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+      <title>Listed - Predictive Shopping</title>
+      <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+      <!--Import Google Icon Font-->
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-        <script type="text/javascript" src="js/localforage.min.js"></script>
-        <script type="text/javascript" src="js/vue.min.js"></script>
-        <script type="text/javascript" src="js/moment.min.js"></script>
-        <script type="text/javascript" src="js/listed.components.js"></script>
-        <script type="text/javascript" src="js/listed.js"></script>
-        
         <div id="app">
           
           <item-autocomplete id="item-input" 
@@ -38,10 +38,18 @@
           <h3>merge</h3>
           <merge-selection v-bind:history="history" v-on:do-merge="mergeHistory(arguments[0], arguments[1])"></merge-selection>
 
-          
+
         </div>
 
-        <script type="text/javascript" src="js/listed.bind.js"></script>
+      <script type="text/javascript" src="js/localforage.min.js"></script>
+      <script type="text/javascript" src="js/vue.min.js"></script>
+      <script type="text/javascript" src="js/moment.min.js"></script>
+      <script type="text/javascript" src="js/listed.components.js"></script>
+      <script type="text/javascript" src="js/listed.js"></script>
+      <script type="text/javascript" src="js/listed.bind.js"></script>
+      <!-- materialize -->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
         
     </body>
 </html>
