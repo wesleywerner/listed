@@ -2,8 +2,10 @@
  * A list item component that can remove itself.
  */
 Vue.component('list-item', {
-  props: ['item'],
-  template: '<li><label><input type="checkbox" id="checkbox" v-model="item.checked" v-on:click="checkMe">{{ item.text }}</label> <button v-on:click="removeMe">X</button> </li>',
+  props: ['id', 'item'],
+  template: '<tr><td><input type="checkbox" v-bind:id="id" v-model="item.checked" v-on:click="checkMe"> \
+             <label v-bind:for="id">{{ item.text }}</label> </td> \
+             <td><a class="waves-effect waves-light btn-flat right" v-on:click="removeMe">X</a> </td></tr>',
   methods: {
     removeMe: function() {
       this.$emit('remove', this.item.text);
@@ -27,16 +29,22 @@ Vue.component('item-autocomplete', {
   props: ['value', 'id', 'history', 'autoClear'],
   data: function() {
     return {
-      inputValue: ''
+      inputValue: '',
+      dataId: this.id + 'data'
     }
   },
-  template: '<div class="input-field"> \
-            <label>Add something to your shopping list</label> \
-            <input v-bind:list="id" v-model="inputValue" v-on:keyup.enter="selected" v-on:input="updateInput" /> \
-            <datalist v-bind:id="id"> \
-              <option v-for="item in history" v-bind:value="item.text"> \
-            </datalist> \
-            </div>',
+  template: '<div class="row"> \
+              <div class="input-field col s8"> \
+                <input type="text" v-bind:id="id" v-bind:list="dataId" v-model="inputValue" v-on:keyup.enter="selected" v-on:input="updateInput" /> \
+                <label v-bind:for="id">I want...</label> \
+                <datalist v-bind:id="dataId"> \
+                  <option v-for="item in history" v-bind:value="item.text"> \
+                </datalist> \
+              </div> \
+              <div class="col s2"> \
+                <a class="waves-effect waves-light btn" v-on:click="selected"><i class="material-icons">playlist_add</i></a> \
+              </div> \
+             </div>',
   methods: {
     selected: function() {
       this.$emit('selected', this.inputValue);

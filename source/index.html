@@ -31,35 +31,43 @@
           </div>
         </nav>
 
-        <div class="input-field">
-          <input id="icon_prefix" type="text" class="">
-          <label for="icon_prefix">Test Field</label>
-        </div>
-        
-          <item-autocomplete id="item-input" 
-            auto-clear="true" 
-            v-bind:history="history" 
-            v-on:selected="addItem(arguments[0])"></item-autocomplete>
+        <div class="container">
+          <div class="section">
 
-        <h3>items</h3>
-        
-        <ul>
-            <list-item v-for="item in list" 
-              v-bind:item="item" 
-              v-on:remove="removeItem(arguments[0])"
-              v-on:checked="addHistory(arguments[0])"
-              ></list-item>
-        </ul>
-        
-        <h3>history</h3>
-        <ul>
-          <li v-for="h in history">{{ h.text }} <ol><li v-for="d in h.dates">{{ d }}</li></ol> </li>
-        </ul>
-        
-        <h3>merge</h3>
-        <merge-selection v-bind:history="history" v-on:do-merge="mergeHistory(arguments[0], arguments[1])"></merge-selection>
+            <item-autocomplete id="item-input" 
+              auto-clear="true" 
+              v-bind:history="history" 
+              v-on:selected="addItem(arguments[0])"></item-autocomplete>
 
-      </div>
+            <h5>items</h5>
+
+            <div class="row">
+              <div class="col s12">
+                <table class="striped">
+                  <tbody>
+                    <tr is="list-item" v-for="(item, index) in list" 
+                      v-bind:id="'listItem' + index"
+                      v-bind:item="item" 
+                      v-on:remove="removeItem(arguments[0])"
+                      v-on:checked="addHistory(arguments[0])"
+                      ></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            
+            <h5>history</h5>
+            <ul>
+              <li v-for="h in history">{{ h.text }} <ol><li v-for="d in h.dates">{{ d }}</li></ol> </li>
+            </ul>
+            
+            <h5>merge</h5>
+            <merge-selection v-bind:history="history" v-on:do-merge="mergeHistory(arguments[0], arguments[1])"></merge-selection>
+          
+          </div>  <!-- /section -->
+        </div>  <!-- container -->
+
+      </div>  <!-- /app -->
 
       <script type="text/javascript" src="js/localforage.min.js"></script>
       <script type="text/javascript" src="js/vue.min.js"></script>
