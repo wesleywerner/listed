@@ -73,21 +73,25 @@ Listed.methods.findHistory = function (text) {
   return idx;
 }
 
-Listed.methods.addHistory = function (text, today) {
+Listed.methods.addHistory = function (text, date) {
+  // do not add empty items
   if (text == null || text == '') return false;
+  // find existing item
   var item = Listed.methods.findHistory(text);
-  today = today || moment();
-  // remove the time part
-  today = today.startOf('day');
-  if (item == null) {
-    Listed.data.history.push(new Listed.factory.History(text, today));
+  // use the given moment, or use the current
+  var historyDate = moment(date);
+  if (!historyDate.isValid()) {
+    historyDate = moment();
   }
+  // add a new entry
+  if (item == null) {
+    Listed.data.history.push(new Listed.factory.History(text, historyDate.format('YYYY-MM-DD')));
+  }
+  // add to existing entry
   else {
-    var dateExists = item.dates.find( function(n) {
-      return moment(n).isSame(moment(today));
-    });
+    var dateExists = item.dates.indexOf(historyDate.format('YYYY-MM-DD')) > -1;
     if (!dateExists) {
-      item.dates.push(today);
+      item.dates.push(historyDate.format('YYYY-MM-DD'));
     }
   }
 }
@@ -115,9 +119,7 @@ Listed.methods.mergeHistory = function (itemA, itemB) {
   var b = Listed.methods.findHistory(itemB);
   if (a == null || b == null) return;
   b.dates.forEach( function(m) {
-    var dateExists = a.dates.find( function(findItem) { 
-      return findItem.isSame(m) 
-    });
+    var dateExists = a.dates.indexOf(m) > -1;
     if (!dateExists) {
       a.dates.push(m);
     }
