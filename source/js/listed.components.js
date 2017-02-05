@@ -3,10 +3,13 @@
  */
 Vue.component('list-item', {
   props: ['item'],
-  template: '<li><label><input type="checkbox" id="checkbox" v-model="item.checked">{{ item.text }}</label> <button v-on:click="remove">X</button> </li>',
+  template: '<li><label><input type="checkbox" id="checkbox" v-model="item.checked" v-on:click="checkMe">{{ item.text }}</label> <button v-on:click="removeMe">X</button> </li>',
   methods: {
-    remove: function() {
+    removeMe: function() {
       this.$emit('remove', this.item.text);
+    },
+    checkMe: function() {
+      this.$emit('checked', this.item.text);
     }
   }
 })

@@ -14,13 +14,27 @@
         
         <div id="app">
           
-          <item-autocomplete id="item-input" auto-clear="true" v-bind:history="history" v-on:selected="addItem(arguments[0])"></item-autocomplete>
+          <item-autocomplete id="item-input" 
+            auto-clear="true" 
+            v-bind:history="history" 
+            v-on:selected="addItem(arguments[0])"
+            ></item-autocomplete>
 
           <h3>items</h3>
           
           <ul>
-              <list-item v-for="item in list" v-bind:item="item" v-on:remove="removeItem(arguments[0])"></list-item>
+              <list-item v-for="item in list" 
+                v-bind:item="item" 
+                v-on:remove="removeItem(arguments[0])"
+                v-on:checked="addHistory(arguments[0])"
+                ></list-item>
           </ul>
+          
+          <h3>history</h3>
+          <ul>
+            <li v-for="h in history">{{ h.text }}</li>
+          </ul>
+          
         </div>
 
         <script type="text/javascript" src="js/listed.bind.js"></script>
