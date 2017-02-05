@@ -3,7 +3,16 @@
   "version": "1.0.1",
   "description": "Predictive shopping list",
   "main": "index.js",
+  "watch": {
+    "build": {
+      "patterns": ["source"],
+      "extensions": "js,html",
+      "ignore": "",
+      "quiet": true
+    }
+  },
   "scripts": {
+    "watch": "npm-watch",
     "test": "mocha",
     "clean": "mkdir -p dist/js && rm -r dist/*",
     "cp:moment": "cp node_modules/moment/min/moment.min.js dist/js/",
@@ -20,7 +29,8 @@
   "license": "GPL-3.0",
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^3.2.0"
+    "mocha": "^3.2.0",
+    "npm-watch": "^0.1.8"
   },
   "dependencies": {
     "localforage": "^1.4.3",

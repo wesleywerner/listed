@@ -4,9 +4,7 @@ _Predictive shopping list_
 
 # Developing
 
-You are expected to install the dependencies with `npm install` before anything else.
-
-You should copy any source dependencies into `source/` for easier development, run `npm run link` to do this.
+You are expected to install the dependencies with `npm install` before anything else. 
 
 ## Testing
 
@@ -16,7 +14,7 @@ Run `npm test` for the CLI, or open `test/browser.html` in your browser.
 
 ## Building
 
-Install the dependencies with `npm install`, followed by `npm run build` to clean and release everything into `dist/` for you.
+Run `npm run build` to clean and release everything into `dist/`. The command `npm run watch` will monitor any source files for changes, and run the build when any changes are made, giving you a speedier workflow during development.
 
 # License
 
