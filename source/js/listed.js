@@ -37,6 +37,7 @@ Listed.methods.findItem = function (text) {
 }
 
 Listed.methods.addItem = function (text) {
+  if (text == null || text == '') return false;
   if (Listed.methods.findItemAt(text) == -1) {
     Listed.data.list.push({'text':text, 'checked': false});
   }
@@ -73,6 +74,7 @@ Listed.methods.findHistory = function (text) {
 }
 
 Listed.methods.addHistory = function (text, today) {
+  if (text == null || text == '') return false;
   var item = Listed.methods.findHistory(text);
   today = today || moment();
   // remove the time part

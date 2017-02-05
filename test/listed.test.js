@@ -34,6 +34,12 @@ describe('Listed Test Suite', function() {
       expect(idx).to.equal(0);
     });
 
+    it('should not add a blank item', function() {
+      Listed.methods.addItem('');
+      Listed.methods.addItem(null);
+      expect(Listed.data.list).to.have.lengthOf(0);
+    });
+    
     it('should not add a duplicate item', function() {
       Listed.methods.addItem('item AE');
       Listed.methods.addItem('item AE');
@@ -99,6 +105,12 @@ describe('Listed Test Suite', function() {
       expect(Listed.data.history).to.have.lengthOf(1);
       var idx = Listed.methods.findHistoryAt('item BD');
       expect(idx).to.equal(0);
+    });
+
+    it('should not add blank history', function() {
+      Listed.methods.addHistory(null);
+      Listed.methods.addHistory('');
+      expect(Listed.data.history).to.have.lengthOf(0);
     });
 
     it('should not add duplicate histories', function() {

@@ -1,3 +1,6 @@
+/**
+ * A list item component that can remove itself.
+ */
 Vue.component('list-item', {
   props: ['item'],
   template: '<li><label><input type="checkbox" id="checkbox" v-model="item.checked">{{ item.text }}</label> <button v-on:click="remove">X</button> </li>',
