@@ -12,34 +12,54 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-        <div id="app">
-          
+      <div id="app">
+        
+        <!-- Main navigation -->
+        <nav class="light-blue lighten-1" role="navigation">
+          <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Listed</a>
+            
+            <!-- Navigation links -->
+            <ul class="right hide-on-med-and-down">
+              <li><a href="#">Navbar Link 1</a></li>
+            </ul>
+
+            <!-- Mobile sidebar -->
+            <ul id="nav-mobile" class="side-nav">
+              <li><a href="#">Navbar Link 2</a></li>
+            </ul>
+            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+          </div>
+        </nav>
+
+        <div class="input-field">
+          <input id="icon_prefix" type="text" class="">
+          <label for="icon_prefix">Test Field</label>
+        </div>
+        
           <item-autocomplete id="item-input" 
             auto-clear="true" 
             v-bind:history="history" 
-            v-on:selected="addItem(arguments[0])"
-            ></item-autocomplete>
+            v-on:selected="addItem(arguments[0])"></item-autocomplete>
 
-          <h3>items</h3>
-          
-          <ul>
-              <list-item v-for="item in list" 
-                v-bind:item="item" 
-                v-on:remove="removeItem(arguments[0])"
-                v-on:checked="addHistory(arguments[0])"
-                ></list-item>
-          </ul>
-          
-          <h3>history</h3>
-          <ul>
-            <li v-for="h in history">{{ h.text }} <ol><li v-for="d in h.dates">{{ d }}</li></ol> </li>
-          </ul>
-          
-          <h3>merge</h3>
-          <merge-selection v-bind:history="history" v-on:do-merge="mergeHistory(arguments[0], arguments[1])"></merge-selection>
+        <h3>items</h3>
+        
+        <ul>
+            <list-item v-for="item in list" 
+              v-bind:item="item" 
+              v-on:remove="removeItem(arguments[0])"
+              v-on:checked="addHistory(arguments[0])"
+              ></list-item>
+        </ul>
+        
+        <h3>history</h3>
+        <ul>
+          <li v-for="h in history">{{ h.text }} <ol><li v-for="d in h.dates">{{ d }}</li></ol> </li>
+        </ul>
+        
+        <h3>merge</h3>
+        <merge-selection v-bind:history="history" v-on:do-merge="mergeHistory(arguments[0], arguments[1])"></merge-selection>
 
-
-        </div>
+      </div>
 
       <script type="text/javascript" src="js/localforage.min.js"></script>
       <script type="text/javascript" src="js/vue.min.js"></script>
@@ -50,6 +70,6 @@
       <!-- materialize -->
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script type="text/javascript" src="js/materialize.min.js"></script>
-        
+      <script type="text/javascript" src="js/materialize.init.js"></script>
     </body>
 </html>
