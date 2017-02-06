@@ -11,7 +11,11 @@ Vue.component('list-item', {
       this.$emit('remove', this.item.text);
     },
     checkMe: function() {
-      this.$emit('checked', this.item.text);
+      if (this.item.checked) {
+        this.$emit('checked', this.item.text);
+      } else {
+        this.$emit('unchecked', this.item.text);
+      }
     }
   }
 })

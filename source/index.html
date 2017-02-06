@@ -50,6 +50,7 @@
                       v-bind:item="item" 
                       v-on:remove="removeItem(arguments[0])"
                       v-on:checked="addHistory(arguments[0])"
+                      v-on:unchecked="undoHistory(arguments[0])"
                       ></tr>
                   </tbody>
                 </table>
