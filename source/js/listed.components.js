@@ -46,7 +46,7 @@ Vue.component('item-autocomplete', {
                 </datalist> \
               </div> \
               <div class="col s2"> \
-                <a class="waves-effect waves-light btn" v-on:click="selected"><i class="material-icons">playlist_add</i></a> \
+                <a class="waves-effect waves-light btn-large" v-on:click="selected"><i class="material-icons">playlist_add</i></a> \
               </div> \
              </div>',
   methods: {
