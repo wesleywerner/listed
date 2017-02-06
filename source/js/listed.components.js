@@ -26,11 +26,13 @@ Vue.component('list-item', {
  *    id: uniquely identity this component.
  *    history: the history items to auto complete.
  *    auto-clear: if "true" the input will clear after input key enter.
+ *    placeholder: input placeholder text.
+ *    show-button: inline enter button that triggers the selected event.
  * Events:
  *    selected: fired when the enter key is used on the input.
  */
 Vue.component('item-autocomplete', {
-  props: ['value', 'id', 'history', 'autoClear'],
+  props: ['value', 'id', 'history', 'autoClear', 'showButton', 'placeholder'],
   data: function() {
     return {
       inputValue: '',
@@ -40,12 +42,12 @@ Vue.component('item-autocomplete', {
   template: '<div class="row"> \
               <div class="input-field col s8"> \
                 <input type="text" v-bind:id="id" v-bind:list="dataId" v-model="inputValue" v-on:keyup.enter="selected" v-on:input="updateInput" /> \
-                <label v-bind:for="id">I want...</label> \
+                <label v-bind:for="id">{{ placeholder }}</label> \
                 <datalist v-bind:id="dataId"> \
                   <option v-for="item in history" v-bind:value="item.text"> \
                 </datalist> \
               </div> \
-              <div class="col s2"> \
+              <div class="col s2" v-show="showButton"> \
                 <a class="waves-effect waves-light btn-large" v-on:click="selected"><i class="material-icons">playlist_add</i></a> \
               </div> \
              </div>',
@@ -72,8 +74,8 @@ Vue.component('merge-selection', {
     }
   },
   template: '<span> \
-          <item-autocomplete id="merge-A" v-bind:history="history" v-model="mergeAText"></item-autocomplete> \
-          <item-autocomplete id="merge-B" v-bind:history="history" v-model="mergeBText"></item-autocomplete> \
+          <item-autocomplete id="merge-B" v-bind:history="history" v-model="mergeBText" placeholder="Select an item"></item-autocomplete> \
+          <item-autocomplete id="merge-A" v-bind:history="history" v-model="mergeAText" placeholder="merge it into this item"></item-autocomplete> \
           <button v-on:click="doMerge">Merge</button> </span>',
   methods: {
     doMerge: function() {

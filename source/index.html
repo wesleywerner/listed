@@ -49,6 +49,8 @@
             <div id="listContent" class="col s12">
               <item-autocomplete id="item-input" 
                 auto-clear="true" 
+                placeholder="I want..."
+                show-button="true"
                 v-bind:history="history" 
                 v-on:selected="addItem(arguments[0])"></item-autocomplete>
               <div class="row">
