@@ -10,6 +10,7 @@ Listed.data.list = [];
 
 Listed.data.newItemText = 'new item';
 Listed.data.saved = false;
+Listed.data.color = '';
 
 Listed.factory = {};
 
@@ -163,6 +164,7 @@ Listed.methods.load = function () {
       } else if (value) {
         value.list.forEach(function(n){ Listed.data.list.push(n) });
         value.history.forEach(function(n){ Listed.data.history.push(n) });
+        Listed.data.color = value.color;
         Listed.data.saved = true;
       }
     });
