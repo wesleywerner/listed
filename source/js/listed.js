@@ -171,15 +171,16 @@ Listed.methods.load = function () {
   }
 }
 
-Listed.methods.save = function () {
+Listed.methods.save = function (done) {
   if (Listed.data.saved) return;
   if (typeof localforage != 'undefined') {
     localforage.setItem('data', Listed.data, function (err, value) {
       if (err) {
         alert(err);
       } else {
-        // success notice
         Listed.data.saved = true;
+        // success notice
+        if (typeof done == 'function') done();
       }
     });
   }

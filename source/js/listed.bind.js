@@ -8,4 +8,8 @@ var app = new Vue({
 Listed.methods.load();
 
 // save the user list and history data
-setInterval(Listed.methods.save, 10000)
+setInterval( function() {
+  Listed.methods.save( function() {
+    Materialize.toast('changes saved', 1500);
+    });
+  }, 10000);
