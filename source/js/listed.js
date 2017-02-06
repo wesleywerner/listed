@@ -9,6 +9,7 @@ Listed.data.history = [];
 Listed.data.list = [];
 
 Listed.data.newItemText = 'new item';
+Listed.data.saved = false;
 
 Listed.factory = {};
 
@@ -40,6 +41,7 @@ Listed.methods.addItem = function (text) {
   if (text == null || text == '') return false;
   if (Listed.methods.findItemAt(text) == -1) {
     Listed.data.list.push({'text':text, 'checked': false});
+    Listed.data.saved = false;
   }
 }
 
@@ -47,6 +49,7 @@ Listed.methods.removeItem = function (text) {
   var idx = Listed.methods.findItemAt(text);
   if (idx > -1) {
     Listed.data.list.splice(idx, 1);
+    Listed.data.saved = false;
   }
 }
 
@@ -56,6 +59,7 @@ Listed.methods.amendItem = function (text, amendment) {
   var idx = Listed.methods.findItemAt(text);
   if (idx > -1) {
     Listed.data.list[idx].text = amendment;
+    Listed.data.saved = false;
   }
 }
 
@@ -94,6 +98,7 @@ Listed.methods.addHistory = function (text, date) {
       item.dates.push(historyDate.format('YYYY-MM-DD'));
     }
   }
+  Listed.data.saved = false;
 }
 
 Listed.methods.removeHistory = function (text, date) {
@@ -102,6 +107,7 @@ Listed.methods.removeHistory = function (text, date) {
     var idx = item.dates.indexOf(date);
     if (idx > -1) {
       item.dates.splice(idx, 1);
+      Listed.data.saved = false;
     }
   }
 }
@@ -117,6 +123,7 @@ Listed.methods.undoHistory = function (text, date) {
     var idx = item.dates.indexOf(formattedDate);
     if (idx == item.dates.length - 1) {
       item.dates.pop();
+      Listed.data.saved = false;
     }
   }
 }
@@ -129,6 +136,7 @@ Listed.methods.amendHistory = function (text, amendment) {
   var idx = Listed.methods.findHistoryAt(text);
   if (idx > -1) {
     Listed.data.history[idx].text = amendment;
+    Listed.data.saved = false;
   }
 }
 
@@ -144,8 +152,36 @@ Listed.methods.mergeHistory = function (itemA, itemB) {
   });
   var idx = Listed.methods.findHistoryAt(itemB);
   Listed.data.history.splice(idx, 1);
+  Listed.data.saved = false;
 }
 
+Listed.methods.load = function () {
+  if (typeof localforage != 'undefined') {
+    localforage.getItem('data', function (err, value) {
+      if (err) {
+        alert(err);
+      } else if (value) {
+        value.list.forEach(function(n){ Listed.data.list.push(n) });
+        value.history.forEach(function(n){ Listed.data.history.push(n) });
+        Listed.data.saved = true;
+      }
+    });
+  }
+}
+
+Listed.methods.save = function () {
+  if (Listed.data.saved) return;
+  if (typeof localforage != 'undefined') {
+    localforage.setItem('data', Listed.data, function (err, value) {
+      if (err) {
+        alert(err);
+      } else {
+        // success notice
+        Listed.data.saved = true;
+      }
+    });
+  }
+}
 
 // make available to cli unit tests
 if (typeof module != 'undefined') {

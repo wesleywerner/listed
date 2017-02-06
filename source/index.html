@@ -18,19 +18,33 @@
         <nav class="light-blue lighten-1" role="navigation">
           <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Listed</a>
             
+            <!-- Status icons -->
+            <ul class="right">
+              <li>
+                <i class="material-icons" v-show="!saved" title="unsaved changes">mode_edit</i>
+              </li>
+              <li>
+                <i class="material-icons" v-show="saved" title="changes are saved">check</i>
+              </li>
+            </ul>
+
             <!-- Navigation links -->
             <ul class="right hide-on-med-and-down">
               <li><a href="#">Navbar Link 1</a></li>
             </ul>
-
+            
             <!-- Mobile sidebar -->
             <ul id="nav-mobile" class="side-nav">
               <li><a href="#">Navbar Link 2</a></li>
             </ul>
-            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-          </div>
-        </nav>
 
+            <!-- menu hamburger -->
+            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+
+          </div>
+          
+        </nav>
+  
         <div class="container">
           <div class="section">
 
