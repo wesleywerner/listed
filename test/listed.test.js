@@ -159,6 +159,40 @@ describe('Listed Test Suite', function() {
       expect(item.dates[0]).to.equal('2017-02-04');
     });
     
+    it('should remove a specific history date', function() {
+      Listed.methods.addHistory('item EA', '2017-02-04');
+      Listed.methods.addHistory('item EA', '2017-02-05');
+      Listed.methods.addHistory('item EA', '2017-02-06');
+      Listed.methods.removeHistory('item EA', '2017-02-05');
+      var item = Listed.methods.findHistory('item EA');
+      expect(item.dates).to.deep.equal(['2017-02-04', '2017-02-06']);
+    });
+    
+    it('should undo the latest history date', function() {
+      Listed.methods.addHistory('item EB', '2017-02-04');
+      Listed.methods.addHistory('item EB', '2017-02-05');
+      Listed.methods.addHistory('item EB', '2017-02-06');
+      Listed.methods.undoHistory('item EB', '2017-02-06');
+      var item = Listed.methods.findHistory('item EB');
+      expect(item.dates).to.deep.equal(['2017-02-04', '2017-02-05']);
+    });
+    
+    it('should undo history today', function() {
+      Listed.methods.addHistory('item EC');
+      Listed.methods.undoHistory('item EC');
+      var item = Listed.methods.findHistory('item EC');
+      expect(item.dates).to.deep.equal([]);
+    });
+    
+    it('should not undo an older history date', function() {
+      Listed.methods.addHistory('item EC', '2017-02-04');
+      Listed.methods.addHistory('item EC', '2017-02-05');
+      Listed.methods.addHistory('item EC', '2017-02-06');
+      Listed.methods.undoHistory('item EC', '2017-02-05');
+      var item = Listed.methods.findHistory('item EC');
+      expect(item.dates).to.deep.equal(['2017-02-04', '2017-02-05', '2017-02-06']);
+    });
+    
     it.skip('should limit history length');
 
   });

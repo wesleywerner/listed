@@ -96,10 +96,28 @@ Listed.methods.addHistory = function (text, date) {
   }
 }
 
-Listed.methods.removeHistory = function (text) {
-  var idx = Listed.methods.findHistoryAt(text);
-  if (idx > -1) {
-    Listed.data.history.splice(idx, 1);
+Listed.methods.removeHistory = function (text, date) {
+  var item = Listed.methods.findHistory(text);
+  if (item != null) {
+    var idx = item.dates.indexOf(date);
+    if (idx > -1) {
+      item.dates.splice(idx, 1);
+    }
+  }
+}
+
+Listed.methods.undoHistory = function (text, date) {
+  date = moment(date);
+  if (!date.isValid()) {
+    date = moment();
+  }
+  var formattedDate = date.format('YYYY-MM-DD');
+  var item = Listed.methods.findHistory(text);
+  if (item != null) {
+    var idx = item.dates.indexOf(formattedDate);
+    if (idx == item.dates.length - 1) {
+      item.dates.pop();
+    }
   }
 }
 
