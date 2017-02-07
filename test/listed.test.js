@@ -261,7 +261,7 @@ describe('Listed Test Suite', function() {
       expect(Listed.data.prediction).to.have.lengthOf(1);
       var item = Listed.methods.findPrediction('item EA');
       expect(item.frequency).to.be.equal(1);
-      expect(item.daysdue).to.be.equal(0);  // due today (relative to 2017-02-05)
+      expect(item.dueDays).to.be.equal(0);  // due today (relative to 2017-02-05)
     });
 
     it('should predict a 3-day frequency', function() {
@@ -273,7 +273,7 @@ describe('Listed Test Suite', function() {
       expect(Listed.data.prediction).to.have.lengthOf(1);
       var item = Listed.methods.findPrediction('item EB');
       expect(item.frequency).to.be.equal(3);
-      expect(item.daysdue).to.be.equal(2);  // due in 2 days (relative to 2017-02-11)
+      expect(item.dueDays).to.be.equal(2);  // due in 2 days (relative to 2017-02-11)
     });
 
     it('should predict a 7-day frequency', function() {
@@ -285,7 +285,7 @@ describe('Listed Test Suite', function() {
       expect(Listed.data.prediction).to.have.lengthOf(1);
       var item = Listed.methods.findPrediction('item EC');
       expect(item.frequency).to.be.equal(7);
-      expect(item.daysdue).to.be.equal(5);  // due in 5 days (relative to 2017-02-24)
+      expect(item.dueDays).to.be.equal(5);  // due in 5 days (relative to 2017-02-24)
     });
 
     it('should predict an intermitted 7-day frequency', function() {
@@ -301,7 +301,7 @@ describe('Listed Test Suite', function() {
       expect(Listed.data.prediction).to.have.lengthOf(1);
       var item = Listed.methods.findPrediction('item ED');
       expect(item.frequency).to.be.equal(7);
-      expect(item.daysdue).to.be.equal(2);  // due in 2 days (relative to 2017-03-26)
+      expect(item.dueDays).to.be.equal(2);  // due in 2 days (relative to 2017-03-26)
     });
 
     it('should predict a radical 7-day frequency', function() {
@@ -317,7 +317,7 @@ describe('Listed Test Suite', function() {
       expect(Listed.data.prediction).to.have.lengthOf(1);
       var item = Listed.methods.findPrediction('item ED');
       expect(item.frequency).to.be.equal(7);
-      expect(item.daysdue).to.be.equal(-4);   // due 4 days ago (relative to 2017-03-31)
+      expect(item.dueDays).to.be.equal(-4);   // due 4 days ago (relative to 2017-03-31)
     });
 
     it('should not predict with too little data', function() {
