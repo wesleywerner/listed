@@ -7,7 +7,7 @@ var Listed = { 'version': 1 };
 Listed.data = {};
 Listed.data.history = [];
 Listed.data.list = [];
-
+Listed.data.prediction = [];
 Listed.data.newItemText = 'new item';
 Listed.data.saved = false;
 Listed.data.color = '';
@@ -18,6 +18,13 @@ Listed.factory.History = function (text, date) {
   return {
     'text': text,
     'dates': [date]
+  }
+}
+
+Listed.factory.Prediction = function (text, frequency) {
+  return {
+    'text': text,
+    'frequency': frequency
   }
 }
 
@@ -185,6 +192,52 @@ Listed.methods.save = function (done) {
     });
   }
 }
+
+
+Listed.methods.findPredictionAt = function (text) {
+  var idx = Listed.data.prediction.findIndex( function(n) { 
+    return n.text == text 
+  });
+  return idx;
+}
+
+Listed.methods.findPrediction = function (text) {
+  var idx = Listed.data.prediction.find( function(n) { 
+    return n.text == text
+  });
+  return idx;
+}
+
+Listed.methods.predictFrequencies = function () {
+  Listed.data.prediction = [];
+  Listed.data.history.forEach( function(hist) {
+    // get the day diff between each pair of dates.
+    var differences = [];
+    var a = null;
+    hist.dates.forEach( function(b) {
+      b = moment(b);
+      if (a != null) {
+        var days = a.diff(b, 'days');
+        differences.push(Math.abs(days));
+      }
+      a = b;
+    });
+    // find the average among all differences
+    if (differences.length > 0) {
+      var sum = differences.reduce(function(previousValue, currentValue){
+          return currentValue + previousValue;
+      });
+      //var max = Math.max.apply(Math, differences);
+      //var min = Math.min.apply(Math, differences);
+      var avg = Math.ceil(sum / differences.length);
+      // store the prediction
+      if (avg > 0) {
+        Listed.data.prediction.push(new Listed.factory.Prediction(hist.text, avg));
+      }
+    }
+  });
+}
+
 
 // make available to cli unit tests
 if (typeof module != 'undefined') {

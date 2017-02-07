@@ -230,6 +230,97 @@ describe('Listed Test Suite', function() {
           });
         }
       })
-  })
+  });
+  
+  describe('prediction', function() {
+    
+    beforeEach( function() {
+      Listed.data.history = [];
+      Listed.data.prediction = [];
+    });
+
+    it('should find prediction index', function() {
+      Listed.data.prediction = [{'text':'item AA'},{'text':'item AB'},{'text':'item AC'}];
+      var idx = Listed.methods.findPredictionAt('item AB');
+      expect(idx).to.be.equal(1);
+    });
+    
+    it('should find prediction data', function() {
+      Listed.data.prediction = [{'text':'item AA'},{'text':'item AB'},{'text':'item AC'}];
+      var item = Listed.methods.findPrediction('item AB');
+      expect(item).to.not.be.null;
+      expect(item).to.deep.equal({'text':'item AB'});
+    });
+    
+    it('should predict a 1-day frequency', function() {
+      Listed.methods.addHistory('item EA', '2017-02-01');
+      Listed.methods.addHistory('item EA', '2017-02-02');
+      Listed.methods.addHistory('item EA', '2017-02-03');
+      Listed.methods.addHistory('item EA', '2017-02-04');
+      Listed.methods.predictFrequencies();
+      expect(Listed.data.prediction).to.have.lengthOf(1);
+      var item = Listed.methods.findPrediction('item EA');
+      expect(item.frequency).to.be.equal(1);
+    });
+
+    it('should predict a 3-day frequency', function() {
+      Listed.methods.addHistory('item EB', '2017-02-01');
+      Listed.methods.addHistory('item EB', '2017-02-04');
+      Listed.methods.addHistory('item EB', '2017-02-07');
+      Listed.methods.addHistory('item EB', '2017-02-10');
+      Listed.methods.predictFrequencies();
+      expect(Listed.data.prediction).to.have.lengthOf(1);
+      var item = Listed.methods.findPrediction('item EB');
+      expect(item.frequency).to.be.equal(3);
+    });
+
+    it('should predict a 7-day frequency', function() {
+      Listed.methods.addHistory('item EC', '2017-02-01');
+      Listed.methods.addHistory('item EC', '2017-02-08');
+      Listed.methods.addHistory('item EC', '2017-02-15');
+      Listed.methods.addHistory('item EC', '2017-02-22');
+      Listed.methods.predictFrequencies();
+      expect(Listed.data.prediction).to.have.lengthOf(1);
+      var item = Listed.methods.findPrediction('item EC');
+      expect(item.frequency).to.be.equal(7);
+    });
+
+    it('should predict an intermitted 7-day frequency', function() {
+      Listed.methods.addHistory('item ED', '2017-02-01');
+      Listed.methods.addHistory('item ED', '2017-02-06');
+      Listed.methods.addHistory('item ED', '2017-02-15');
+      Listed.methods.addHistory('item ED', '2017-02-21');
+      Listed.methods.addHistory('item ED', '2017-03-01');
+      Listed.methods.addHistory('item ED', '2017-03-05');
+      Listed.methods.addHistory('item ED', '2017-03-16');
+      Listed.methods.addHistory('item ED', '2017-03-21');
+      Listed.methods.predictFrequencies();
+      expect(Listed.data.prediction).to.have.lengthOf(1);
+      var item = Listed.methods.findPrediction('item ED');
+      expect(item.frequency).to.be.equal(7);
+    });
+
+    it('should predict an radical 7-day frequency', function() {
+      Listed.methods.addHistory('item ED', '2017-02-01');
+      Listed.methods.addHistory('item ED', '2017-02-06');
+      Listed.methods.addHistory('item ED', '2017-02-16');
+      Listed.methods.addHistory('item ED', '2017-02-20');
+      Listed.methods.addHistory('item ED', '2017-03-01');
+      Listed.methods.addHistory('item ED', '2017-03-04');
+      Listed.methods.addHistory('item ED', '2017-03-18');
+      Listed.methods.addHistory('item ED', '2017-03-20');
+      Listed.methods.predictFrequencies();
+      expect(Listed.data.prediction).to.have.lengthOf(1);
+      var item = Listed.methods.findPrediction('item ED');
+      expect(item.frequency).to.be.equal(7);
+    });
+
+    it('should not predict with too little data', function() {
+      Listed.methods.addHistory('item EF', '2017-02-01');
+      Listed.methods.predictFrequencies();
+      expect(Listed.data.prediction).to.have.lengthOf(0);
+    });
+
+  });
 
 });
