@@ -1,7 +1,8 @@
 var app = new Vue({
   el: '#app',
   data: Listed.data,
-  methods: Listed.methods
+  methods: Listed.methods,
+  computed: Listed.computed
 });
 
 // load the user list and history data

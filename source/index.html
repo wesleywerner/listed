@@ -95,10 +95,14 @@
         <div id="recommendedPopup" class="modal bottom-sheet">
           <div class="modal-content">
             <h4><i class="material-icons">star</i> Recommended</h4>
-            <p>As I learn more about how often you tick certain items, I will be able to recommend them here in the future.</p>
-            <ul class="collection">
-              <li class="collection-item" v-for="pred in prediction">{{ pred.text }} <span class="secondary-content">{{ pred.frequency }}</span></li>
+            
+            <p v-show="recommendations.length == 0">As I learn more about how often you tick certain items, I will be able to recommend them here in the future.</p>
+
+            <ul class="collection" v-show="recommendations.length > 0">
+              <li class="collection-item" v-for="pred in recommendations">{{ pred.text }}, due {{ pred.dueDate }} ({{ pred.dueDays }} days) 
+              <a href="#!" class="secondary-content" v-on:click="addItem(pred.text)"><i class="material-icons">send</i></a></li>
             </ul>
+            
           </div>
         </div>
   
@@ -114,5 +118,26 @@
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script type="text/javascript" src="js/materialize.min.js"></script>
       <script type="text/javascript" src="js/materialize.init.js"></script>
+      
+      <!-- dev data -->
+      <script>
+        function addTestData() {
+          Listed.data.history = [];
+          Listed.methods.addHistory('milk', moment().subtract(22, 'day').format('YYYY-MM-DD'));
+          Listed.methods.addHistory('milk', moment().subtract(17, 'day').format('YYYY-MM-DD'));
+          Listed.methods.addHistory('milk', moment().subtract(12, 'day').format('YYYY-MM-DD'));
+          Listed.methods.addHistory('milk', moment().subtract(6, 'day').format('YYYY-MM-DD'));
+          Listed.methods.addHistory('coffee', moment().subtract(31, 'day').format('YYYY-MM-DD'));
+          Listed.methods.addHistory('coffee', moment().subtract(24, 'day').format('YYYY-MM-DD'));
+          Listed.methods.addHistory('coffee', moment().subtract(17, 'day').format('YYYY-MM-DD'));
+          Listed.methods.addHistory('coffee', moment().subtract(10, 'day').format('YYYY-MM-DD'));
+          Listed.methods.addHistory('cookies', moment().subtract(40, 'day').format('YYYY-MM-DD'));
+          Listed.methods.addHistory('cookies', moment().subtract(28, 'day').format('YYYY-MM-DD'));
+          Listed.methods.addHistory('cookies', moment().subtract(16, 'day').format('YYYY-MM-DD'));
+          Listed.methods.addHistory('cookies', moment().subtract(4, 'day').format('YYYY-MM-DD'));
+          Listed.methods.predictFrequencies();
+        }
+      </script>
+      
     </body>
 </html>

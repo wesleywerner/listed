@@ -4,6 +4,8 @@ if (typeof require != 'undefined') {
 }
 
 var Listed = { 'version': 1 };
+Listed.factory = {};
+Listed.computed = {};
 Listed.data = {};
 Listed.data.history = [];
 Listed.data.list = [];
@@ -12,7 +14,6 @@ Listed.data.newItemText = 'new item';
 Listed.data.saved = false;
 Listed.data.color = '';
 
-Listed.factory = {};
 
 Listed.factory.History = function (text, date) {
   return {
@@ -28,6 +29,15 @@ Listed.factory.Prediction = function (text, frequency, dueDate, dueDays) {
     'dueDays': dueDays,
     'dueDate': dueDate
   }
+}
+
+/**
+ * Recommend predictions not already in the shopping list.
+ */
+Listed.computed.recommendations = function () {
+  return Listed.data.prediction.filter( function(n) {
+    return Listed.methods.findItemAt(n.text) == -1;
+  });
 }
 
 // method context is scoped via Vue so that 'this' references the Listed.data object
