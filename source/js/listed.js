@@ -121,7 +121,7 @@ Listed.methods.addHistory = function (text, date) {
   Listed.data.saved = false;
 }
 
-Listed.methods.removeHistory = function (text, date) {
+Listed.methods.removeHistoryDate = function (text, date) {
   var item = Listed.methods.findHistory(text);
   if (item != null) {
     var idx = item.dates.indexOf(date);

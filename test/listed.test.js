@@ -163,7 +163,7 @@ describe('Listed Test Suite', function() {
       Listed.methods.addHistory('item EA', '2017-02-04');
       Listed.methods.addHistory('item EA', '2017-02-05');
       Listed.methods.addHistory('item EA', '2017-02-06');
-      Listed.methods.removeHistory('item EA', '2017-02-05');
+      Listed.methods.removeHistoryDate('item EA', '2017-02-05');
       var item = Listed.methods.findHistory('item EA');
       expect(item.dates).to.deep.equal(['2017-02-04', '2017-02-06']);
     });
