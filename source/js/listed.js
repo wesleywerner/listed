@@ -132,6 +132,14 @@ Listed.methods.removeHistoryDate = function (text, date) {
   }
 }
 
+Listed.methods.removeAllHistory = function (text) {
+  var idx = Listed.methods.findHistoryAt(text);
+  if (idx != -1) {
+    Listed.data.history.splice(idx, 1);
+    Listed.data.saved = false;
+  }
+}
+
 Listed.methods.undoHistory = function (text, date) {
   date = moment(date);
   if (!date.isValid()) {

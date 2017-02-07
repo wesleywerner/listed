@@ -168,6 +168,14 @@ describe('Listed Test Suite', function() {
       expect(item.dates).to.deep.equal(['2017-02-04', '2017-02-06']);
     });
     
+    it('should remove entire history by name', function() {
+      Listed.methods.addHistory('item EA', '2017-02-04');
+      Listed.methods.addHistory('item EA', '2017-02-05');
+      Listed.methods.addHistory('item EA', '2017-02-06');
+      Listed.methods.removeAllHistory('item EA');
+      expect(Listed.data.history).to.have.lengthOf(0);
+    });
+    
     it('should undo the latest history date', function() {
       Listed.methods.addHistory('item EB', '2017-02-04');
       Listed.methods.addHistory('item EB', '2017-02-05');
