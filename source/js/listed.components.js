@@ -76,7 +76,7 @@ Vue.component('merge-selection', {
   template: '<span> \
           <item-autocomplete id="merge-B" v-bind:history="history" v-model="mergeBText" placeholder="Select an item"></item-autocomplete> \
           <item-autocomplete id="merge-A" v-bind:history="history" v-model="mergeAText" placeholder="merge it into this item"></item-autocomplete> \
-          <button v-on:click="doMerge">Merge</button> </span>',
+          <button class="waves-effect waves-light btn" v-on:click="doMerge">Merge</button> </span>',
   methods: {
     doMerge: function() {
       this.$emit('do-merge', this.mergeAText, this.mergeBText);
