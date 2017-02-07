@@ -175,7 +175,7 @@ Listed.methods.mergeHistory = function (itemA, itemB) {
   Listed.data.saved = false;
 }
 
-Listed.methods.load = function () {
+Listed.methods.load = function (done) {
   if (typeof localforage != 'undefined') {
     localforage.getItem('data', function (err, value) {
       if (err) {
@@ -185,6 +185,8 @@ Listed.methods.load = function () {
         value.history.forEach(function(n){ Listed.data.history.push(n) });
         Listed.data.color = value.color;
         Listed.data.saved = true;
+        // success notice
+        if (typeof done == 'function') done();
       }
     });
   }

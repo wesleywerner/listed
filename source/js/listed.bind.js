@@ -6,7 +6,7 @@ var app = new Vue({
 });
 
 // load the user list and history data
-Listed.methods.load();
+Listed.methods.load(Listed.methods.predictFrequencies);
 
 // save the user list and history data
 setInterval( function() {
