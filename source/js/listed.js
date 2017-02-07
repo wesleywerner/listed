@@ -21,10 +21,11 @@ Listed.factory.History = function (text, date) {
   }
 }
 
-Listed.factory.Prediction = function (text, frequency) {
+Listed.factory.Prediction = function (text, frequency, daysDue) {
   return {
     'text': text,
-    'frequency': frequency
+    'frequency': frequency,
+    'daysdue': daysDue
   }
 }
 
@@ -208,7 +209,7 @@ Listed.methods.findPrediction = function (text) {
   return idx;
 }
 
-Listed.methods.predictFrequencies = function () {
+Listed.methods.predictFrequencies = function (compareDate) {
   Listed.data.prediction = [];
   Listed.data.history.forEach( function(hist) {
     // get the day diff between each pair of dates.
@@ -232,7 +233,15 @@ Listed.methods.predictFrequencies = function () {
       var avg = Math.ceil(sum / differences.length);
       // store the prediction
       if (avg > 0) {
-        Listed.data.prediction.push(new Listed.factory.Prediction(hist.text, avg));
+        // comparisson base date
+        var cmpDate = moment(compareDate);
+        if (!cmpDate.isValid()) cmpDate = moment();
+        // add avg frequency to the most recent history date
+        var dueDate = moment(hist.dates.slice(-1)[0]);
+        dueDate.add(avg, 'day');
+        // get the days from due date to the comparisson date
+        var daysDue = dueDate.diff(cmpDate, 'days');
+        Listed.data.prediction.push(new Listed.factory.Prediction(hist.text, avg, daysDue));
       }
     }
   });
