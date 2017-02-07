@@ -221,7 +221,7 @@ Listed.methods.findPrediction = function (text) {
 }
 
 Listed.methods.predictFrequencies = function (compareDate) {
-  Listed.data.prediction = [];
+  var predictedItems = [];
   Listed.data.history.forEach( function(hist) {
     // get the day diff between each pair of dates.
     var differences = [];
@@ -252,10 +252,12 @@ Listed.methods.predictFrequencies = function (compareDate) {
         dueDate.add(avg, 'day');
         // get the days from due date to the comparisson date
         var dueDays = dueDate.diff(cmpDate, 'days');
-        Listed.data.prediction.push(new Listed.factory.Prediction(hist.text, avg, dueDate.fromNow(), dueDays));
+        predictedItems.push(new Listed.factory.Prediction(hist.text, avg, dueDate.fromNow(), dueDays));
       }
     }
   });
+  // Sort predictions
+  Listed.data.prediction = predictedItems.sort( function(a, b) { return a.dueDays > b.dueDays });
 }
 
 
