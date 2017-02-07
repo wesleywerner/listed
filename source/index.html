@@ -18,6 +18,13 @@
         <nav class="nav-extended" v-bind:class="color" role="navigation">
           <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Listed</a>
             
+            <!-- recommendedPopup toggle -->
+            <ul class="left">
+              <li>
+                <a href="#recommendedPopup"><i class="material-icons">stars</i></a>
+              </li>
+            </ul>
+            
             <!-- Status icons -->
             <ul class="right">
               <li>
@@ -27,7 +34,7 @@
                 <i class="material-icons" v-show="saved" title="changes are saved">check</i>
               </li>
             </ul>
-
+            
           </div>
 
           <!-- nav tabs -->
@@ -87,6 +94,14 @@
           </div>  <!-- /section -->
         </div>  <!-- container -->
 
+         <!-- recommended items modal -->
+        <div id="recommendedPopup" class="modal bottom-sheet">
+          <div class="modal-content">
+            <h4><i class="material-icons">star</i> Recommended</h4>
+            <p>As I learn more about how often you tick certain items, I will be able to recommend them here in the future.</p>
+          </div>
+        </div>
+  
       </div>  <!-- /app -->
 
       <script type="text/javascript" src="js/localforage.min.js"></script>
