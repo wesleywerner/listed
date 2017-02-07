@@ -96,6 +96,9 @@
           <div class="modal-content">
             <h4><i class="material-icons">star</i> Recommended</h4>
             <p>As I learn more about how often you tick certain items, I will be able to recommend them here in the future.</p>
+            <ul class="collection">
+              <li class="collection-item" v-for="pred in prediction">{{ pred.text }} <span class="secondary-content">{{ pred.frequency }}</span></li>
+            </ul>
           </div>
         </div>
   
