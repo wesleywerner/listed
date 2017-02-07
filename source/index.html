@@ -38,7 +38,7 @@
           <div class="nav-content">
             <ul class="tabs tabs-transparent">
               <li class="tab"><a href="#listContent">List</a></li>
-              <li class="tab"><a href="#historyContent">Hist</a></li>
+              <li class="tab"><a href="#dataContent">Data</a></li>
               <li class="tab"><a href="#mergeContent">Tools</a></li>
               <li class="tab"><a href="#test4">Config</a></li>
             </ul>
@@ -74,11 +74,25 @@
               </div>
             </div>
             
-            <div id="historyContent" class="col s12">
-              <h5>history</h5>
-              <ul>
-                <li v-for="h in history">{{ h.text }} <ol><li v-for="d in h.dates">{{ d }}</li></ol> </li>
-              </ul>
+            <div id="dataContent" class="col s12">
+              
+              <table class="bordered striped responsive-table">
+                <thead>
+                  <tr>
+                    <td>Name</td>
+                    <td>Data Points</td>
+                    <td></td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="hist in history">
+                    <td>{{ hist.text }}</td>
+                    <td><button class="waves-effect waves-teal btn-flat" v-on:click="showHistoryDates(hist)">{{ hist.dates.length }}</button></td>
+                    <td><button class="waves-effect waves-teal btn-flat" v-on:click="promptRemoveHistory(hist)">remove</button></td>
+                  </tr>
+                </tbody>
+              </table>
+              
             </div>
             
             <div id="mergeContent" class="col s12">
@@ -110,16 +124,16 @@
   
       </div>  <!-- /app -->
 
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+      <script type="text/javascript" src="js/materialize.init.js"></script>
       <script type="text/javascript" src="js/localforage.min.js"></script>
       <script type="text/javascript" src="js/vue.min.js"></script>
       <script type="text/javascript" src="js/moment.min.js"></script>
       <script type="text/javascript" src="js/listed.components.js"></script>
       <script type="text/javascript" src="js/listed.js"></script>
+      <script type="text/javascript" src="js/listed.ui.js"></script>
       <script type="text/javascript" src="js/listed.bind.js"></script>
-      <!-- materialize -->
-      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-      <script type="text/javascript" src="js/materialize.min.js"></script>
-      <script type="text/javascript" src="js/materialize.init.js"></script>
       
       <!-- dev data -->
       <script>
