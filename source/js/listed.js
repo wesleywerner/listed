@@ -21,11 +21,12 @@ Listed.factory.History = function (text, date) {
   }
 }
 
-Listed.factory.Prediction = function (text, frequency, daysDue) {
+Listed.factory.Prediction = function (text, frequency, dueDate, dueDays) {
   return {
     'text': text,
     'frequency': frequency,
-    'daysdue': daysDue
+    'dueDays': dueDays,
+    'dueDate': dueDate
   }
 }
 
@@ -240,8 +241,8 @@ Listed.methods.predictFrequencies = function (compareDate) {
         var dueDate = moment(hist.dates.slice(-1)[0]);
         dueDate.add(avg, 'day');
         // get the days from due date to the comparisson date
-        var daysDue = dueDate.diff(cmpDate, 'days');
-        Listed.data.prediction.push(new Listed.factory.Prediction(hist.text, avg, daysDue));
+        var dueDays = dueDate.diff(cmpDate, 'days');
+        Listed.data.prediction.push(new Listed.factory.Prediction(hist.text, avg, dueDate.fromNow(), dueDays));
       }
     }
   });
