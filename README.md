@@ -14,7 +14,7 @@ Run `npm test` for the CLI, or open `test/browser.html` in your browser.
 
 ## Building
 
-Run `npm run build` to clean and release everything into `dist/`. The command `npm run watch` will monitor any source files for changes, and run the build when any changes are made, giving you a speedier workflow during development.
+Run `npm run build` to clean and release everything into `dist/`. The command `npm run watch` will monitor any source files for changes, and run the build when any changes are made, giving you a speedier workflow during development. A simple `python -m SimpleHTTPServer` command inside the dist directory will serve your files.
 
 # License
 
