@@ -3,10 +3,32 @@
  */
 (function(){
   
+  /**
+   * The ui object gets merged into the Vue instance's methods property.
+   */
   var ui = {};
+  
+  /**
+   * The state object gets merged into the Vue instance's data property.
+   */
   var state = {};
   
+  // true while the page is loading
   state.loading = true;
+  
+  // bring attention to the recommended icon
+  state.hiliteRecommendations = true;
+  
+  /**
+   * Called after the page has loaded the user data.
+   */
+  ui.dataLoaded = function () {
+    Listed.methods.predictFrequencies();
+    
+    // bring attention to the recommended icon if the list is empty
+    Listed.data.hiliteRecommendations = (Listed.data.list.length == 0 && Listed.data.prediction.length == 0);
+    
+  }
   
   ui.showHistoryDates = function (hist) {
     alert(hist.dates.join('\n'));
