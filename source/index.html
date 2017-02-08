@@ -20,14 +20,11 @@
   
         <!-- Main navigation -->
         <nav class="nav-extended" v-bind:class="color" role="navigation" v-show="!loading" style="display:none">
-          <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Listed</a>
+          <div class="nav-wrapper container">
+            
+            <a id="logo-container" href="#recommendedPopup" class="brand-logo" v-on:click="predictFrequencies"><i class="material-icons">stars</i>Listed</a>
             
             <!-- recommendedPopup toggle -->
-            <ul class="left">
-              <li>
-                <a href="#recommendedPopup" v-on:click="predictFrequencies"><i class="material-icons">stars</i></a>
-              </li>
-            </ul>
             
             <!-- Status icons -->
             <ul class="right">
