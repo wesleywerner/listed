@@ -79,17 +79,19 @@
               </div>
               
               <!-- no data information -->
-              <div class="row" v-show="hiliteRecommendations">
-                <div class="col s12 m6">
-                  <div class="card blue lighten-4">
-                    <div class="card-content black-text">
-                      <span class="card-title">How does this work?</span>
-                      <p>Add some items that you want to your list up above. I will remember the dates you check them off the list, and after about 2 rounds I can start predicting when you next need that nice something.</p>
-                      <p>Use the <i class="material-icons">stars</i> icon above to see my recommendations.</p>
+              <transition name="howto-transition" enter-active-class="animated flipInX" leave-active-class="animated flipOutX">
+                <div class="row" v-show="hiliteRecommendations">
+                  <div class="col s12 m6">
+                    <div class="card blue lighten-4">
+                      <div class="card-content black-text">
+                        <span class="card-title">How does this work?</span>
+                        <p>Add some items that you want to your list up above. I will remember the dates you check them off the list, and after about 2 rounds I can start predicting when you next need that nice something.</p>
+                        <p>Use the <i class="material-icons">stars</i> icon above to see my recommendations.</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </transition>
 
             </div>
             
