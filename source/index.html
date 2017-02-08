@@ -164,12 +164,11 @@
             
             <p v-show="recommendations.length == 0">As I learn more about how often you tick certain items, I will be able to recommend them here in the future.</p>
 
-            <ul class="collection" v-show="recommendations.length > 0">
-              <li class="collection-item lighten-4" v-for="pred in recommendations" v-bind:class="{ red:pred.dueDays < 1 }">
-                {{ pred.text }}, due {{ pred.dueDate }}
-                <a href="#!" class="secondary-content" title="Add to my list" v-on:click="addItem(pred.text)"><i class="material-icons">send</i></a>
-              </li>
-            </ul>
+            <div class="collection" v-show="recommendations.length > 0">
+              <a href="#!" class="collection-item lighten-4" v-for="pred in recommendations" v-bind:class="{ 'active':pred.dueDays < 1 }" v-on:click="addItem(pred.text)">
+                <h5><i class="material-icons">send</i> {{ pred.text }}, due {{ pred.dueDate }}</h5>
+              </a>
+            </div>
             
           </div>
         </div>
