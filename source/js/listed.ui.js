@@ -45,6 +45,12 @@
     }
   }
   
+  ui.promptCleanList = function () {
+    if (confirm('Clean checked items from your list?')) {
+      Listed.methods.cleanList();
+    }
+  }
+  
   ui.setColor = function (color) {
     Listed.data.color = color + ' lighten-1';
     Listed.data.saved = false;

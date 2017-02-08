@@ -78,6 +78,13 @@
                   </list-item>
                 </transition-group>
               </ul>
+              
+              <!-- clear list action -->
+              <div class="row">
+                <div class="col sm2">
+                  <button type="button" class="waves-effect waves-light btn" v-show="list.length > 0" v-on:click="promptCleanList">Clean</button>
+                </div>
+              </div>
 
               <!-- no data information -->
               <transition name="howto-transition" enter-active-class="animated flipInX" leave-active-class="animated flipOutX">
