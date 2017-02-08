@@ -15,6 +15,15 @@
     }
   }
   
+  ui.promptMerge = function (a, b) {
+    if (Listed.methods.findHistoryAt(a) > -1 && Listed.methods.findHistoryAt(b) > -1) {
+      if (confirm('Merge history of '+b+' into '+a)) {
+        Listed.methods.mergeHistory(a, b);
+        Materialize.toast(a+' and '+b+' merged', 5000);
+      }
+    }
+  }
+  
   jQuery.extend(Listed.methods, ui);
 
 }())
