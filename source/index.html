@@ -25,7 +25,7 @@
           <div class="nav-wrapper container">
             
             <a id="logo-container" href="#recommendedPopup" class="brand-logo" v-on:click="predictFrequencies">
-              <i class="material-icons animated" v-bind:class="{ 'infinite swing': hiliteRecommendations && list.length == 0 }">stars</i>Listed</a>
+              <i class="material-icons medium animated" v-bind:class="{ 'infinite tada': hiliteRecommendations }">stars</i>Listed</a>
             
             <!-- recommendedPopup toggle -->
             
@@ -54,6 +54,8 @@
 
             <!-- tab contents -->
             <div id="listContent" class="col s12">
+              
+              <!-- list of check items -->
               <item-autocomplete id="item-input" 
                 auto-clear="true" 
                 placeholder="I want..."
@@ -75,6 +77,20 @@
                   </table>
                 </div>
               </div>
+              
+              <!-- no data information -->
+              <div class="row" v-show="hiliteRecommendations">
+                <div class="col s12 m6">
+                  <div class="card blue lighten-4">
+                    <div class="card-content black-text">
+                      <span class="card-title">How does this work?</span>
+                      <p>Add some items that you want to your list up above. I will remember the dates you check them off the list, and after about 2 rounds I can start predicting when you next need that nice something.</p>
+                      <p>Use the <i class="material-icons">stars</i> icon above to see my recommendations.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
             
             <div id="dataContent" class="col s12">

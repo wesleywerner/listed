@@ -24,10 +24,6 @@
    */
   ui.dataLoaded = function () {
     Listed.methods.predictFrequencies();
-    
-    // bring attention to the recommended icon if the list is empty
-    Listed.data.hiliteRecommendations = (Listed.data.list.length == 0 && Listed.data.prediction.length == 0);
-    
   }
   
   ui.showHistoryDates = function (hist) {

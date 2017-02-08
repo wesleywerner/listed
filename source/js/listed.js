@@ -14,7 +14,19 @@ Listed.data.newItemText = 'new item';
 Listed.data.saved = true;
 Listed.data.color = '';
 
+/**
+ * Computed values.
+ */
+ 
+// bring attention to the recommended icon if the list is empty
+Listed.computed.hiliteRecommendations = function () {
+  return (Listed.data.list.length == 0 && Listed.data.prediction.length == 0);
+}
 
+/**
+ * Factories.
+ */
+ 
 Listed.factory.History = function (text, date) {
   return {
     'text': text,
