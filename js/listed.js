@@ -11,10 +11,22 @@ Listed.data.history = [];
 Listed.data.list = [];
 Listed.data.prediction = [];
 Listed.data.newItemText = 'new item';
-Listed.data.saved = false;
+Listed.data.saved = true;
 Listed.data.color = '';
 
+/**
+ * Computed values.
+ */
+ 
+// bring attention to the recommended icon if the list is empty
+Listed.computed.hiliteRecommendations = function () {
+  return (Listed.data.list.length == 0 && Listed.data.prediction.length == 0);
+}
 
+/**
+ * Factories.
+ */
+ 
 Listed.factory.History = function (text, date) {
   return {
     'text': text,
@@ -81,6 +93,12 @@ Listed.methods.amendItem = function (text, amendment) {
     Listed.data.list[idx].text = amendment;
     Listed.data.saved = false;
   }
+}
+
+Listed.methods.cleanList = function () {
+  Listed.data.list = Listed.data.list.filter( function(n) {
+    return n.checked == false;
+  })
 }
 
 Listed.methods.findHistoryAt = function (text) {

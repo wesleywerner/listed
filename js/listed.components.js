@@ -3,9 +3,11 @@
  */
 Vue.component('list-item', {
   props: ['id', 'item'],
-  template: '<tr><td><input type="checkbox" v-bind:id="id" v-model="item.checked" v-on:click="checkMe"> \
-             <label v-bind:for="id">{{ item.text }}</label> </td> \
-             <td><a class="waves-effect waves-light btn-flat right" v-on:click="removeMe">X</a> </td></tr>',
+  template: '<li><div> \
+             <input type="checkbox" v-bind:id="id" v-model="item.checked" v-on:click="checkMe"> \
+             <label v-bind:for="id">{{ item.text }}</label> \
+             <a class="secondary-content waves-effect waves-light btn-flat right" v-on:click="removeMe"><i class="material-icons">delete</i></a> \
+             </div></li>',
   methods: {
     removeMe: function() {
       this.$emit('remove', this.item.text);
