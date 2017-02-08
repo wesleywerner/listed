@@ -24,6 +24,11 @@
     }
   }
   
+  ui.setColor = function (color) {
+    Listed.data.color = color + ' lighten-1';
+    Listed.data.saved = false;
+  }
+  
   jQuery.extend(Listed.methods, ui);
 
 }())
