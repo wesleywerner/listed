@@ -40,15 +40,17 @@ Vue.component('item-autocomplete', {
     }
   },
   template: '<div class="row"> \
-              <div class="input-field col s8"> \
-                <input type="text" v-bind:id="id" v-bind:list="dataId" v-model="inputValue" v-on:keyup.enter="selected" v-on:input="updateInput" /> \
-                <label v-bind:for="id">{{ placeholder }}</label> \
-                <datalist v-bind:id="dataId"> \
-                  <option v-for="item in history" v-bind:value="item.text"> \
-                </datalist> \
+              <div class="col s8"> \
+                <div class="input-field"> \
+                  <input type="text" v-bind:id="id" v-bind:list="dataId" v-model="inputValue" v-on:keyup.enter="selected" v-on:input="updateInput" /> \
+                  <label v-bind:for="id">{{ placeholder }}</label> \
+                  <datalist v-bind:id="dataId"> \
+                    <option v-for="item in history" v-bind:value="item.text"> \
+                  </datalist> \
+                </div> \
               </div> \
               <div class="col s2" v-show="showButton"> \
-                <a class="waves-effect waves-light btn-large" v-on:click="selected"><i class="material-icons">playlist_add</i></a> \
+                <a href="#" class="waves-effect waves-light btn-large btn-flat" v-on:click="selected"><i class="material-icons">send</i></a> \
               </div> \
              </div>',
   methods: {
