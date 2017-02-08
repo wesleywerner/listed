@@ -11,7 +11,7 @@ Listed.data.history = [];
 Listed.data.list = [];
 Listed.data.prediction = [];
 Listed.data.newItemText = 'new item';
-Listed.data.saved = false;
+Listed.data.saved = true;
 Listed.data.color = '';
 
 
