@@ -105,6 +105,7 @@
             
             <div id="dataContent" class="col s12">
 
+              <button type="button" class="btn" onclick="addTestData()">Add Test Data</button>
               <div class="row">
                 <div class="col s12">
                   <ul class="tabs tabs-fixed-width">
@@ -189,19 +190,16 @@
       <!-- dev data -->
       <script>
         function addTestData() {
-          Listed.data.history = [];
-          Listed.methods.addHistory('milk', moment().subtract(22, 'day').format('YYYY-MM-DD'));
-          Listed.methods.addHistory('milk', moment().subtract(17, 'day').format('YYYY-MM-DD'));
-          Listed.methods.addHistory('milk', moment().subtract(12, 'day').format('YYYY-MM-DD'));
-          Listed.methods.addHistory('milk', moment().subtract(6, 'day').format('YYYY-MM-DD'));
-          Listed.methods.addHistory('coffee', moment().subtract(31, 'day').format('YYYY-MM-DD'));
-          Listed.methods.addHistory('coffee', moment().subtract(24, 'day').format('YYYY-MM-DD'));
-          Listed.methods.addHistory('coffee', moment().subtract(17, 'day').format('YYYY-MM-DD'));
-          Listed.methods.addHistory('coffee', moment().subtract(10, 'day').format('YYYY-MM-DD'));
-          Listed.methods.addHistory('cookies', moment().subtract(40, 'day').format('YYYY-MM-DD'));
-          Listed.methods.addHistory('cookies', moment().subtract(28, 'day').format('YYYY-MM-DD'));
-          Listed.methods.addHistory('cookies', moment().subtract(16, 'day').format('YYYY-MM-DD'));
-          Listed.methods.addHistory('cookies', moment().subtract(4, 'day').format('YYYY-MM-DD'));
+          var text = prompt('name of item to generate');
+          if (text == undefined) return;
+          var avg = prompt('average purchase frequency in days');
+          if (avg == undefined) return;
+          var lastBought = prompt('how many days ago was the item last bought');
+          if (lastBought == undefined) return;
+          var lastDate = moment().subtract(parseInt(lastBought), 'days');
+          for (var i=6; i>-1; i--) {
+            Listed.methods.addHistory(text, moment(lastDate).subtract(i*avg, 'days').format('YYYY-MM-DD'));
+          }
           Listed.methods.predictFrequencies();
         }
       </script>
