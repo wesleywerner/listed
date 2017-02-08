@@ -4,6 +4,9 @@
 (function(){
   
   var ui = {};
+  var state = {};
+  
+  state.loading = true;
   
   ui.showHistoryDates = function (hist) {
     alert(hist.dates.join('\n'));
@@ -30,5 +33,6 @@
   }
   
   jQuery.extend(Listed.methods, ui);
+  jQuery.extend(Listed.data, state);
 
 }())

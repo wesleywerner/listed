@@ -13,9 +13,13 @@
     </head>
     <body>
       <div id="app">
-        
+
+        <div class="progress" v-show="loading">
+            <div class="indeterminate"></div>
+        </div>
+  
         <!-- Main navigation -->
-        <nav class="nav-extended" v-bind:class="color" role="navigation">
+        <nav class="nav-extended" v-bind:class="color" role="navigation" v-show="!loading" style="display:none">
           <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Listed</a>
             
             <!-- recommendedPopup toggle -->
@@ -45,7 +49,7 @@
     
         </nav>
   
-        <div class="container">
+        <div class="container" v-show="!loading" style="display:none">
           <div class="section">
 
             <!-- tab contents -->
