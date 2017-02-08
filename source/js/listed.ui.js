@@ -6,7 +6,7 @@
   var ui = {};
   
   ui.showHistoryDates = function (hist) {
-    alert(JSON.stringify(hist.dates));
+    alert(hist.dates.join('\n'));
   }
   
   ui.promptRemoveHistory = function (hist) {
