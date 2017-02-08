@@ -95,6 +95,12 @@ Listed.methods.amendItem = function (text, amendment) {
   }
 }
 
+Listed.methods.cleanList = function () {
+  Listed.data.list = Listed.data.list.filter( function(n) {
+    return n.checked == false;
+  })
+}
+
 Listed.methods.findHistoryAt = function (text) {
   var idx = Listed.data.history.findIndex( function(n) { 
     return n.text == text 

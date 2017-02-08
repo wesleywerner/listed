@@ -78,6 +78,20 @@ describe('Listed Test Suite', function() {
       var idx = Listed.methods.findItemAt('item AJ');
       expect(idx).to.equal(1);
     });
+    
+    it('should clean all checked items', function() {
+      Listed.methods.addItem('item AI');
+      Listed.methods.addItem('item AJ');
+      Listed.methods.addItem('item AK');
+      var a = Listed.methods.findItem('item AI');
+      a.checked = true;
+      var b = Listed.methods.findItem('item AK');
+      b.checked = true;
+      Listed.methods.cleanList();
+      expect(Listed.data.list).to.have.lengthOf(1);
+      var c = Listed.methods.findItemAt('item AJ');
+      expect(c).to.be.equal(0);
+    })
 
   });
 
