@@ -24,6 +24,9 @@
    */
   ui.dataLoaded = function () {
     Listed.methods.predictFrequencies();
+    if (typeof Listed.methods.loadGraphs != 'undefined') {
+      Listed.methods.loadGraphs();
+    }
   }
   
   ui.showHistoryDates = function (hist) {
