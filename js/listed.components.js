@@ -1,4 +1,44 @@
 /**
+ * A common page navigation bar.
+ */
+Vue.component('navigation', {
+  props: ['view', 'color', 'saved', 'hiliteRecommendations'],
+  methods: {
+    callPredictFrequencies: function () {
+      
+    }
+  },
+  template: '<nav v-bind:class="color" role="navigation"> \
+          <div class="nav-wrapper container"> \
+            <a id="logo-container" href="#recommendedPopup" class="brand-logo" v-on:click="callPredictFrequencies"> \
+              <i class="material-icons medium animated" v-bind:class="{ \'infinite tada\': hiliteRecommendations }">stars</i>Listed</a> \
+            <!-- mobile collapse hamburger --> \
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a> \
+            <!-- navbar full and mobile links --> \
+            <ul class="right hide-on-med-and-down"> \
+              <li><a v-bind:class="[color, { \'lighten-3 black-text\': view == \'list\' }]" href="index.html">List</a></li> \
+              <li><a v-bind:class="[color, { \'lighten-3 black-text\': view == \'data\' }]" href="data.html">Data</a></li> \
+              <li><a v-bind:class="[color, { \'lighten-3 black-text\': view == \'graphs\' }]" href="graphs.html">Graphs</a></li> \
+              <li><a v-bind:class="[color, { \'lighten-3 black-text\': view == \'config\' }]" href="config.html">Config</a></li> \
+            </ul> \
+            <ul class="side-nav" id="mobile-demo"> \
+              <li><a href="index.html">List</a></li> \
+              <li><a href="data.html">Data</a></li> \
+              <li><a href="graphs.html">Graphs</a></li> \
+              <li><a href="config.html">Config</a></li> \
+            </ul> \
+            <!-- Status icons --> \
+            <ul class="right"> \
+              <li> \
+                <i class="material-icons" v-show="!saved" title="unsaved changes">mode_edit</i> \
+              </li> \
+            </ul> \
+          </div> \
+        </nav>'
+})
+
+
+/**
  * A list item component that can remove itself.
  */
 Vue.component('list-item', {
