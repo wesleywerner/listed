@@ -52,7 +52,7 @@
   }
   
   ui.setColor = function (color) {
-    Listed.data.color = color + ' lighten-1';
+    Listed.data.color = color;
     Listed.data.saved = false;
   }
   
@@ -60,3 +60,10 @@
   jQuery.extend(Listed.data, state);
 
 }())
+
+$( document ).ready(function(){
+
+  // Initialize collapse button
+  $(".button-collapse").sideNav();
+
+})
