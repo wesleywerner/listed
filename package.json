@@ -22,8 +22,9 @@
     "cp:vue": "cp node_modules/vue/dist/vue.min.js dist/js/",
     "cp:materialize": "cp -r node_modules/materialize-css/dist/* dist/",
     "cp:animate": "cp node_modules/animate.css/animate.min.css dist/css/",
+    "cp:chartjs": "cp node_modules/chart.js/dist/Chart.min.js dist/js/",
     "cp:src": "cp -r source/* dist/",
-    "build": "npm run clean && npm run cp:src && npm run cp:vue && npm run cp:localforage && npm run cp:moment && npm run cp:materialize && npm run cp:animate"
+    "build": "npm run clean && npm run cp:src && npm run cp:vue && npm run cp:localforage && npm run cp:moment && npm run cp:materialize && npm run cp:animate && npm run cp:chartjs"
   },
   "author": "Wesley Werner",
   "license": "GPL-3.0",
@@ -34,6 +35,7 @@
   },
   "dependencies": {
     "animate.css": "^3.5.2",
+    "chart.js": "^2.5.0",
     "localforage": "^1.4.3",
     "materialize-css": "^0.98.0",
     "moment": "^2.17.1",
