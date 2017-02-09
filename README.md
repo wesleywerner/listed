@@ -4,7 +4,7 @@ _Predictive shopping list_
 
 # Developing
 
-You are expected to install the dependencies with `npm install` before anything else. 
+You are expected to install the dependencies with `npm install` and `npm run build` before anything else. 
 
 ## Testing
 
@@ -14,7 +14,9 @@ Run `npm test` for the CLI, or open `test/browser.html` in your browser.
 
 ## Building
 
-Run `npm run build` to clean and release everything into `dist/`. The command `npm run watch` will monitor any source files for changes, and run the build when any changes are made, giving you a speedier workflow during development. A simple `python -m SimpleHTTPServer` command inside the dist directory will serve your files.
+Run `npm run build` to clean and release everything into `dist/`. The command `npm run watch` will monitor for changes and update the `dist/` directory, giving you a speedier workflow during development.
+
+Serve the files locally with the command `python -m SimpleHTTPServer` from inside the `/dist` directory, to `http://localhost:8000/`.
 
 # License
 

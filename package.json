@@ -4,7 +4,7 @@
   "description": "Predictive shopping list",
   "main": "index.js",
   "watch": {
-    "build": {
+    "cp:src": {
       "patterns": [
         "source"
       ],
