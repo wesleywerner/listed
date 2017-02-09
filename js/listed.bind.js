@@ -13,7 +13,7 @@ setInterval( function() {
   Listed.methods.save( function() {
     Materialize.toast('changes saved', 1500);
     });
-  }, 10000);
+  }, 2000);
 
 // toggle loading as complete
 setTimeout( function() { Listed.data.loading = false; }, 1000);
