@@ -54,6 +54,18 @@
     }
   }
   
+  ui.promptRename = function (hist) {
+    var newText = prompt('rename ' + hist.text, hist.text);
+    if (newText != undefined) {
+      var success = Listed.methods.rename(hist.text, newText);
+      if (success) {
+        Materialize.toast('Rename Success', 5000);
+      } else {
+        Materialize.toast('Rename failed. ' + newText + ' exists', 5000);
+      }
+    }
+  }
+  
   ui.setColor = function (color) {
     Listed.data.color = color;
     Listed.data.saved = false;
