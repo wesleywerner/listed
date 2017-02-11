@@ -93,11 +93,29 @@ describe('Listed Test Suite', function() {
       expect(c).to.be.equal(0);
     })
 
+    it('should rename item text', function() {
+      Listed.methods.addItem('item FA');
+      Listed.methods.rename('item FA', 'item FC');
+      var oldItem = Listed.methods.findItemAt('item FA');
+      expect(oldItem).to.be.equal(-1);
+      var newItem = Listed.methods.findItemAt('item FC');
+      expect(newItem).to.not.be.equal(-1);
+    });
+    
+    it('should not rename item to existing text', function() {
+      Listed.methods.addItem('item FA');
+      Listed.methods.addItem('item FC');
+      Listed.methods.rename('item FA', 'item FC');
+      var oldItem = Listed.methods.findItemAt('item FA');
+      expect(oldItem).to.not.be.equal(-1);
+    });
+    
   });
 
   describe('history management methods', function() {
     
     beforeEach(function() {
+      Listed.data.list = [];
       Listed.data.history = [];
     });
     
@@ -213,6 +231,28 @@ describe('Listed Test Suite', function() {
       Listed.methods.undoHistory('item EC', '2017-02-05');
       var item = Listed.methods.findHistory('item EC');
       expect(item.dates).to.deep.equal(['2017-02-04', '2017-02-05', '2017-02-06']);
+    });
+    
+    it('should rename history text', function() {
+      Listed.methods.addHistory('item FA', '2017-02-04');
+      Listed.methods.addHistory('item FA', '2017-02-05');
+      Listed.methods.addHistory('item FA', '2017-02-06');
+      Listed.methods.addHistory('item FB', '2017-02-04');
+      Listed.methods.rename('item FA', 'item FC');
+      var oldHistory = Listed.methods.findHistoryAt('item FA');
+      expect(oldHistory).to.be.equal(-1);
+      var newHistory = Listed.methods.findHistoryAt('item FC');
+      expect(newHistory).to.not.be.equal(-1);
+    });
+    
+    it('should not rename history to existing text', function() {
+      Listed.methods.addHistory('item FA', '2017-02-04');
+      Listed.methods.addHistory('item FA', '2017-02-05');
+      Listed.methods.addHistory('item FA', '2017-02-06');
+      Listed.methods.addHistory('item FC', '2017-02-04');
+      Listed.methods.rename('item FA', 'item FC');
+      var oldHistory = Listed.methods.findHistoryAt('item FA');
+      expect(oldHistory).to.not.be.equal(-1);
     });
     
     it.skip('should limit history length');

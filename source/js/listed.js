@@ -201,6 +201,21 @@ Listed.methods.mergeHistory = function (itemA, itemB) {
   Listed.data.saved = false;
 }
 
+Listed.methods.rename = function (oldText, newText) {
+  // prevent renaming to any existing
+  var existingItem = Listed.methods.findItemAt(newText) > -1;
+  var existingHist = Listed.methods.findHistoryAt(newText) > -1;
+  if (existingItem || existingHist) return false;
+  // rename item
+  var item = Listed.methods.findItem(oldText);
+  if (item != undefined) item.text = newText;
+  // rename history
+  var hist = Listed.methods.findHistory(oldText);
+  if (hist != undefined) hist.text = newText;
+  Listed.data.saved = false;
+  return true;
+}
+
 Listed.methods.load = function (done) {
   if (typeof localforage != 'undefined') {
     localforage.getItem('data', function (err, value) {
