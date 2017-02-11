@@ -61,7 +61,8 @@
           },
           title: {
             display: true,
-            text: 'What I buy per month on average'
+            text: 'What I buy per month on average',
+            fontSize: 30
           }
         }
     });
@@ -76,8 +77,7 @@
     if (item.dates.length < 2) return;
     
     // data points match to all dates between history start and end.
-    // a 1 indicates a date is in the history, a 0 means that date is absent in history.
-    var data = []; // always include the first date
+    var data = [];
     var labels = [];
     var firstDate = moment(item.dates[0]);
     var lastDate = moment(item.dates.slice(-1)[0]);
@@ -98,10 +98,6 @@
       data.push(totalPurchases);
 
     }
-    
-    console.log(item.dates);
-    console.log(data);
-    console.log(labels);
     
     var chartData = {
         labels: labels,
@@ -133,7 +129,8 @@
           },
           title: {
             display: true,
-            text: 'Purchase History per month'
+            text: 'Purchase History per month',
+            fontSize: 30
           }
         }
     });
