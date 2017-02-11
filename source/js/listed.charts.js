@@ -55,7 +55,6 @@
         options: {
           onClick: function(evt, a) { 
             if (a.length == 1) {
-              console.log(a[0]); 
               Listed.methods.loadItemHistoryChart(a[0]._view.label, a[0]._view.backgroundColor);
             }
           },
@@ -134,6 +133,8 @@
           }
         }
     });
+    
+    zenscroll.to(document.getElementById('historyChart'));
 
   }
   
