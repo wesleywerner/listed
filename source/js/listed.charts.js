@@ -1,9 +1,12 @@
 (function(){
     
   /**
-   * The ui object gets merged into the Vue instance's methods property.
+   * The graph object gets merged into the Vue instance's methods property.
    */
   var graphs = {};
+  
+  // store generate chart instances
+  Listed.charts = {};
   
   graphs.loadGraphs = function () {
     
@@ -46,13 +49,95 @@
             }]
     };
 
-    var mostChart = new Chart(ctx, {
+    Listed.charts.mostChart = new Chart(ctx, {
         type: 'doughnut',
         data: dataObj,
         options: {
-
+          onClick: function(evt, a) { 
+            if (a.length == 1) {
+              console.log(a[0]); 
+              Listed.methods.loadItemHistoryChart(a[0]._view.label, a[0]._view.backgroundColor);
+            }
+          },
+          title: {
+            display: true,
+            text: 'What I buy per month on average'
+          }
         }
     });
+  }
+  
+  graphs.loadItemHistoryChart = function (text, color) {
+    
+    var ctx = "historyChart";
+    var item = Listed.methods.findHistory(text);
+    var frequency = Listed.methods.findPrediction(text).frequency;
+    if (item == null) return;
+    if (item.dates.length < 2) return;
+    
+    // data points match to all dates between history start and end.
+    // a 1 indicates a date is in the history, a 0 means that date is absent in history.
+    var data = []; // always include the first date
+    var labels = [];
+    var firstDate = moment(item.dates[0]);
+    var lastDate = moment(item.dates.slice(-1)[0]);
+    var totalMonths = Math.abs( firstDate.diff(lastDate, 'months') ) + 1;
+    
+    for (var i=0; i<=totalMonths; i++) {
+      
+      if (i > 0) firstDate.add(1, 'months');
+      
+      //var current = firstDate.format('YYYY-MM-DD');
+      labels.push(firstDate.format('MMM YYYY'));
+      
+      var totalPurchases = item.dates.filter( function(purchaseDate) {
+        var pd = moment(purchaseDate);
+        return pd.month() == firstDate.month() && pd.year() == firstDate.year();
+      }).length;
+      
+      data.push(totalPurchases);
+
+    }
+    
+    console.log(item.dates);
+    console.log(data);
+    console.log(labels);
+    
+    var chartData = {
+        labels: labels,
+        datasets: [
+            {
+              label: text,
+              backgroundColor: (new Array(totalMonths+1).fill(color)),
+              borderColor: [],
+              borderWidth: 1,
+              data: data,
+            }
+        ]
+    };
+    
+    if (Listed.charts.purchaseHistory != undefined) {
+      Listed.charts.purchaseHistory.destroy();
+    }
+    
+    Listed.charts.purchaseHistory = new Chart(ctx, {
+        type: 'bar',
+        data: chartData,
+        options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:true
+                  }
+              }]
+          },
+          title: {
+            display: true,
+            text: 'Purchase History per month'
+          }
+        }
+    });
+
   }
   
   jQuery.extend(Listed.methods, graphs);
