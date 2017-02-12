@@ -14,7 +14,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-      <div id="app" class="lighten-5" v-bind:class="color" style="height:100%">
+      <div id="app" class="lighten-5" v-bind:class="color" style="height:100%; min-height:100vh;">
 
         <div class="progress" v-show="loading">
             <div class="indeterminate"></div>
@@ -34,16 +34,16 @@
 
               <h5>Flavour</h5>
               <div class="collection">
-                <a href="#!" v-on:click="setColor('red')" class="collection-item lighten-1 black-text red">Tomato</a>
-                <a href="#!" v-on:click="setColor('pink')" class="collection-item lighten-1 black-text pink">Cherry</a>
-                <a href="#!" v-on:click="setColor('purple')" class="collection-item lighten-1 black-text purple">Grape</a>
-                <a href="#!" v-on:click="setColor('indigo')" class="collection-item lighten-1 black-text indigo">Blueberry</a>
-                <a href="#!" v-on:click="setColor('cyan')" class="collection-item lighten-1 black-text cyan">Bubblegum</a>
-                <a href="#!" v-on:click="setColor('green')" class="collection-item lighten-1 black-text green">Celery</a>
-                <a href="#!" v-on:click="setColor('lime')" class="collection-item lighten-1 black-text lime">Lime</a>
-                <a href="#!" v-on:click="setColor('amber')" class="collection-item lighten-1 black-text amber">Honey</a>
-                <a href="#!" v-on:click="setColor('deep-orange')" class="collection-item lighten-1 black-text deep-orange">Guava</a>
-                <a href="#!" v-on:click="setColor('grey')" class="collection-item lighten-1 black-text grey">Neutral</a>
+                <a href="#!" v-on:click="setColor('red')" class="collection-item white-text red">Tomato</a>
+                <a href="#!" v-on:click="setColor('pink')" class="collection-item white-text pink">Cherry</a>
+                <a href="#!" v-on:click="setColor('purple')" class="collection-item white-text purple">Grape</a>
+                <a href="#!" v-on:click="setColor('indigo')" class="collection-item white-text indigo">Blueberry</a>
+                <a href="#!" v-on:click="setColor('cyan')" class="collection-item white-text cyan">Bubblegum</a>
+                <a href="#!" v-on:click="setColor('green')" class="collection-item white-text green">Celery</a>
+                <a href="#!" v-on:click="setColor('lime')" class="collection-item white-text lime">Lime</a>
+                <a href="#!" v-on:click="setColor('amber')" class="collection-item white-text amber">Honey</a>
+                <a href="#!" v-on:click="setColor('deep-orange')" class="collection-item white-text deep-orange">Guava</a>
+                <a href="#!" v-on:click="setColor('grey')" class="collection-item white-text grey">Neutral</a>
               </div>
           
           </div>  <!-- /section -->
