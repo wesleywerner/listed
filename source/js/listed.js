@@ -12,7 +12,7 @@ Listed.data.list = [];
 Listed.data.prediction = [];
 Listed.data.newItemText = 'new item';
 Listed.data.saved = true;
-Listed.data.color = '';
+Listed.data.color = 'red';
 
 /**
  * Computed values.
