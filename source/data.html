@@ -14,7 +14,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-      <div id="app">
+      <div id="app" class="lighten-5" v-bind:class="color" style="height:100%">
 
         <div class="progress" v-show="loading">
             <div class="indeterminate"></div>
@@ -34,7 +34,7 @@
 
               <div class="row">
                 <div class="col s12">
-                  <ul class="tabs tabs-fixed-width">
+                  <ul class="tabs">
                     <li class="tab col s3"><a href="#dataItems" class="active">Items</a></li>
                     <li class="tab col s3"><a href="#dataMerge">Merge</a></li>
                   </ul>
