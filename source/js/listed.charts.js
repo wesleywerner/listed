@@ -86,7 +86,7 @@
           },
           title: {
             display: true,
-            text: 'What I buy per month on average',
+            text: 'Monthly Purchase Average',
             fontSize: 30
           }
         }
@@ -154,7 +154,7 @@
           },
           title: {
             display: true,
-            text: 'Purchase History per month',
+            text: 'Purchase History',
             fontSize: 30
           }
         }
