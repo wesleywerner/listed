@@ -51,6 +51,7 @@
   ui.promptCleanList = function () {
     if (confirm('Clean checked items from your list?')) {
       Listed.methods.cleanList();
+      Listed.data.saved = false;
     }
   }
   
