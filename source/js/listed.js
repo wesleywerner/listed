@@ -20,7 +20,7 @@ Listed.data.color = 'red';
  
 // bring attention to the recommended icon if the list is empty
 Listed.computed.hiliteRecommendations = function () {
-  return (Listed.data.list.length == 0 && Listed.data.prediction.length == 0);
+  return (Listed.data.list.length == 0);
 }
 
 /**
