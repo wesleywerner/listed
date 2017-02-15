@@ -31,6 +31,7 @@
   
   // true while the page is loading
   state.loading = true;
+  state.saveTimerId = null;
   
   // bring attention to the recommended icon
   state.hiliteRecommendations = true;
@@ -67,7 +68,7 @@
   ui.promptCleanList = function () {
     if (confirm('Clean checked items from your list?')) {
       Listed.methods.cleanList();
-      Listed.data.saved = false;
+      Listed.methods.startSave();
     }
   }
   
@@ -85,7 +86,7 @@
   
   ui.setColor = function (color) {
     Listed.data.color = color;
-    Listed.data.saved = false;
+    Listed.methods.startSave();
   }
   
   jQuery.extend(Listed.methods, ui);
