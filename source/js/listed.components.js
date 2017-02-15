@@ -33,6 +33,7 @@ Vue.component('navigation', {
               <li><a v-bind:class="[color, { \'lighten-3 black-text\': view == \'config\' }]" href="config.html">Config</a></li> \
             </ul> \
             <ul class="side-nav" id="mobile-demo"> \
+              <li><h5 class="center-align black-text"><i class="material-icons">stars</i></h5></li> \
               <li><a href="index.html">List</a></li> \
               <li><a href="data.html">Data</a></li> \
               <li><a href="graphs.html">Graphs</a></li> \
