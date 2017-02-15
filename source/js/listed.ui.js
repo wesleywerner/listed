@@ -101,5 +101,8 @@ $( document ).ready(function(){
     draggable: true,
     closeOnClick: true
   });
+  
+  // Initialize collapsible containers
+  $('.collapsible').collapsible();
 
 })
