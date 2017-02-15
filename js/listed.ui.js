@@ -31,6 +31,7 @@
   
   // true while the page is loading
   state.loading = true;
+  state.saveTimerId = null;
   
   // bring attention to the recommended icon
   state.hiliteRecommendations = true;
@@ -47,6 +48,11 @@
   
   ui.showHistoryDates = function (hist) {
     alert(hist.dates.join('\n'));
+  }
+  
+  ui.showRecommendations = function () {
+    Listed.methods.predictFrequencies();
+    $('#recommendedPopup').modal('open');
   }
   
   ui.promptRemoveHistory = function (hist) {
@@ -67,7 +73,7 @@
   ui.promptCleanList = function () {
     if (confirm('Clean checked items from your list?')) {
       Listed.methods.cleanList();
-      Listed.data.saved = false;
+      Listed.methods.startSave();
     }
   }
   
@@ -85,7 +91,7 @@
   
   ui.setColor = function (color) {
     Listed.data.color = color;
-    Listed.data.saved = false;
+    Listed.methods.startSave();
   }
   
   jQuery.extend(Listed.methods, ui);
@@ -96,6 +102,12 @@
 $( document ).ready(function(){
 
   // Initialize collapse button
-  $(".button-collapse").sideNav();
+  $(".button-collapse").sideNav( {
+    draggable: true,
+    closeOnClick: true
+  });
+  
+  // Initialize collapsible containers
+  $('.collapsible').collapsible();
 
 })

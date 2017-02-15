@@ -89,7 +89,7 @@ Listed.methods.addItem = function (text) {
   if (text == null || text == '') return false;
   if (Listed.methods.findItemAt(text) == -1) {
     Listed.data.list.push({'text':text, 'checked': false});
-    Listed.data.saved = false;
+    Listed.methods.startSave();
   }
 }
 
@@ -97,7 +97,7 @@ Listed.methods.removeItem = function (text) {
   var idx = Listed.methods.findItemAt(text);
   if (idx > -1) {
     Listed.data.list.splice(idx, 1);
-    Listed.data.saved = false;
+    Listed.methods.startSave();
   }
 }
 
@@ -107,7 +107,7 @@ Listed.methods.amendItem = function (text, amendment) {
   var idx = Listed.methods.findItemAt(text);
   if (idx > -1) {
     Listed.data.list[idx].text = amendment;
-    Listed.data.saved = false;
+    Listed.methods.startSave();
   }
 }
 
@@ -152,7 +152,7 @@ Listed.methods.addHistory = function (text, date) {
       item.dates.push(historyDate.format('YYYY-MM-DD'));
     }
   }
-  Listed.data.saved = false;
+  Listed.methods.startSave();
 }
 
 Listed.methods.removeHistoryDate = function (text, date) {
@@ -161,7 +161,7 @@ Listed.methods.removeHistoryDate = function (text, date) {
     var idx = item.dates.indexOf(date);
     if (idx > -1) {
       item.dates.splice(idx, 1);
-      Listed.data.saved = false;
+      Listed.methods.startSave();
     }
   }
 }
@@ -170,7 +170,7 @@ Listed.methods.removeAllHistory = function (text) {
   var idx = Listed.methods.findHistoryAt(text);
   if (idx != -1) {
     Listed.data.history.splice(idx, 1);
-    Listed.data.saved = false;
+    Listed.methods.startSave();
   }
 }
 
@@ -185,7 +185,7 @@ Listed.methods.undoHistory = function (text, date) {
     var idx = item.dates.indexOf(formattedDate);
     if (idx == item.dates.length - 1) {
       item.dates.pop();
-      Listed.data.saved = false;
+      Listed.methods.startSave();
     }
   }
 }
@@ -198,7 +198,7 @@ Listed.methods.amendHistory = function (text, amendment) {
   var idx = Listed.methods.findHistoryAt(text);
   if (idx > -1) {
     Listed.data.history[idx].text = amendment;
-    Listed.data.saved = false;
+    Listed.methods.startSave();
   }
 }
 
@@ -214,7 +214,7 @@ Listed.methods.mergeHistory = function (itemA, itemB) {
   });
   var idx = Listed.methods.findHistoryAt(itemB);
   Listed.data.history.splice(idx, 1);
-  Listed.data.saved = false;
+  Listed.methods.startSave();
 }
 
 Listed.methods.rename = function (oldText, newText) {
@@ -228,7 +228,7 @@ Listed.methods.rename = function (oldText, newText) {
   // rename history
   var hist = Listed.methods.findHistory(oldText);
   if (hist != undefined) hist.text = newText;
-  Listed.data.saved = false;
+  Listed.methods.startSave();
   return true;
 }
 
@@ -264,6 +264,22 @@ Listed.methods.save = function (done) {
   }
 }
 
+Listed.methods.startSave = function () {
+  if (typeof localforage == 'undefined') return;
+  // reset timer on new save requests
+  if (Listed.data.saveTimerId != null) {
+    clearTimeout(Listed.data.saveTimerId);
+  }
+  // signal changed state
+  Listed.data.saved = false;
+  // ui notify on save
+  var notify = function() { Materialize.toast('saved', 1500); }
+  // save timer
+  Listed.data.saveTimerId = setTimeout( function() {
+    Listed.methods.save( notify );
+    Listed.data.saveTimerId = null;
+    }, 2000 );
+}
 
 Listed.methods.findPredictionAt = function (text) {
   var idx = Listed.data.prediction.findIndex( function(n) { 

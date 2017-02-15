@@ -19,14 +19,9 @@
  */
 Vue.component('navigation', {
   props: ['view', 'color', 'saved', 'hiliteRecommendations'],
-  methods: {
-    callPredictFrequencies: function () {
-      
-    }
-  },
   template: '<nav v-bind:class="color" role="navigation"> \
           <div class="nav-wrapper container"> \
-            <a id="logo-container" href="#recommendedPopup" class="brand-logo" v-on:click="callPredictFrequencies"> \
+            <a id="logo-container" href="#" class="brand-logo" v-on:click="titleClicked"> \
               <i class="material-icons medium animated" v-bind:class="{ \'infinite tada\': hiliteRecommendations }">stars</i>Listed</a> \
             <!-- mobile collapse hamburger --> \
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a> \
@@ -38,6 +33,7 @@ Vue.component('navigation', {
               <li><a v-bind:class="[color, { \'lighten-3 black-text\': view == \'config\' }]" href="config.html">Config</a></li> \
             </ul> \
             <ul class="side-nav" id="mobile-demo"> \
+              <li><h5 class="center-align black-text"><i class="material-icons">stars</i></h5></li> \
               <li><a href="index.html">List</a></li> \
               <li><a href="data.html">Data</a></li> \
               <li><a href="graphs.html">Graphs</a></li> \
@@ -50,7 +46,12 @@ Vue.component('navigation', {
               </li> \
             </ul> \
           </div> \
-        </nav>'
+        </nav>',
+  methods: {
+    titleClicked: function () {
+      this.$emit('navaction');
+    }
+  },
 })
 
 
