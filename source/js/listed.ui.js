@@ -50,6 +50,11 @@
     alert(hist.dates.join('\n'));
   }
   
+  ui.showRecommendations = function () {
+    Listed.methods.predictFrequencies();
+    $('#recommendedPopup').modal('open');
+  }
+  
   ui.promptRemoveHistory = function (hist) {
     if (confirm('Remove '+hist.text+'?')) {
       Listed.methods.removeAllHistory(hist.text);
