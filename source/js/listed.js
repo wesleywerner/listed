@@ -233,39 +233,34 @@ Listed.methods.rename = function (oldText, newText) {
 }
 
 Listed.methods.load = function (done) {
-  if (typeof localforage != 'undefined') {
-    localforage.getItem('data', function (err, value) {
-      if (err) {
-        alert(err);
-      } else if (value) {
-        value.list.forEach(function(n){ Listed.data.list.push(n) });
-        value.history.forEach(function(n){ Listed.data.history.push(n) });
-        Listed.data.color = value.color;
-        Listed.data.saved = true;
-        // success notice
-        if (typeof done == 'function') done();
-      }
-    });
+  if (typeof localStorage != 'undefined') {
+    var data = localStorage.getItem('data');
+    if (data == null || data == undefined) {
+      Listed.data.saved = true;
+      return;
+    }
+    var value = JSON.parse(data);
+    value.list.forEach(function(n){ Listed.data.list.push(n) });
+    value.history.forEach(function(n){ Listed.data.history.push(n) });
+    Listed.data.color = value.color;
+    Listed.data.saved = true;
+    // success notice
+    if (typeof done == 'function') done();
   }
 }
 
 Listed.methods.save = function (done) {
   if (Listed.data.saved) return;
-  if (typeof localforage != 'undefined') {
-    localforage.setItem('data', Listed.data, function (err, value) {
-      if (err) {
-        alert(err);
-      } else {
-        Listed.data.saved = true;
-        // success notice
-        if (typeof done == 'function') done();
-      }
-    });
+  if (typeof localStorage != 'undefined') {
+    localStorage.setItem('data', JSON.stringify(Listed.data));
+    Listed.data.saved = true;
+    // success notice
+    if (typeof done == 'function') done();
   }
 }
 
 Listed.methods.startSave = function () {
-  if (typeof localforage == 'undefined') return;
+  if (typeof localStorage == 'undefined') return;
   // reset timer on new save requests
   if (Listed.data.saveTimerId != null) {
     clearTimeout(Listed.data.saveTimerId);
