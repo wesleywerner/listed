@@ -48,3 +48,14 @@ if(typeof Array.prototype.findIndex !== "function") {
     return result;
   };
 }
+
+if(typeof Array.prototype.fill !== "function") {
+  Array.prototype.fill = function(v) {
+    var result = new Array(this.length);
+    if (this === null) throw new TypeError;
+    for (var i = 0; i < this.length; i++) {
+      result[i] = v;
+    }
+    return result;
+  }
+}
