@@ -4,6 +4,7 @@ if (typeof require != 'undefined') {
   var expect = require('chai').expect;
   var moment = require('moment');
   var Listed = require('../source/js/listed.js');
+  var Polyfils = require('../source/js/listed.polyfills.js');
 }
 
 describe('Listed Test Suite', function() {
