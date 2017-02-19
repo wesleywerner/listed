@@ -6,9 +6,9 @@
   "watch": {
     "cp:src": {
       "patterns": [
-        "source"
+        "www"
       ],
-      "extensions": "js,html",
+      "extensions": "js,html,css",
       "ignore": "",
       "quiet": true
     }
@@ -23,7 +23,7 @@
     "cp:animate": "cp node_modules/animate.css/animate.min.css dist/css/",
     "cp:chartjs": "cp node_modules/chart.js/dist/Chart.min.js dist/js/",
     "cp:zenscroll": "cp node_modules/zenscroll/zenscroll-min.js dist/js/",
-    "cp:src": "cp -r source/* dist/",
+    "cp:src": "cp -r www/* dist/",
     "build": "npm run clean && npm run cp:src && npm run cp:vue && npm run cp:moment && npm run cp:materialize && npm run cp:animate && npm run cp:chartjs && npm run cp:zenscroll"
   },
   "author": "Wesley Werner",
