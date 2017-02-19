@@ -71,9 +71,7 @@
                       </tr>
                     </tbody>
                   </table>
-                  <div class="section">
-                    <button type="button" class="btn waves-effect" onclick="addTestData()"><i class="material-icons">perm_data_setting</i> Add Test Data</button>
-                  </div>
+                  <button type="button" class="btn waves-effect" onclick="addTestData()">Add Test Data</button>
                 </div>
                 <div id="dataMerge" class="col s12">
                   <merge-selection v-bind:data="sortedHistory" v-on:do-merge="promptMerge(arguments[0], arguments[1])"></merge-selection>
