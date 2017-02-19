@@ -3,8 +3,8 @@ if (typeof require != 'undefined') {
   var assert = require('chai').assert;
   var expect = require('chai').expect;
   var moment = require('moment');
-  var Shopt = require('../www/js/shopt.logic.js');
-  var Polyfils = require('../www/js/polyfills.js');
+  var Shopt = require('../source/js/shopt.logic.js');
+  var Polyfils = require('../source/js/polyfills.js');
 }
 
 describe('Shopt Test Suite', function() {

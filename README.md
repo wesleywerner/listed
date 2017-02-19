@@ -12,6 +12,9 @@ All data is saved in the browser local storage. No data is sent into the cloud.
 
 You are expected to install the dependencies with `npm install` and `npm run build` before anything else. 
 
+* `source/` contains the application code
+* `www/` is the build target and created on build
+
 ## Testing
 
 The test suite can run in either CLI or the browser, except for the tests that depend on a browser environment, localStorage for example, these will be skipped in the CLI environment.
@@ -20,9 +23,9 @@ Run `npm test` for the CLI, or open `test/browser.html` in your browser.
 
 ## Building
 
-Run `npm run build` to clean and release everything into `dist/`. The command `npm run watch` will monitor for changes and update the `dist/` directory, giving you a speedier workflow during development.
+Run `npm run build` to clean and release everything into `www/`. The command `npm run watch` will monitor for changes and update the `www/` directory, giving you a speedier workflow during development.
 
-Serve the files locally with the command `python -m SimpleHTTPServer` from inside the `/dist` directory.
+Serve the files locally with the command `python -m SimpleHTTPServer` from inside the `/www` directory.
 
 ### Android Build
 
@@ -43,6 +46,8 @@ Finally to build the APK:
 If you have the Android studio emulator installed, you can build and emulate with:
 
   cordova run android
+
+For debugging ease with the emulator, or a real device that us usb debugging enabled, use Google's Chrome browser and navigate to chrome://inspect/#devices to get an inspector.
 
 # License
 
