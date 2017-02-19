@@ -126,6 +126,59 @@ Vue.component('item-autocomplete', {
 })
 
 
+
+/**
+ * A text input an accompanying select list of history items.
+ * Props:
+ *    id: uniquely identity this component.
+ *    history: the history items to auto complete.
+ *    auto-clear: if "true" the input will clear after input key enter.
+ *    placeholder: input placeholder text.
+ *    show-button: inline enter button that triggers the selected event.
+ * Events:
+ *    selected: fired when the enter key is used on the input.
+ */
+Vue.component('item-autoselect', {
+  props: ['value', 'id', 'history', 'autoClear', 'placeholder'],
+  data: function() {
+    return {
+      inputValue: '',
+      dataId: this.id + 'data'
+    }
+  },
+  template: '<div class="row"> \
+              <div class="col s8"> \
+                <div class="input-field"> \
+                <input type="text" v-bind:id="id" v-model="inputValue" v-on:keyup.enter="selected" v-on:input="updateInput" /> \
+                <label v-bind:for="id">{{ placeholder }}</label> \
+                </div> \
+              </div> \
+              <div class="col s4"> \
+                <a class="dropdown-button btn-large btn-flat" href="#" v-bind:data-activates="dataId"><i class="material-icons">playlist_add</i></a> \
+                <ul v-bind:id="dataId" class="dropdown-content"> \
+                  <li v-for="h in history"><a href="#!" v-on:click="setInputValue(h)">{{ h.text }}</a></li> \
+                </ul> \
+              </div> \
+             </div>',
+  methods: {
+    selected: function() {
+      this.$emit('selected', this.inputValue);
+      if (this.autoClear == 'true') {
+        this.inputValue = '';
+      }
+    },
+    updateInput: function() {
+      this.$emit('input', this.inputValue);
+    },
+    setInputValue: function(h) {
+      this.inputValue = h.text;
+      this.selected();
+      setTimeout(Materialize.updateTextFields, 150);
+    }
+  }
+})
+
+
 Vue.component('merge-selection', {
   props: ['history'],
   data: function() {
@@ -135,8 +188,8 @@ Vue.component('merge-selection', {
     }
   },
   template: '<span> \
-          <item-autocomplete id="merge-B" v-bind:history="history" v-model="mergeBText" placeholder="Select an item"></item-autocomplete> \
-          <item-autocomplete id="merge-A" v-bind:history="history" v-model="mergeAText" placeholder="merge it into this item"></item-autocomplete> \
+          <item-autoselect id="merge-B" v-bind:history="history" v-model="mergeBText" placeholder="Select an item"></item-autoselect> \
+          <item-autoselect id="merge-A" v-bind:history="history" v-model="mergeAText" placeholder="merge it into this item"></item-autoselect> \
           <button class="waves-effect waves-light btn" v-on:click="doMerge">Merge</button> </span>',
   methods: {
     doMerge: function() {
