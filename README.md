@@ -1,4 +1,6 @@
-# Listed
+# Shopt
+
+_The smart shopping list_
 
 This is a shopping list type web app that remembers when you check items off your list. After an item has been checked a few times, on seperate days, the app can predict and recommend when you might next need to buy that item.
 

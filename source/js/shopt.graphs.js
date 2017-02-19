@@ -22,18 +22,18 @@
   var graphs = {};
   
   // store generate chart instances
-  Listed.charts = {};
+  Shopt.charts = {};
   
   graphs.loadGraphs = function () {
     
     // Most Chart
     var ctx = "mostChart";
     
-    var labels = Listed.data.prediction.map( function(h) {
+    var labels = Shopt.data.prediction.map( function(h) {
         return h.text;
     });
     
-    var data = Listed.data.prediction.map( function(h) {
+    var data = Shopt.data.prediction.map( function(h) {
         return Math.ceil(30 / h.frequency);
     });
 
@@ -91,13 +91,13 @@
             }]
     };
 
-    Listed.charts.mostChart = new Chart(ctx, {
+    Shopt.charts.mostChart = new Chart(ctx, {
         type: 'doughnut',
         data: dataObj,
         options: {
           onClick: function(evt, a) { 
             if (a.length == 1) {
-              Listed.methods.loadItemHistoryChart(a[0]._view.label, a[0]._view.backgroundColor);
+              Shopt.methods.loadItemHistoryChart(a[0]._view.label, a[0]._view.backgroundColor);
             }
           },
           title: {
@@ -112,8 +112,8 @@
   graphs.loadItemHistoryChart = function (text, color) {
     
     var ctx = "historyChart";
-    var item = Listed.methods.findHistory(text);
-    var frequency = Listed.methods.findPrediction(text).frequency;
+    var item = Shopt.methods.findHistory(text);
+    var frequency = Shopt.methods.findPrediction(text).frequency;
     if (item == null) return;
     if (item.dates.length < 2) return;
     
@@ -153,11 +153,11 @@
         ]
     };
     
-    if (Listed.charts.purchaseHistory != undefined) {
-      Listed.charts.purchaseHistory.destroy();
+    if (Shopt.charts.purchaseHistory != undefined) {
+      Shopt.charts.purchaseHistory.destroy();
     }
     
-    Listed.charts.purchaseHistory = new Chart(ctx, {
+    Shopt.charts.purchaseHistory = new Chart(ctx, {
         type: 'bar',
         data: chartData,
         options: {
@@ -180,6 +180,6 @@
 
   }
   
-  jQuery.extend(Listed.methods, graphs);
+  jQuery.extend(Shopt.methods, graphs);
     
 }())

@@ -16,13 +16,13 @@
 
 var app = new Vue({
   el: '#app',
-  data: Listed.data,
-  methods: Listed.methods,
-  computed: Listed.computed
+  data: Shopt.data,
+  methods: Shopt.methods,
+  computed: Shopt.computed
 });
 
 // load the user list and history data
-Listed.methods.load(Listed.methods.dataLoaded);   // calls listed.ui method
+Shopt.methods.load(Shopt.methods.dataLoaded);   // calls Shopt.ui method
 
 // toggle loading as complete
-setTimeout( function() { Listed.data.loading = false; }, 1000);
+setTimeout( function() { Shopt.data.loading = false; }, 1000);

@@ -1,7 +1,7 @@
 {
-  "name": "listed",
+  "name": "shopt",
   "version": "1.0.1",
-  "description": "Predictive shopping list",
+  "description": "The smart shopping list",
   "main": "index.js",
   "watch": {
     "cp:src": {

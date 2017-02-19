@@ -22,7 +22,7 @@ Vue.component('navigation', {
   template: '<nav v-bind:class="color" role="navigation"> \
           <div class="nav-wrapper container"> \
             <a id="logo-container" href="#" class="brand-logo" v-on:click="titleClicked"> \
-              <i class="material-icons medium animated" v-bind:class="{ \'infinite tada\': hiliteRecommendations }">stars</i>Listed</a> \
+              <i class="material-icons medium animated" v-bind:class="{ \'infinite tada\': hiliteRecommendations }">stars</i>Shopt</a> \
             <!-- mobile collapse hamburger --> \
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a> \
             <!-- navbar full and mobile links --> \

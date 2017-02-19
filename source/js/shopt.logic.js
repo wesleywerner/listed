@@ -19,38 +19,38 @@ if (typeof require != 'undefined') {
   var moment = require('moment');
 }
 
-var Listed = { 'version': 1 };
-Listed.factory = {};
-Listed.computed = {};
-Listed.data = {};
-Listed.data.history = [];
-Listed.data.list = [];
-Listed.data.prediction = [];
-Listed.data.newItemText = 'new item';
-Listed.data.saved = true;
-Listed.data.color = 'red';
+var Shopt = { 'version': 1 };
+Shopt.factory = {};
+Shopt.computed = {};
+Shopt.data = {};
+Shopt.data.history = [];
+Shopt.data.list = [];
+Shopt.data.prediction = [];
+Shopt.data.newItemText = 'new item';
+Shopt.data.saved = true;
+Shopt.data.color = 'red';
 
 /**
  * Computed values.
  */
  
 // bring attention to the recommended icon if the list is empty
-Listed.computed.hiliteRecommendations = function () {
-  return (Listed.data.list.length == 0);
+Shopt.computed.hiliteRecommendations = function () {
+  return (Shopt.data.list.length == 0);
 }
 
 /**
  * Factories.
  */
  
-Listed.factory.History = function (text, date) {
+Shopt.factory.History = function (text, date) {
   return {
     'text': text,
     'dates': [date]
   }
 }
 
-Listed.factory.Prediction = function (text, frequency, dueDate, dueDays) {
+Shopt.factory.Prediction = function (text, frequency, dueDate, dueDays) {
   return {
     'text': text,
     'frequency': frequency,
@@ -62,80 +62,80 @@ Listed.factory.Prediction = function (text, frequency, dueDate, dueDays) {
 /**
  * Recommend predictions not already in the shopping list.
  */
-Listed.computed.recommendations = function () {
-  return Listed.data.prediction.filter( function(n) {
-    return Listed.methods.findItemAt(n.text) == -1;
+Shopt.computed.recommendations = function () {
+  return Shopt.data.prediction.filter( function(n) {
+    return Shopt.methods.findItemAt(n.text) == -1;
   });
 }
 
-// method context is scoped via Vue so that 'this' references the Listed.data object
-Listed.methods = {};
+// method context is scoped via Vue so that 'this' references the Shopt.data object
+Shopt.methods = {};
 
-Listed.methods.findItemAt = function (text) {
-  var idx = Listed.data.list.findIndex( function(n) { 
+Shopt.methods.findItemAt = function (text) {
+  var idx = Shopt.data.list.findIndex( function(n) { 
     return n.text == text 
   });
   return idx;
 }
 
-Listed.methods.findItem = function (text) {
-  var idx = Listed.data.list.find( function(n) { 
+Shopt.methods.findItem = function (text) {
+  var idx = Shopt.data.list.find( function(n) { 
     return n.text == text
   });
   return idx;
 }
 
-Listed.methods.addItem = function (text) {
+Shopt.methods.addItem = function (text) {
   if (text == null || text == '') return false;
-  if (Listed.methods.findItemAt(text) == -1) {
-    Listed.data.list.push({'text':text, 'checked': false});
-    Listed.methods.startSave();
+  if (Shopt.methods.findItemAt(text) == -1) {
+    Shopt.data.list.push({'text':text, 'checked': false});
+    Shopt.methods.startSave();
   }
 }
 
-Listed.methods.removeItem = function (text) {
-  var idx = Listed.methods.findItemAt(text);
+Shopt.methods.removeItem = function (text) {
+  var idx = Shopt.methods.findItemAt(text);
   if (idx > -1) {
-    Listed.data.list.splice(idx, 1);
-    Listed.methods.startSave();
+    Shopt.data.list.splice(idx, 1);
+    Shopt.methods.startSave();
   }
 }
 
-Listed.methods.amendItem = function (text, amendment) {
+Shopt.methods.amendItem = function (text, amendment) {
   amendment = amendment || '';
   if (amendment.trim() == '') return;
-  var idx = Listed.methods.findItemAt(text);
+  var idx = Shopt.methods.findItemAt(text);
   if (idx > -1) {
-    Listed.data.list[idx].text = amendment;
-    Listed.methods.startSave();
+    Shopt.data.list[idx].text = amendment;
+    Shopt.methods.startSave();
   }
 }
 
-Listed.methods.cleanList = function () {
-  Listed.data.list = Listed.data.list.filter( function(n) {
+Shopt.methods.cleanList = function () {
+  Shopt.data.list = Shopt.data.list.filter( function(n) {
     return n.checked == false;
   })
 }
 
-Listed.methods.findHistoryAt = function (text) {
-  var idx = Listed.data.history.findIndex( function(n) { 
+Shopt.methods.findHistoryAt = function (text) {
+  var idx = Shopt.data.history.findIndex( function(n) { 
     return n.text == text 
   });
   return idx;
 }
 
-Listed.methods.findHistory = function (text) {
-  var idx = Listed.data.history.find( function(n) { 
+Shopt.methods.findHistory = function (text) {
+  var idx = Shopt.data.history.find( function(n) { 
     return n.text == text
   });
   return idx;
 }
 
-Listed.methods.addHistory = function (text, date) {
+Shopt.methods.addHistory = function (text, date) {
   // do not add empty items
   if (text == null || text == '') return false;
   // find existing item
-  var item = Listed.methods.findHistory(text);
+  var item = Shopt.methods.findHistory(text);
   // use the given moment, or use the current
   var historyDate = moment(date);
   if (!historyDate.isValid()) {
@@ -143,7 +143,7 @@ Listed.methods.addHistory = function (text, date) {
   }
   // add a new entry
   if (item == null) {
-    Listed.data.history.push(new Listed.factory.History(text, historyDate.format('YYYY-MM-DD')));
+    Shopt.data.history.push(new Shopt.factory.History(text, historyDate.format('YYYY-MM-DD')));
   }
   // add to existing entry
   else {
@@ -152,59 +152,59 @@ Listed.methods.addHistory = function (text, date) {
       item.dates.push(historyDate.format('YYYY-MM-DD'));
     }
   }
-  Listed.methods.startSave();
+  Shopt.methods.startSave();
 }
 
-Listed.methods.removeHistoryDate = function (text, date) {
-  var item = Listed.methods.findHistory(text);
+Shopt.methods.removeHistoryDate = function (text, date) {
+  var item = Shopt.methods.findHistory(text);
   if (item != null) {
     var idx = item.dates.indexOf(date);
     if (idx > -1) {
       item.dates.splice(idx, 1);
-      Listed.methods.startSave();
+      Shopt.methods.startSave();
     }
   }
 }
 
-Listed.methods.removeAllHistory = function (text) {
-  var idx = Listed.methods.findHistoryAt(text);
+Shopt.methods.removeAllHistory = function (text) {
+  var idx = Shopt.methods.findHistoryAt(text);
   if (idx != -1) {
-    Listed.data.history.splice(idx, 1);
-    Listed.methods.startSave();
+    Shopt.data.history.splice(idx, 1);
+    Shopt.methods.startSave();
   }
 }
 
-Listed.methods.undoHistory = function (text, date) {
+Shopt.methods.undoHistory = function (text, date) {
   date = moment(date);
   if (!date.isValid()) {
     date = moment();
   }
   var formattedDate = date.format('YYYY-MM-DD');
-  var item = Listed.methods.findHistory(text);
+  var item = Shopt.methods.findHistory(text);
   if (item != null) {
     var idx = item.dates.indexOf(formattedDate);
     if (idx == item.dates.length - 1) {
       item.dates.pop();
-      Listed.methods.startSave();
+      Shopt.methods.startSave();
     }
   }
 }
 
-Listed.methods.amendHistory = function (text, amendment) {
+Shopt.methods.amendHistory = function (text, amendment) {
   amendment = amendment || '';
   if (amendment.trim() == '') return;
-  var existing = Listed.methods.findHistoryAt(amendment);
+  var existing = Shopt.methods.findHistoryAt(amendment);
   if (existing > 1) return false;
-  var idx = Listed.methods.findHistoryAt(text);
+  var idx = Shopt.methods.findHistoryAt(text);
   if (idx > -1) {
-    Listed.data.history[idx].text = amendment;
-    Listed.methods.startSave();
+    Shopt.data.history[idx].text = amendment;
+    Shopt.methods.startSave();
   }
 }
 
-Listed.methods.mergeHistory = function (itemA, itemB) {
-  var a = Listed.methods.findHistory(itemA);
-  var b = Listed.methods.findHistory(itemB);
+Shopt.methods.mergeHistory = function (itemA, itemB) {
+  var a = Shopt.methods.findHistory(itemA);
+  var b = Shopt.methods.findHistory(itemB);
   if (a == null || b == null) return;
   b.dates.forEach( function(m) {
     var dateExists = a.dates.indexOf(m) > -1;
@@ -212,88 +212,88 @@ Listed.methods.mergeHistory = function (itemA, itemB) {
       a.dates.push(m);
     }
   });
-  var idx = Listed.methods.findHistoryAt(itemB);
-  Listed.data.history.splice(idx, 1);
-  Listed.methods.startSave();
+  var idx = Shopt.methods.findHistoryAt(itemB);
+  Shopt.data.history.splice(idx, 1);
+  Shopt.methods.startSave();
 }
 
-Listed.methods.rename = function (oldText, newText) {
+Shopt.methods.rename = function (oldText, newText) {
   // prevent renaming to any existing
-  var existingItem = Listed.methods.findItemAt(newText) > -1;
-  var existingHist = Listed.methods.findHistoryAt(newText) > -1;
+  var existingItem = Shopt.methods.findItemAt(newText) > -1;
+  var existingHist = Shopt.methods.findHistoryAt(newText) > -1;
   if (existingItem || existingHist) return false;
   // rename item
-  var item = Listed.methods.findItem(oldText);
+  var item = Shopt.methods.findItem(oldText);
   if (item != undefined) item.text = newText;
   // rename history
-  var hist = Listed.methods.findHistory(oldText);
+  var hist = Shopt.methods.findHistory(oldText);
   if (hist != undefined) hist.text = newText;
-  Listed.methods.startSave();
+  Shopt.methods.startSave();
   return true;
 }
 
-Listed.methods.load = function (done) {
+Shopt.methods.load = function (done) {
   if (typeof localStorage != 'undefined') {
     var data = localStorage.getItem('data');
     if (data == null || data == undefined) {
-      Listed.data.saved = true;
+      Shopt.data.saved = true;
       return;
     }
     var value = JSON.parse(data);
-    value.list.forEach(function(n){ Listed.data.list.push(n) });
-    value.history.forEach(function(n){ Listed.data.history.push(n) });
-    Listed.data.color = value.color;
-    Listed.data.saved = true;
+    value.list.forEach(function(n){ Shopt.data.list.push(n) });
+    value.history.forEach(function(n){ Shopt.data.history.push(n) });
+    Shopt.data.color = value.color;
+    Shopt.data.saved = true;
     // success notice
     if (typeof done == 'function') done();
   }
 }
 
-Listed.methods.save = function (done) {
-  if (Listed.data.saved) return;
+Shopt.methods.save = function (done) {
+  if (Shopt.data.saved) return;
   if (typeof localStorage != 'undefined') {
-    localStorage.setItem('data', JSON.stringify(Listed.data));
-    Listed.data.saved = true;
+    localStorage.setItem('data', JSON.stringify(Shopt.data));
+    Shopt.data.saved = true;
     // success notice
     if (typeof done == 'function') done();
   }
 }
 
-Listed.methods.startSave = function () {
+Shopt.methods.startSave = function () {
   if (typeof localStorage == 'undefined') return;
   // reset timer on new save requests
-  if (Listed.data.saveTimerId != null) {
-    clearTimeout(Listed.data.saveTimerId);
+  if (Shopt.data.saveTimerId != null) {
+    clearTimeout(Shopt.data.saveTimerId);
   }
   // signal changed state
-  Listed.data.saved = false;
+  Shopt.data.saved = false;
   // ui notify on save
   var notify = function() { Materialize.toast('saved', 1500); }
   // save timer
-  Listed.data.saveTimerId = setTimeout( function() {
-    Listed.methods.save( notify );
-    Listed.data.saveTimerId = null;
+  Shopt.data.saveTimerId = setTimeout( function() {
+    Shopt.methods.save( notify );
+    Shopt.data.saveTimerId = null;
     }, 2000 );
 }
 
-Listed.methods.findPredictionAt = function (text) {
-  var idx = Listed.data.prediction.findIndex( function(n) { 
+Shopt.methods.findPredictionAt = function (text) {
+  var idx = Shopt.data.prediction.findIndex( function(n) { 
     return n.text == text 
   });
   return idx;
 }
 
-Listed.methods.findPrediction = function (text) {
-  var idx = Listed.data.prediction.find( function(n) { 
+Shopt.methods.findPrediction = function (text) {
+  var idx = Shopt.data.prediction.find( function(n) { 
     return n.text == text
   });
   return idx;
 }
 
-Listed.methods.predictFrequencies = function (compareDate) {
+Shopt.methods.predictFrequencies = function (compareDate) {
   var rightnow = moment().format('YYYY-MM-DD');
   var predictedItems = [];
-  Listed.data.history.forEach( function(hist) {
+  Shopt.data.history.forEach( function(hist) {
     // get the day diff between each pair of dates.
     var differences = [];
     var a = null;
@@ -332,16 +332,16 @@ Listed.methods.predictFrequencies = function (compareDate) {
           lastWeek: '[Last] dddd',
           sameElse: 'ddd, Do MMM'
         });
-        predictedItems.push(new Listed.factory.Prediction(hist.text, avg, relDate, dueDays));
+        predictedItems.push(new Shopt.factory.Prediction(hist.text, avg, relDate, dueDays));
       }
     }
   });
   // Sort predictions
-  Listed.data.prediction = predictedItems.sort( function(a, b) { return a.dueDays > b.dueDays });
+  Shopt.data.prediction = predictedItems.sort( function(a, b) { return a.dueDays > b.dueDays });
 }
 
 
 // make available to cli unit tests
 if (typeof module != 'undefined') {
-  module.exports = Listed;
+  module.exports = Shopt;
 }
