@@ -39,13 +39,14 @@ You can check if your build requirements are met:
 
   cordova requirements
 
-Finally to build the APK:
-
-  cordova build
-
 If you have the Android studio emulator installed, you can build and emulate with:
 
   cordova run android
+
+Finally to build and deploy on a connected device:
+
+  cordova build
+  adb install -r platforms/android/build/outputs/apk/android-debug.apk
 
 For debugging ease with the emulator, or a real device that us usb debugging enabled, use Google's Chrome browser and navigate to chrome://inspect/#devices to get an inspector.
 
