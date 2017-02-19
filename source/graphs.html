@@ -47,6 +47,18 @@
         <div class="container" v-show="!loading" style="display:none">
           <div class="section">
 
+            <!-- no data info card -->
+            <div class="row" v-show="Shopt.data.prediction.length == 0">
+              <div class="col s12 m6">
+                <div class="card blue lighten-4">
+                  <div class="card-content black-text">
+                    <span class="card-title">Nothing to show</span>
+                    <p>I do not have enough history of checked items to show you any graphs right now. Please come back after a couple of trips to the store.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div id="configContent" class="col s12">
               <canvas id="mostChart" width="400" height="400"></canvas>
               <div class="section"></div>
