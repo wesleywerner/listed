@@ -1,11 +1,5 @@
 node_modules/
 dist/
+platforms/
+plugins/
 npm-debug.log
-source/js/localforage.min.js
-source/js/vue.min.js
-source/js/moment.min.js
-source/js/materialize.min.js
-source/js/Chart.min.js
-source/css/materialize.min.css
-source/css/animate.min.css
-source/fonts

@@ -22,7 +22,27 @@ Run `npm test` for the CLI, or open `test/browser.html` in your browser.
 
 Run `npm run build` to clean and release everything into `dist/`. The command `npm run watch` will monitor for changes and update the `dist/` directory, giving you a speedier workflow during development.
 
-Serve the files locally with the command `python -m SimpleHTTPServer` from inside the `/dist` directory, to `http://localhost:8000/`.
+Serve the files locally with the command `python -m SimpleHTTPServer` from inside the `/dist` directory.
+
+### Android Build
+
+To make the Android build you will need to install cordova (https://cordova.apache.org/), including all it's requirements for the Android platform. 
+
+Now add the android platform to the build:
+
+  cordova platform add android
+
+You can check if your build requirements are met:
+
+  cordova requirements
+
+Finally to build the APK:
+
+  cordova build
+
+If you have the Android studio emulator installed, you can build and emulate with:
+
+  cordova run android
 
 # License
 
