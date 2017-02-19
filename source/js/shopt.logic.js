@@ -106,7 +106,7 @@ Shopt.methods.findItem = function (text) {
 Shopt.methods.addItem = function (text) {
   if (text == null || text == '') return false;
   if (Shopt.methods.findItemAt(text) == -1) {
-    Shopt.data.list.push({'text':text, 'checked': false});
+    Shopt.data.list.splice(0, 0, {'text':text, 'checked': false});
     Shopt.methods.startSave();
   }
 }
