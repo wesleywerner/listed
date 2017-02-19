@@ -139,7 +139,7 @@ Vue.component('item-autocomplete', {
  *    selected: fired when the enter key is used on the input.
  */
 Vue.component('item-autoselect', {
-  props: ['value', 'id', 'history', 'autoClear', 'placeholder'],
+  props: ['value', 'id', 'data', 'autoClear', 'placeholder'],
   data: function() {
     return {
       inputValue: '',
@@ -156,7 +156,7 @@ Vue.component('item-autoselect', {
               <div class="col s4"> \
                 <a class="dropdown-button btn-large btn-flat" href="#" v-bind:data-activates="dataId"><i class="material-icons">playlist_add</i></a> \
                 <ul v-bind:id="dataId" class="dropdown-content"> \
-                  <li v-for="h in history"><a href="#!" v-on:click="setInputValue(h)">{{ h.text }}</a></li> \
+                  <li v-for="h in data"><a href="#!" v-on:click="setInputValue(h)">{{ h }}</a></li> \
                 </ul> \
               </div> \
              </div>',
@@ -171,7 +171,7 @@ Vue.component('item-autoselect', {
       this.$emit('input', this.inputValue);
     },
     setInputValue: function(h) {
-      this.inputValue = h.text;
+      this.inputValue = h;
       this.selected();
       setTimeout(Materialize.updateTextFields, 150);
     }
@@ -180,7 +180,7 @@ Vue.component('item-autoselect', {
 
 
 Vue.component('merge-selection', {
-  props: ['history'],
+  props: ['data'],
   data: function() {
     return {
       mergeAText: '',
@@ -188,10 +188,16 @@ Vue.component('merge-selection', {
     }
   },
   template: '<span> \
-          <item-autoselect id="merge-B" v-bind:history="history" v-model="mergeBText" placeholder="Select an item"></item-autoselect> \
-          <item-autoselect id="merge-A" v-bind:history="history" v-model="mergeAText" placeholder="merge it into this item"></item-autoselect> \
+          <item-autoselect id="merge-B" v-bind:data="data" v-model="mergeBText" v-on:selected="setItemB(arguments[0])" placeholder="Select an item"></item-autoselect> \
+          <item-autoselect id="merge-A" v-bind:data="data" v-model="mergeAText" v-on:selected="setItemA(arguments[0])" placeholder="merge it into this item"></item-autoselect> \
           <button class="waves-effect waves-light btn" v-on:click="doMerge">Merge</button> </span>',
   methods: {
+    setItemA: function(text) {
+      this.mergeAText = text;
+    },
+    setItemB: function(text) {
+      this.mergeBText = text;
+    },
     doMerge: function() {
       this.$emit('do-merge', this.mergeAText, this.mergeBText);
     }

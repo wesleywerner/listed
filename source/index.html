@@ -53,7 +53,7 @@
                 id="item-input" 
                 auto-clear="true" 
                 placeholder="I want..."
-                v-bind:history="history" 
+                v-bind:data="sortedUnpickedHistory" 
                 v-on:selected="addItem(arguments[0])"></item-autoselect>
                 
               <!-- list of check items -->

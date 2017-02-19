@@ -39,6 +39,24 @@ Shopt.computed.hiliteRecommendations = function () {
   return (Shopt.data.list.length == 0);
 }
 
+// list history items, in order, that are not in the main list
+Shopt.computed.sortedUnpickedHistory = function () {
+  var picks = Shopt.data.history.filter( function(h) {
+    return Shopt.methods.findItemAt(h.text) == -1;
+  }).map( function(h) {
+    return h.text;
+  }).sort();
+  return picks;
+}
+
+// list history items, in order, that are not in the main list
+Shopt.computed.sortedHistory = function () {
+  var picks = Shopt.data.history.map( function(h) {
+    return h.text;
+  }).sort();
+  return picks;
+}
+
 /**
  * Factories.
  */
