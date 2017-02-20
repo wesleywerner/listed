@@ -91,7 +91,7 @@ Vue.component('list-item', {
  *    selected: fired when the enter key is used on the input.
  */
 Vue.component('item-autocomplete', {
-  props: ['value', 'id', 'history', 'autoClear', 'showButton', 'placeholder'],
+  props: ['value', 'id', 'data', 'autoClear', 'placeholder'],
   data: function() {
     return {
       inputValue: '',
@@ -99,21 +99,24 @@ Vue.component('item-autocomplete', {
     }
   },
   template: '<div class="row"> \
-              <div class="col s8"> \
+              <div class="col s6"> \
                 <div class="input-field"> \
-                  <input type="text" v-bind:id="id" v-bind:list="dataId" v-model="inputValue" v-on:keyup.enter="selected" v-on:input="updateInput" /> \
+                  <input type="text" v-bind:id="id" v-bind:list="dataId" v-model="inputValue" v-on:keyup.enter="emitInput" v-on:input="updateInput" /> \
                   <label v-bind:for="id">{{ placeholder }}</label> \
                   <datalist v-bind:id="dataId"> \
-                    <option v-for="item in history" v-bind:value="item.text"> \
+                    <option v-for="d in data" v-bind:value="d"> \
                   </datalist> \
                 </div> \
               </div> \
-              <div class="col s2" v-show="showButton"> \
-                <a href="#" class="waves-effect waves-light btn-large btn-flat" v-on:click="selected"><i class="material-icons">send</i></a> \
+              <div class="col s4"> \
+              <history-select \
+                title="test select" \
+                v-bind:data="data" \
+                v-on:selected="emitSelected(arguments[0])"></history-select> \
               </div> \
              </div>',
   methods: {
-    selected: function() {
+    emitInput: function() {
       this.$emit('selected', this.inputValue);
       if (this.autoClear == 'true') {
         this.inputValue = '';
@@ -121,10 +124,43 @@ Vue.component('item-autocomplete', {
     },
     updateInput: function() {
       this.$emit('input', this.inputValue);
+    },
+    emitSelected: function(val) {
+      this.$emit('selected', val);
     }
   }
 })
 
+
+
+/**
+ * A select list of history items.
+ * Props:
+ *    id: uniquely identity this component.
+ *    history: the history items to auto complete.
+ *    auto-clear: if "true" the input will clear after input key enter.
+ *    placeholder: input placeholder text.
+ *    show-button: inline enter button that triggers the selected event.
+ * Events:
+ *    selected: fired when the enter key is used on the input.
+ */
+Vue.component('history-select', {
+  props: ['data', 'title'],
+  data: function() {
+    return {
+      selectedValue: ''
+    }
+  },
+  template: '<select class="browser-default btn" v-model="selectedValue"> \
+            <option value="" disabled selected>Quick Select</option> \
+            <option v-for="d in data">{{ d }}</option> \
+            </select>',
+  watch: {
+    selectedValue: function(val) {
+      this.$emit('selected', this.selectedValue);
+    }
+  }
+})
 
 
 /**

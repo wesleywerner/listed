@@ -53,10 +53,9 @@
                 id="item-input" 
                 auto-clear="true" 
                 placeholder="I want..."
-                v-bind:history="history" 
-                show-button="true"
+                v-bind:data="sortedUnpickedHistory" 
                 v-on:selected="addItem(arguments[0])"></item-autocomplete>
-                
+              
               <!-- list of check items -->
               <div class="row">
                 <div class="col s12">

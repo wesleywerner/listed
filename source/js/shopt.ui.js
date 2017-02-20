@@ -109,5 +109,7 @@ $( document ).ready(function(){
   
   // Initialize collapsible containers
   $('.collapsible').collapsible();
+  
+  $('select').material_select();
 
 })
