@@ -49,12 +49,13 @@
           <div class="section">
 
               <!-- auto complete history items -->
-              <item-autoselect 
+              <item-autocomplete 
                 id="item-input" 
                 auto-clear="true" 
                 placeholder="I want..."
-                v-bind:data="sortedUnpickedHistory" 
-                v-on:selected="addItem(arguments[0])"></item-autoselect>
+                v-bind:history="history" 
+                show-button="true"
+                v-on:selected="addItem(arguments[0])"></item-autocomplete>
                 
               <!-- list of check items -->
               <div class="row">
