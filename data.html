@@ -2,7 +2,10 @@
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
-      <title>Listed - Predictive Shopping</title>
+      <meta name="format-detection" content="telephone=no">
+      <meta name="msapplication-tap-highlight" content="no">
+      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+      <title>Shopt</title>
       <meta http-equiv="content-type" content="text/html;charset=utf-8" />
       <!--Import Google Icon Font-->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -10,8 +13,6 @@
       <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
       <!-- css animations -->
       <link rel="stylesheet" href="css/animate.min.css">
-      <!--Let browser know website is optimized for mobile-->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
 <!--
    This program is free software: you can redistribute it and/or modify
@@ -47,14 +48,10 @@
         <div class="container" v-show="!loading" style="display:none">
           <div class="section">
 
-              <div class="row">
-                <div class="col s12">
-                  <ul class="tabs">
-                    <li class="tab col s3"><a href="#dataItems" class="active">Items</a></li>
-                    <li class="tab col s3"><a href="#dataMerge">Merge</a></li>
-                  </ul>
-                </div>
-                <div id="dataItems" class="col s12">
+            <ul class="collapsible popout" data-collapsible="accordion">
+              <li>
+                <div class="collapsible-header active"><i class="material-icons">list</i>Purchase Data</div>
+                <div class="collapsible-body">
                   <table class="bordered striped responsive-table">
                     <thead>
                       <tr>
@@ -71,30 +68,33 @@
                       </tr>
                     </tbody>
                   </table>
-                  <div class="section">
-                    <button type="button" class="btn waves-effect" onclick="addTestData()"><i class="material-icons">perm_data_setting</i> Add Test Data</button>
-                  </div>
+                  <button type="button" class="btn waves-effect" onclick="addTestData()">Add Test Data</button>                
                 </div>
-                <div id="dataMerge" class="col s12">
-                  <merge-selection v-bind:history="history" v-on:do-merge="promptMerge(arguments[0], arguments[1])"></merge-selection>
+              </li>
+              <li>
+                <div class="collapsible-header"><i class="material-icons">compare_arrows</i>Merge</div>
+                <div class="collapsible-body">
+                  <p>If you have duplicate items you can merge them together here.</p>
+                  <merge-selection v-bind:data="sortedHistory" v-on:do-merge="promptMerge(arguments[0], arguments[1])"></merge-selection>
                 </div>
-              </div>
-              
+              </li>
+            </ul> <!-- /collapsible -->
+
           </div>  <!-- /section -->
         </div>  <!-- container -->
   
       </div>  <!-- /app -->
 
-      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/jquery.min.js"></script>
       <script type="text/javascript" src="js/materialize.min.js"></script>
       <script type="text/javascript" src="js/materialize.init.js"></script>
-      <script type="text/javascript" src="js/localforage.min.js"></script>
       <script type="text/javascript" src="js/vue.min.js"></script>
       <script type="text/javascript" src="js/moment.min.js"></script>
-      <script type="text/javascript" src="js/listed.components.js"></script>
-      <script type="text/javascript" src="js/listed.js"></script>
-      <script type="text/javascript" src="js/listed.ui.js"></script>
-      <script type="text/javascript" src="js/listed.bind.js"></script>
+      <script type="text/javascript" src="js/polyfills.js"></script>
+      <script type="text/javascript" src="js/shopt.components.js"></script>
+      <script type="text/javascript" src="js/shopt.logic.js"></script>
+      <script type="text/javascript" src="js/shopt.ui.js"></script>
+      <script type="text/javascript" src="js/shopt.bind.js"></script>
       
       <!-- dev data -->
       <script>
@@ -107,13 +107,13 @@
           if (lastBought == undefined) return;
           var lastDate = moment().subtract(parseInt(lastBought), 'days');
           for (var i=12; i>-1; i--) {
-            Listed.methods.addHistory(text, moment(lastDate).subtract(i*avg, 'days').format('YYYY-MM-DD'));
+            Shopt.methods.addHistory(text, moment(lastDate).subtract(i*avg, 'days').format('YYYY-MM-DD'));
             // add variance
             if (Math.random() < 0.1) {
-              Listed.methods.addHistory(text, moment(lastDate).subtract(i*avg-1, 'days').format('YYYY-MM-DD'));
+              Shopt.methods.addHistory(text, moment(lastDate).subtract(i*avg-1, 'days').format('YYYY-MM-DD'));
             }
           }
-          Listed.methods.predictFrequencies();
+          Shopt.methods.predictFrequencies();
         }
       </script>
       

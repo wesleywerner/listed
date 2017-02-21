@@ -2,7 +2,10 @@
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
-      <title>Listed - Predictive Shopping</title>
+      <meta name="format-detection" content="telephone=no">
+      <meta name="msapplication-tap-highlight" content="no">
+      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+      <title>Shopt</title>
       <meta http-equiv="content-type" content="text/html;charset=utf-8" />
       <!--Import Google Icon Font-->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -10,8 +13,6 @@
       <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
       <!-- css animations -->
       <link rel="stylesheet" href="css/animate.min.css">
-      <!--Let browser know website is optimized for mobile-->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
 <!--
    This program is free software: you can redistribute it and/or modify
@@ -48,36 +49,48 @@
         <div class="container" v-show="!loading" style="display:none">
           <div class="section">
 
-              <!-- auto complete history items -->
-              <item-autocomplete id="item-input" 
-                auto-clear="true" 
-                placeholder="I want..."
-                show-button="true"
-                v-bind:history="history" 
-                v-on:selected="addItem(arguments[0])"></item-autocomplete>
-                
-              <!-- list of check items -->
-              <ul class="collection" v-show="list.length > 0">
-                <transition-group name="list-transition" tag="ul" enter-active-class="animated flipInX" leave-active-class="animated flipOutX">
-                  <list-item class="collection-item" 
-                    v-for="(item, index) in list" 
-                    v-bind:key="item"
-                    v-bind:id="'listItem' + index"
-                    v-bind:item="item" 
-                    v-on:remove="removeItem(arguments[0])"
-                    v-on:checked="addHistory(arguments[0])"
-                    v-on:unchecked="undoHistory(arguments[0])">
-                  </list-item>
-                </transition-group>
-              </ul>
-              
-              <!-- clear list action -->
               <div class="row">
-                <div class="col sm2">
-                  <button type="button" class="waves-effect waves-light btn" v-show="list.length > 0" v-on:click="promptCleanList">Clean</button>
+                <div class="col s5 m6">
+                  <history-select
+                    autoclear="true"
+                    v-show="!sortedUnpickedHistory.length == 0"
+                    class="lighten-4"
+                    v-bind:data="sortedUnpickedHistory"
+                    title="Pick an item"
+                    v-on:input="addItem(arguments[0])"
+                    v-bind:class="color"></history-select>
+                </div>
+                <div class="col s3">
+                  <a class="waves-effect waves-light btn" href="#addItemModal" v-bind:class="color">+</a>
+                </div>
+                <!-- clear list action -->
+                <div class="col s3">
+                  <button type="button" 
+                    class="waves-effect waves-light btn-flat" 
+                    v-show="list.length > 0" 
+                    v-on:click="promptCleanList"><i class="material-icons">delete</i></button>
                 </div>
               </div>
-
+              
+              <!-- list of check items -->
+              <div class="row">
+                <div class="col s12">
+                <ul class="collection" v-show="list.length > 0">
+                  <transition-group name="list-transition" tag="ul" enter-active-class="animated bounce">
+                    <list-item class="collection-item" 
+                      v-for="(item, index) in list" 
+                      v-bind:key="item"
+                      v-bind:id="'listItem' + index"
+                      v-bind:item="item" 
+                      v-on:remove="removeItem(arguments[0])"
+                      v-on:checked="addHistory(arguments[0])"
+                      v-on:unchecked="undoHistory(arguments[0])">
+                    </list-item>
+                  </transition-group>
+                </ul>
+                </div>
+              </div>
+              
               <!-- no data information -->
               <transition name="howto-transition" enter-active-class="animated flipInX" leave-active-class="animated flipOutX">
                 <div class="row" v-show="hiliteRecommendations">
@@ -100,14 +113,13 @@
         <div id="recommendedPopup" class="modal bottom-sheet">
           <div class="modal-content">
             <h5><i class="material-icons">star</i> Recommended</h5>
-            
             <p v-show="recommendations.length == 0">As I learn more about how often you tick certain items, I will be able to recommend them here in the future.</p>
 
           <transition-group 
             name="recommended-transition" 
             tag="div" 
-            leave-active-class="animated bounceOut"
-            class="collection" >
+            leave-active-class="animated fadeOutUp"
+            class="collection">
               <a href="#!" class="collection-item lighten-4" 
                 v-for="pred in recommendations" 
                 v-bind:key="pred"
@@ -119,19 +131,34 @@
             
           </div>
         </div>
-  
+
+        <!-- Add item modal -->
+        <div id="addItemModal" class="modal">
+          <div class="modal-content">
+            <h4>Add</h4>
+            <div class="input-field col s6">
+              <input id="new_item" type="text" v-model="newItemText" v-on:keyup.enter="addItemAndClearInput">
+              <label for="new_item">What do you want on your list?</label>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-action waves-effect btn" v-bind:class="color" v-on:click="addItemAndClearInput">Add</a>
+            <a href="#!" class="modal-action modal-close waves-effect btn-flat left">Close</a>
+          </div>
+        </div>
+
       </div>  <!-- /app -->
 
-      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/jquery.min.js"></script>
       <script type="text/javascript" src="js/materialize.min.js"></script>
       <script type="text/javascript" src="js/materialize.init.js"></script>
-      <script type="text/javascript" src="js/localforage.min.js"></script>
       <script type="text/javascript" src="js/vue.min.js"></script>
       <script type="text/javascript" src="js/moment.min.js"></script>
-      <script type="text/javascript" src="js/listed.components.js"></script>
-      <script type="text/javascript" src="js/listed.js"></script>
-      <script type="text/javascript" src="js/listed.ui.js"></script>
-      <script type="text/javascript" src="js/listed.bind.js"></script>
+      <script type="text/javascript" src="js/polyfills.js"></script>
+      <script type="text/javascript" src="js/shopt.components.js"></script>
+      <script type="text/javascript" src="js/shopt.logic.js"></script>
+      <script type="text/javascript" src="js/shopt.ui.js"></script>
+      <script type="text/javascript" src="js/shopt.bind.js"></script>
       
     </body>
 </html>

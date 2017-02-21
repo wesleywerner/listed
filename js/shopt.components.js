@@ -22,7 +22,7 @@ Vue.component('navigation', {
   template: '<nav v-bind:class="color" role="navigation"> \
           <div class="nav-wrapper container"> \
             <a id="logo-container" href="#" class="brand-logo" v-on:click="titleClicked"> \
-              <i class="material-icons medium animated" v-bind:class="{ \'infinite tada\': hiliteRecommendations }">stars</i>Listed</a> \
+              <i class="material-icons medium animated" v-bind:class="{ \'infinite tada\': hiliteRecommendations }">stars</i>Shopt</a> \
             <!-- mobile collapse hamburger --> \
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a> \
             <!-- navbar full and mobile links --> \
@@ -91,7 +91,7 @@ Vue.component('list-item', {
  *    selected: fired when the enter key is used on the input.
  */
 Vue.component('item-autocomplete', {
-  props: ['value', 'id', 'history', 'autoClear', 'showButton', 'placeholder'],
+  props: ['value', 'id', 'data', 'autoClear', 'placeholder'],
   data: function() {
     return {
       inputValue: '',
@@ -99,21 +99,19 @@ Vue.component('item-autocomplete', {
     }
   },
   template: '<div class="row"> \
-              <div class="col s8"> \
+              <div class="col s6"> \
                 <div class="input-field"> \
-                  <input type="text" v-bind:id="id" v-bind:list="dataId" v-model="inputValue" v-on:keyup.enter="selected" v-on:input="updateInput" /> \
+                  <input type="text" v-bind:id="id" v-bind:list="dataId" v-model="inputValue" v-on:keyup.enter="emitInput" v-on:input="updateInput" /> \
                   <label v-bind:for="id">{{ placeholder }}</label> \
                   <datalist v-bind:id="dataId"> \
-                    <option v-for="item in history" v-bind:value="item.text"> \
+                    <option v-for="d in data" v-bind:value="d"> \
                   </datalist> \
                 </div> \
               </div> \
-              <div class="col s2" v-show="showButton"> \
-                <a href="#" class="waves-effect waves-light btn-large btn-flat" v-on:click="selected"><i class="material-icons">send</i></a> \
-              </div> \
+              <div class="col s4"> \
              </div>',
   methods: {
-    selected: function() {
+    emitInput: function() {
       this.$emit('selected', this.inputValue);
       if (this.autoClear == 'true') {
         this.inputValue = '';
@@ -126,8 +124,94 @@ Vue.component('item-autocomplete', {
 })
 
 
+
+/**
+ * A select list of history items.
+ * Props:
+ *    id: uniquely identity this component.
+ *    history: the history items to auto complete.
+ *    auto-clear: if "true" the input will clear after input key enter.
+ *    placeholder: input placeholder text.
+ *    show-button: inline enter button that triggers the selected event.
+ * Events:
+ *    selected: fired when the enter key is used on the input.
+ */
+Vue.component('history-select', {
+  props: ['value', 'data', 'title', 'autoclear'],
+  data: function() {
+    return {
+      selectedValue: ''
+    }
+  },
+  template: '<select class="browser-default" v-model="selectedValue"> \
+            <option value="" disabled selected>{{ title }}</option> \
+            <option v-for="d in data">{{ d }}</option> \
+            </select>',
+  watch: {
+    selectedValue: function(val) {
+      this.$emit('input', this.selectedValue);
+      if (this.autoclear == 'true') {
+        this.selectedValue = '';
+      }
+    }
+  }
+})
+
+
+/**
+ * A text input an accompanying select list of history items.
+ * Props:
+ *    id: uniquely identity this component.
+ *    history: the history items to auto complete.
+ *    auto-clear: if "true" the input will clear after input key enter.
+ *    placeholder: input placeholder text.
+ *    show-button: inline enter button that triggers the selected event.
+ * Events:
+ *    selected: fired when the enter key is used on the input.
+ */
+Vue.component('item-autoselect', {
+  props: ['value', 'id', 'data', 'autoClear', 'placeholder'],
+  data: function() {
+    return {
+      inputValue: '',
+      dataId: this.id + 'data'
+    }
+  },
+  template: '<div class="row"> \
+              <div class="col s8"> \
+                <div class="input-field"> \
+                <input type="text" v-bind:id="id" v-model="inputValue" v-on:keyup.enter="selected" v-on:input="updateInput" /> \
+                <label v-bind:for="id">{{ placeholder }}</label> \
+                </div> \
+              </div> \
+              <div class="col s4"> \
+                <a class="dropdown-button btn-large btn-flat" href="#" v-bind:data-activates="dataId"><i class="material-icons">playlist_add</i></a> \
+                <ul v-bind:id="dataId" class="dropdown-content"> \
+                  <li v-for="h in data"><a href="#!" v-on:click="setInputValue(h)">{{ h }}</a></li> \
+                </ul> \
+              </div> \
+             </div>',
+  methods: {
+    selected: function() {
+      this.$emit('selected', this.inputValue);
+      if (this.autoClear == 'true') {
+        this.inputValue = '';
+      }
+    },
+    updateInput: function() {
+      this.$emit('input', this.inputValue);
+    },
+    setInputValue: function(h) {
+      this.inputValue = h;
+      this.selected();
+      setTimeout(Materialize.updateTextFields, 150);
+    }
+  }
+})
+
+
 Vue.component('merge-selection', {
-  props: ['history'],
+  props: ['data'],
   data: function() {
     return {
       mergeAText: '',
@@ -135,10 +219,16 @@ Vue.component('merge-selection', {
     }
   },
   template: '<span> \
-          <item-autocomplete id="merge-B" v-bind:history="history" v-model="mergeBText" placeholder="Select an item"></item-autocomplete> \
-          <item-autocomplete id="merge-A" v-bind:history="history" v-model="mergeAText" placeholder="merge it into this item"></item-autocomplete> \
+          <history-select v-bind:data="data" v-model="mergeBText" title="Select an item"></history-select> \
+          <history-select v-bind:data="data" v-model="mergeAText" title="merge it into this item"></history-select> \
           <button class="waves-effect waves-light btn" v-on:click="doMerge">Merge</button> </span>',
   methods: {
+    setItemA: function(text) {
+      this.mergeAText = text;
+    },
+    setItemB: function(text) {
+      this.mergeBText = text;
+    },
     doMerge: function() {
       this.$emit('do-merge', this.mergeAText, this.mergeBText);
     }

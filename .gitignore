@@ -1,4 +1,6 @@
+platforms/
+plugins/
+www/
 node_modules/
-dist/
 npm-debug.log
 source/

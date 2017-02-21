@@ -36,13 +36,16 @@
   // bring attention to the recommended icon
   state.hiliteRecommendations = true;
   
+  // adding a new item to the list
+  state.newItemText = '';
+  
   /**
    * Called after the page has loaded the user data.
    */
   ui.dataLoaded = function () {
-    Listed.methods.predictFrequencies();
-    if (typeof Listed.methods.loadGraphs != 'undefined') {
-      Listed.methods.loadGraphs();
+    Shopt.methods.predictFrequencies();
+    if (typeof Shopt.methods.loadGraphs != 'undefined') {
+      Shopt.methods.loadGraphs();
     }
   }
   
@@ -51,20 +54,20 @@
   }
   
   ui.showRecommendations = function () {
-    Listed.methods.predictFrequencies();
+    Shopt.methods.predictFrequencies();
     $('#recommendedPopup').modal('open');
   }
   
   ui.promptRemoveHistory = function (hist) {
     if (confirm('Remove '+hist.text+'?')) {
-      Listed.methods.removeAllHistory(hist.text);
+      Shopt.methods.removeAllHistory(hist.text);
     }
   }
   
   ui.promptMerge = function (a, b) {
-    if (Listed.methods.findHistoryAt(a) > -1 && Listed.methods.findHistoryAt(b) > -1) {
+    if (Shopt.methods.findHistoryAt(a) > -1 && Shopt.methods.findHistoryAt(b) > -1) {
       if (confirm('Merge history of '+b+' into '+a)) {
-        Listed.methods.mergeHistory(a, b);
+        Shopt.methods.mergeHistory(a, b);
         Materialize.toast(a+' and '+b+' merged', 5000);
       }
     }
@@ -72,15 +75,15 @@
   
   ui.promptCleanList = function () {
     if (confirm('Clean checked items from your list?')) {
-      Listed.methods.cleanList();
-      Listed.methods.startSave();
+      Shopt.methods.cleanList();
+      Shopt.methods.startSave();
     }
   }
   
   ui.promptRename = function (hist) {
     var newText = prompt('rename ' + hist.text, hist.text);
     if (newText != undefined) {
-      var success = Listed.methods.rename(hist.text, newText);
+      var success = Shopt.methods.rename(hist.text, newText);
       if (success) {
         Materialize.toast('Rename Success', 5000);
       } else {
@@ -90,12 +93,17 @@
   }
   
   ui.setColor = function (color) {
-    Listed.data.color = color;
-    Listed.methods.startSave();
+    Shopt.data.color = color;
+    Shopt.methods.startSave();
   }
   
-  jQuery.extend(Listed.methods, ui);
-  jQuery.extend(Listed.data, state);
+  ui.addItemAndClearInput = function () {
+    Shopt.methods.addItem(Shopt.data.newItemText);
+    Shopt.data.newItemText = '';
+  }
+  
+  jQuery.extend(Shopt.methods, ui);
+  jQuery.extend(Shopt.data, state);
 
 }())
 
@@ -109,5 +117,7 @@ $( document ).ready(function(){
   
   // Initialize collapsible containers
   $('.collapsible').collapsible();
+  
+  $('select').material_select();
 
 })
