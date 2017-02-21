@@ -109,11 +109,6 @@ Vue.component('item-autocomplete', {
                 </div> \
               </div> \
               <div class="col s4"> \
-              <history-select \
-                title="test select" \
-                v-bind:data="data" \
-                v-on:input="emitSelected(arguments[0])"></history-select> \
-              </div> \
              </div>',
   methods: {
     emitInput: function() {
@@ -124,9 +119,6 @@ Vue.component('item-autocomplete', {
     },
     updateInput: function() {
       this.$emit('input', this.inputValue);
-    },
-    emitSelected: function(val) {
-      this.$emit('selected', val);
     }
   }
 })
@@ -158,6 +150,7 @@ Vue.component('history-select', {
   watch: {
     selectedValue: function(val) {
       this.$emit('input', this.selectedValue);
+      this.selectedValue = '';
     }
   }
 })
