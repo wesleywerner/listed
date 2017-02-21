@@ -137,7 +137,7 @@ Vue.component('item-autocomplete', {
  *    selected: fired when the enter key is used on the input.
  */
 Vue.component('history-select', {
-  props: ['value', 'data', 'title'],
+  props: ['value', 'data', 'title', 'autoclear'],
   data: function() {
     return {
       selectedValue: ''
@@ -150,7 +150,9 @@ Vue.component('history-select', {
   watch: {
     selectedValue: function(val) {
       this.$emit('input', this.selectedValue);
-      this.selectedValue = '';
+      if (this.autoclear == 'true') {
+        this.selectedValue = '';
+      }
     }
   }
 })
