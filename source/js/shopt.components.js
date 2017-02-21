@@ -151,8 +151,8 @@ Vue.component('history-select', {
       selectedValue: ''
     }
   },
-  template: '<select class="browser-default btn" v-model="selectedValue"> \
-            <option value="" disabled selected>Quick Select</option> \
+  template: '<select class="browser-default" v-model="selectedValue"> \
+            <option value="" disabled selected>{{ title }}</option> \
             <option v-for="d in data">{{ d }}</option> \
             </select>',
   watch: {
