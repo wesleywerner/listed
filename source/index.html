@@ -56,10 +56,19 @@
                 v-bind:data="sortedUnpickedHistory" 
                 v-on:selected="addItem(arguments[0])"></item-autocomplete>
               
-              <history-select
-                v-bind:data="sortedUnpickedHistory"
-                title="past items"
-                v-on:input="addItem(arguments[0])"></history-select>
+              <div class="row">
+                <div class="col s9 m6">
+                  <history-select
+                    class="lighten-4"
+                    v-bind:data="sortedUnpickedHistory"
+                    title="past items"
+                    v-on:input="addItem(arguments[0])"
+                    v-bind:class="color"></history-select>
+                </div>
+                <div class="col s2">
+                  <button class="btn">+</button>
+                </div>
+              </div>
               
               <!-- list of check items -->
               <div class="row">
