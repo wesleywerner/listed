@@ -49,25 +49,25 @@
         <div class="container" v-show="!loading" style="display:none">
           <div class="section">
 
-              <!-- auto complete history items -->
-              <item-autocomplete 
-                id="item-input" 
-                auto-clear="true" 
-                placeholder="I want..."
-                v-bind:data="sortedUnpickedHistory" 
-                v-on:selected="addItem(arguments[0])"></item-autocomplete>
-              
               <div class="row">
-                <div class="col s9 m6">
+                <div class="col s5 m6">
                   <history-select
+                    v-show="!sortedUnpickedHistory.length == 0"
                     class="lighten-4"
                     v-bind:data="sortedUnpickedHistory"
-                    title="past items"
+                    title="Pick an item"
                     v-on:input="addItem(arguments[0])"
                     v-bind:class="color"></history-select>
                 </div>
-                <div class="col s2">
-                  <button class="btn">+</button>
+                <div class="col s3">
+                  <a class="waves-effect waves-light btn" href="#addItemModal" v-bind:class="color">+</a>
+                </div>
+                <!-- clear list action -->
+                <div class="col s3">
+                  <button type="button" 
+                    class="waves-effect waves-light btn-flat" 
+                    v-show="list.length > 0" 
+                    v-on:click="promptCleanList"><i class="material-icons">delete</i></button>
                 </div>
               </div>
               
@@ -90,13 +90,6 @@
                 </div>
               </div>
               
-              <!-- clear list action -->
-              <div class="row">
-                <div class="col s2">
-                  <button type="button" class="waves-effect waves-light btn" v-show="list.length > 0" v-on:click="promptCleanList">Clean</button>
-                </div>
-              </div>
-
               <!-- no data information -->
               <transition name="howto-transition" enter-active-class="animated flipInX" leave-active-class="animated flipOutX">
                 <div class="row" v-show="hiliteRecommendations">
@@ -119,7 +112,6 @@
         <div id="recommendedPopup" class="modal bottom-sheet">
           <div class="modal-content">
             <h5><i class="material-icons">star</i> Recommended</h5>
-            
             <p v-show="recommendations.length == 0">As I learn more about how often you tick certain items, I will be able to recommend them here in the future.</p>
 
           <transition-group 
@@ -138,7 +130,22 @@
             
           </div>
         </div>
-  
+
+        <!-- Add item modal -->
+        <div id="addItemModal" class="modal">
+          <div class="modal-content">
+            <h4>Add</h4>
+            <div class="input-field col s6">
+              <input id="new_item" type="text" v-model="newItemText" v-on:keyup.enter="addItemAndClearInput">
+              <label for="new_item">What do you want on your list?</label>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-action waves-effect btn" v-bind:class="color" v-on:click="addItemAndClearInput">Add</a>
+            <a href="#!" class="modal-action modal-close waves-effect btn-flat left">Close</a>
+          </div>
+        </div>
+
       </div>  <!-- /app -->
 
       <script type="text/javascript" src="js/jquery.min.js"></script>

@@ -36,6 +36,9 @@
   // bring attention to the recommended icon
   state.hiliteRecommendations = true;
   
+  // adding a new item to the list
+  state.newItemText = '';
+  
   /**
    * Called after the page has loaded the user data.
    */
@@ -92,6 +95,11 @@
   ui.setColor = function (color) {
     Shopt.data.color = color;
     Shopt.methods.startSave();
+  }
+  
+  ui.addItemAndClearInput = function () {
+    Shopt.methods.addItem(Shopt.data.newItemText);
+    Shopt.data.newItemText = '';
   }
   
   jQuery.extend(Shopt.methods, ui);
