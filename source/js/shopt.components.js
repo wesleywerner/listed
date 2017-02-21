@@ -112,7 +112,7 @@ Vue.component('item-autocomplete', {
               <history-select \
                 title="test select" \
                 v-bind:data="data" \
-                v-on:selected="emitSelected(arguments[0])"></history-select> \
+                v-on:input="emitSelected(arguments[0])"></history-select> \
               </div> \
              </div>',
   methods: {
@@ -145,7 +145,7 @@ Vue.component('item-autocomplete', {
  *    selected: fired when the enter key is used on the input.
  */
 Vue.component('history-select', {
-  props: ['data', 'title'],
+  props: ['value', 'data', 'title'],
   data: function() {
     return {
       selectedValue: ''
@@ -157,7 +157,7 @@ Vue.component('history-select', {
             </select>',
   watch: {
     selectedValue: function(val) {
-      this.$emit('selected', this.selectedValue);
+      this.$emit('input', this.selectedValue);
     }
   }
 })
