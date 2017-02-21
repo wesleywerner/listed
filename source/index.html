@@ -75,7 +75,7 @@
               <div class="row">
                 <div class="col s12">
                 <ul class="collection" v-show="list.length > 0">
-                  <transition-group name="list-transition" tag="ul" enter-active-class="animated flipInX" leave-active-class="animated flipOutX">
+                  <transition-group name="list-transition" tag="ul" enter-active-class="animated bounce">
                     <list-item class="collection-item" 
                       v-for="(item, index) in list" 
                       v-bind:key="item"
