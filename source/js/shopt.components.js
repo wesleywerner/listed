@@ -224,8 +224,8 @@ Vue.component('merge-selection', {
     }
   },
   template: '<span> \
-          <item-autoselect id="merge-B" v-bind:data="data" v-model="mergeBText" v-on:selected="setItemB(arguments[0])" placeholder="Select an item"></item-autoselect> \
-          <item-autoselect id="merge-A" v-bind:data="data" v-model="mergeAText" v-on:selected="setItemA(arguments[0])" placeholder="merge it into this item"></item-autoselect> \
+          <history-select v-bind:data="data" v-model="mergeBText" title="Select an item"></history-select> \
+          <history-select v-bind:data="data" v-model="mergeAText" title="merge it into this item"></history-select> \
           <button class="waves-effect waves-light btn" v-on:click="doMerge">Merge</button> </span>',
   methods: {
     setItemA: function(text) {
