@@ -230,6 +230,9 @@ Shopt.methods.mergeHistory = function (itemA, itemB) {
       a.dates.push(m);
     }
   });
+  // sort the result
+  a.dates.sort();
+  // remove item b from history
   var idx = Shopt.methods.findHistoryAt(itemB);
   Shopt.data.history.splice(idx, 1);
   Shopt.methods.startSave();

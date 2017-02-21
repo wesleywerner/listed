@@ -171,17 +171,18 @@ describe('Shopt Test Suite', function() {
     });
 
     it('should merge two histories', function() {
-      Shopt.methods.addHistory('item BL', moment('2017-02-01'));
-      Shopt.methods.addHistory('item BL', moment('2017-02-02'));
-      Shopt.methods.addHistory('item BM', moment('2017-02-02'));
-      Shopt.methods.addHistory('item BM', moment('2017-02-03'));
-      Shopt.methods.addHistory('item BM', moment('2017-02-04'));
+      Shopt.methods.addHistory('item BL', '2017-02-05');
+      Shopt.methods.addHistory('item BL', '2017-02-06');
+      Shopt.methods.addHistory('item BM', '2017-02-03');
+      Shopt.methods.addHistory('item BM', '2017-02-04');
+      Shopt.methods.addHistory('item BM', '2017-02-05');
       expect(Shopt.data.history).to.have.lengthOf(2);
       Shopt.methods.mergeHistory('item BL', 'item BM');
       expect(Shopt.data.history).to.have.lengthOf(1);
       var item = Shopt.methods.findHistory('item BL');
       expect(item).to.not.be.null;
       expect(item.dates).to.have.lengthOf(4);
+      expect(JSON.stringify(item.dates)).to.equal('["2017-02-03","2017-02-04","2017-02-05","2017-02-06"]');
     });
 
     it('should not append same history date', function() {
