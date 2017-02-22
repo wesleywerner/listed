@@ -73,11 +73,9 @@
     }
   }
   
-  ui.promptCleanList = function () {
-    if (confirm('Clean checked items from your list?')) {
-      Shopt.methods.cleanList();
-      Shopt.methods.startSave();
-    }
+  ui.cleanAndSave = function () {
+    Shopt.methods.cleanList();
+    Shopt.methods.startSave();
   }
   
   ui.promptRename = function (hist) {

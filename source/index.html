@@ -55,7 +55,7 @@
                   <i class="large material-icons">mode_edit</i>
                 </a>
                 <ul>
-                  <li v-show="list.length > 0"><a class="btn-floating green" v-on:click="promptCleanList"><i class="material-icons">delete</i></a></li>
+                  <li v-show="list.length > 0"><a class="btn-floating green" href="#cleanListModal"><i class="material-icons">delete</i></a></li>
                   <li v-show="history.length > 0"><a class="btn-floating red" href="graphs.html"><i class="material-icons">insert_chart</i></a></li>
                   <li><a class="btn-floating blue" href="#addItemModal"><i class="material-icons">add</i></a></li>
                 </ul>
@@ -138,12 +138,22 @@
                 title="add an item from history"
                 v-on:input="addItem(arguments[0])"></history-select>
             </div>
-
-            
           </div>
           <div class="modal-footer">
             <a href="#!" class="modal-action waves-effect btn" v-bind:class="color" v-on:click="addItemAndClearInput">Add</a>
             <a href="#!" class="modal-action modal-close waves-effect btn-flat left">Close</a>
+          </div>
+        </div>
+
+        <!-- Clean list modal -->
+        <div id="cleanListModal" class="modal">
+          <div class="modal-content">
+            <h4>Clean List</h4>
+            <p>Remove all checked items?</p>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect btn-flat">No</a>
+            <a href="#!" class="modal-action modal-close waves-effect btn" v-bind:class="color" v-on:click="cleanAndSave">Yes</a>
           </div>
         </div>
 
