@@ -108,6 +108,7 @@ Shopt.methods.addItem = function (text) {
   if (Shopt.methods.findItemAt(text) == -1) {
     Shopt.data.list.splice(0, 0, {'text':text, 'checked': false});
     Shopt.methods.startSave();
+    return true;
   }
 }
 
