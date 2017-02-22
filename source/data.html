@@ -52,7 +52,7 @@
               <li>
                 <div class="collapsible-header active"><i class="material-icons">list</i>Purchase Data</div>
                 <div class="collapsible-body">
-                  <table class="bordered striped responsive-table" v-show="!history.length == 0">
+                  <table class="bordered striped" v-show="!history.length == 0">
                     <thead>
                       <tr>
                         <td>Name</td>
@@ -75,7 +75,10 @@
                 <div class="collapsible-header"><i class="material-icons">compare_arrows</i>Merge</div>
                 <div class="collapsible-body">
                   <p>If you have duplicate items you can merge them together here.</p>
-                  <merge-selection v-bind:data="sortedHistory" v-on:do-merge="promptMerge(arguments[0], arguments[1])"></merge-selection>
+                  <merge-selection 
+                    v-bind:data="sortedHistory"
+                    v-bind:color="color" 
+                    v-on:do-merge="promptMerge(arguments[0], arguments[1])"></merge-selection>
                 </div>
               </li>
             </ul> <!-- /collapsible -->

@@ -211,7 +211,7 @@ Vue.component('item-autoselect', {
 
 
 Vue.component('merge-selection', {
-  props: ['data'],
+  props: ['data', 'color'],
   data: function() {
     return {
       mergeAText: '',
@@ -220,8 +220,11 @@ Vue.component('merge-selection', {
   },
   template: '<span> \
           <history-select v-bind:data="data" v-model="mergeBText" title="Select an item"></history-select> \
+          <label>Select and item</label> \
           <history-select v-bind:data="data" v-model="mergeAText" title="merge it into this item"></history-select> \
-          <button class="waves-effect waves-light btn" v-on:click="doMerge">Merge</button> </span>',
+          <label>Merge it into this item</label> \
+          <section></section> \
+          <button class="waves-effect waves-light btn" v-on:click="doMerge" v-bind:class="color">Merge</button> </span>',
   methods: {
     setItemA: function(text) {
       this.mergeAText = text;
