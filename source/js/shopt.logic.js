@@ -289,7 +289,8 @@ Shopt.methods.startSave = function () {
   // signal changed state
   Shopt.data.saved = false;
   // ui notify on save
-  var notify = function() { Materialize.toast('saved', 1500); }
+  //var notify = function() { Materialize.toast('saved', 1500); }
+  var notify = null;
   // save timer
   Shopt.data.saveTimerId = setTimeout( function() {
     Shopt.methods.save( notify );
