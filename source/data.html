@@ -52,7 +52,7 @@
               <li>
                 <div class="collapsible-header active"><i class="material-icons">list</i>Purchase Data</div>
                 <div class="collapsible-body">
-                  <table class="bordered striped responsive-table">
+                  <table class="bordered striped responsive-table" v-show="!history.length == 0">
                     <thead>
                       <tr>
                         <td>Name</td>
