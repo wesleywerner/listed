@@ -102,7 +102,7 @@
           },
           title: {
             display: true,
-            text: 'Monthly Purchase Average',
+            text: 'Purchase Frequency',
             fontSize: 30
           }
         }
