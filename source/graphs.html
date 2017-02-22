@@ -61,7 +61,11 @@
             </div>
 
             <!-- Help Modal -->
-            <a class="right" href="#helpModal" v-show="Shopt.data.prediction.length > 0"><i class="material-icons right">help</i></a>
+            <div class="fixed-action-btn">
+              <a class="btn-floating btn-large lighten-1" href="#helpModal" v-bind:class="color">
+                <i class="material-icons">help</i>
+              </a>
+            </div>
             <div id="helpModal" class="modal">
               <div class="modal-content">
                 <h5>Purchase Frequency</h5>
@@ -75,10 +79,12 @@
               </div>
             </div>
 
-            <div id="configContent" class="col s12">
-              <canvas id="mostChart" width="400" height="400"></canvas>
-              <div class="section"></div>
-              <canvas id="historyChart" width="400" height="200"></canvas>
+            <div class="row">
+              <div class="col s11 m10">
+                <canvas id="mostChart" width="400" height="300"></canvas>
+                <div class="section"></div>
+                <canvas id="historyChart" width="400" height="300"></canvas>
+              </div>
             </div>
           
           </div>  <!-- /section -->
