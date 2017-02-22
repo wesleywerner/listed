@@ -38,7 +38,7 @@
         <!-- Main navigation -->
         <navigation 
           v-show="!loading" style="display:none"
-          v-bind:view="'config'"
+          v-bind:view="'about'"
           v-bind:color="color"
           v-bind:saved="saved"
           v-on:navaction="window.location = 'index.html'"
@@ -50,20 +50,32 @@
 
           <ul class="collapsible popout" data-collapsible="accordion">
             <li>
-              <div class="collapsible-header active"><i class="material-icons">looks</i>Flavour</div>
+              <div class="collapsible-header active"><i class="material-icons">code</i>About</div>
               <div class="collapsible-body">
+                <p>This app was created by Wesley Werner</p>
                 <div class="collection">
-                  <a href="#!" v-on:click="setColor('red')" class="collection-item white-text red">Tomato</a>
-                  <a href="#!" v-on:click="setColor('pink')" class="collection-item white-text pink">Cherry</a>
-                  <a href="#!" v-on:click="setColor('purple')" class="collection-item white-text purple">Grape</a>
-                  <a href="#!" v-on:click="setColor('indigo')" class="collection-item white-text indigo">Blueberry</a>
-                  <a href="#!" v-on:click="setColor('cyan')" class="collection-item white-text cyan">Bubblegum</a>
-                  <a href="#!" v-on:click="setColor('green')" class="collection-item white-text green">Celery</a>
-                  <a href="#!" v-on:click="setColor('lime')" class="collection-item white-text lime">Lime</a>
-                  <a href="#!" v-on:click="setColor('amber')" class="collection-item white-text amber">Honey</a>
-                  <a href="#!" v-on:click="setColor('deep-orange')" class="collection-item white-text deep-orange">Guava</a>
-                  <a href="#!" v-on:click="setColor('grey')" class="collection-item white-text grey">Neutral</a>
+                  <a class="collection-item" href="https://github.com/wesleywerner/shopt"><i class="material-icons">star</i>Star this project</a>
+                  <a class="collection-item" href="https://github.com/wesleywerner/shopt/issues"><i class="material-icons">error</i>Report an issue</a>
                 </div>
+                <p>
+                  All data is saved in the browser local storage. No data is sent into the cloud.
+                </p>
+                <blockquote>
+                  This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
+
+                  This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+                  You should have received a copy of the GNU General Public License along with this program. If not, see http://www.gnu.org/licenses/.
+                </blockquote>
+              </div>
+            </li>
+            <li>
+              <div class="collapsible-header"><i class="material-icons">lightbulb_outline</i>Hints and tips</div>
+              <div class="collapsible-body">
+                <ul class="collection">
+                <li class="collection-item">I become more confident in recommending items the more you check them off your list.</li>
+                <li class="collection-item">If you check and uncheck an item on the same day, it won't count toward my recommendations. To ensure I remember when you checked something, use the Clean button to remove checked items before a new shop.</li>
+                </ul>
               </div>
             </li>
           </ul>
