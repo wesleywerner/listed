@@ -26,6 +26,8 @@
   
   graphs.loadGraphs = function () {
     
+    if (Shopt.data.prediction.length == 0) return;
+    
     // Most Chart
     var ctx = "mostChart";
     
