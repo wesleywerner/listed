@@ -110,6 +110,7 @@ Shopt.methods.addItem = function (text) {
     Shopt.methods.startSave();
     return true;
   }
+  return false;
 }
 
 Shopt.methods.removeItem = function (text) {

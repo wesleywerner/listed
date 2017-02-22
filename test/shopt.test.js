@@ -47,6 +47,17 @@ describe('Shopt Test Suite', function() {
       expect(Shopt.data.list).to.have.lengthOf(1);
     });
     
+    it('should return true when an item was added', function() {
+      var result = Shopt.methods.addItem('item AE2');
+      expect(result).to.be.true;
+    });
+    
+    it('should return false when an item was not added', function() {
+      Shopt.methods.addItem('item AE2');
+      var result = Shopt.methods.addItem('item AE2');
+      expect(result).to.be.false;
+    });
+    
     it('should remove an item', function() {
       Shopt.methods.addItem('item AF');
       Shopt.methods.addItem('item AG');
