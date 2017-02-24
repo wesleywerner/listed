@@ -297,7 +297,7 @@ Shopt.methods.startSave = function () {
   Shopt.data.saveTimerId = setTimeout( function() {
     Shopt.methods.save( notify );
     Shopt.data.saveTimerId = null;
-    }, 2000 );
+    }, 1000 );
 }
 
 Shopt.methods.findPredictionAt = function (text) {
