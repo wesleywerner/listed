@@ -91,14 +91,14 @@ Shopt.methods = {};
 
 Shopt.methods.findItemAt = function (text) {
   var idx = Shopt.data.list.findIndex( function(n) { 
-    return n.text == text 
+    return n.text.toLowerCase() == text.toLowerCase()
   });
   return idx;
 }
 
 Shopt.methods.findItem = function (text) {
   var idx = Shopt.data.list.find( function(n) { 
-    return n.text == text
+    return n.text.toLowerCase() == text.toLowerCase()
   });
   return idx;
 }
@@ -139,14 +139,14 @@ Shopt.methods.cleanList = function () {
 
 Shopt.methods.findHistoryAt = function (text) {
   var idx = Shopt.data.history.findIndex( function(n) { 
-    return n.text == text 
+    return n.text.toLowerCase() == text.toLowerCase()
   });
   return idx;
 }
 
 Shopt.methods.findHistory = function (text) {
   var idx = Shopt.data.history.find( function(n) { 
-    return n.text == text
+    return n.text.toLowerCase() == text.toLowerCase()
   });
   return idx;
 }

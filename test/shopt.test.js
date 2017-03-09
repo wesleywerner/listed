@@ -44,6 +44,7 @@ describe('Shopt Test Suite', function() {
     it('should not add a duplicate item', function() {
       Shopt.methods.addItem('item AE');
       Shopt.methods.addItem('item AE');
+      Shopt.methods.addItem('item ae');
       expect(Shopt.data.list).to.have.lengthOf(1);
     });
     
@@ -160,6 +161,7 @@ describe('Shopt Test Suite', function() {
     it('should not add duplicate histories', function() {
       Shopt.methods.addHistory('item BE');
       Shopt.methods.addHistory('item BE');
+      Shopt.methods.addHistory('item be');
       expect(Shopt.data.history).to.have.lengthOf(1);
     });
 
