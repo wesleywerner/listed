@@ -3,4 +3,5 @@ dist/
 platforms/
 plugins/
 www/
+keystore/
 npm-debug.log
