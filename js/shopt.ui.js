@@ -73,11 +73,9 @@
     }
   }
   
-  ui.promptCleanList = function () {
-    if (confirm('Clean checked items from your list?')) {
-      Shopt.methods.cleanList();
-      Shopt.methods.startSave();
-    }
+  ui.cleanAndSave = function () {
+    Shopt.methods.cleanList();
+    Shopt.methods.startSave();
   }
   
   ui.promptRename = function (hist) {
@@ -98,8 +96,16 @@
   }
   
   ui.addItemAndClearInput = function () {
-    Shopt.methods.addItem(Shopt.data.newItemText);
-    Shopt.data.newItemText = '';
+    if (Shopt.methods.addItem(Shopt.data.newItemText)) {
+      Materialize.toast('Added ' + Shopt.data.newItemText, 1000);
+      Shopt.data.newItemText = '';
+    }
+  }
+  
+  ui.addItemAndNotify = function (text) {
+    if (Shopt.methods.addItem(text)) {
+      Materialize.toast('Added ' + text, 1000);
+    }
   }
   
   jQuery.extend(Shopt.methods, ui);

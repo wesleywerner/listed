@@ -38,7 +38,7 @@
         <!-- Main navigation -->
         <navigation 
           v-show="!loading" style="display:none"
-          v-bind:view="'data'"
+          v-bind:view="'about'"
           v-bind:color="color"
           v-bind:saved="saved"
           v-on:navaction="window.location = 'index.html'"
@@ -48,44 +48,46 @@
         <div class="container" v-show="!loading" style="display:none">
           <div class="section">
 
-            <ul class="collapsible popout" data-collapsible="accordion">
-              <li>
-                <div class="collapsible-header active"><i class="material-icons">list</i>Purchase Data</div>
-                <div class="collapsible-body">
-                  <table class="responsive-table bordered striped" v-show="!history.length == 0">
-                    <thead>
-                      <tr>
-                        <td>Name</td>
-                        <td>Data Points</td>
-                        <td></td>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="hist in history">
-                        <td><button class="waves-effect waves-teal btn-flat" v-on:click="promptRename(hist)">{{ hist.text }}</button></td>
-                        <td><button class="waves-effect waves-teal btn-flat" v-on:click="showHistoryDates(hist)">{{ hist.dates.length }}</button></td>
-                        <td><button class="waves-effect waves-teal btn-flat" v-on:click="promptRemoveHistory(hist)">remove</button></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <button type="button" class="btn waves-effect" onclick="addTestData()">Add Test Data</button>                
+          <ul class="collapsible popout" data-collapsible="accordion">
+            <li>
+              <div class="collapsible-header active"><i class="material-icons">code</i>About</div>
+              <div class="collapsible-body">
+                <p>This app was created by Wesley Werner</p>
+                <div class="collection">
+                  <a class="collection-item" href="https://github.com/wesleywerner/shopt"><i class="material-icons">star</i>Star this project</a>
+                  <a class="collection-item" href="https://github.com/wesleywerner/shopt/issues"><i class="material-icons">error</i>Report an issue</a>
                 </div>
-              </li>
-              <li>
-                <div class="collapsible-header"><i class="material-icons">compare_arrows</i>Merge</div>
-                <div class="collapsible-body">
-                  <p>If you have duplicate items you can merge them together here.</p>
-                  <merge-selection 
-                    v-bind:data="sortedHistory"
-                    v-bind:color="color" 
-                    v-on:do-merge="promptMerge(arguments[0], arguments[1])"></merge-selection>
-                </div>
-              </li>
-            </ul> <!-- /collapsible -->
+                <p>
+                  All data is saved in the browser local storage. No data is sent into the cloud.
+                </p>
+                <h5>Attributions</h5>
+                <p>
+                  Shopt uses the <a href="http://materializecss.com/">Materialize framework</a>, Google <a href="https://material.io/icons/">Material icons</a> Apache License Version 2.0, and <a href="https://cordova.apache.org/">Apache Cordova</a> Apache License Version 2.0.
+                </p>
+                <h5>License</h5>
+                <blockquote>
+                  This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
 
+                  This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+                  You should have received a copy of the GNU General Public License along with this program. If not, see http://www.gnu.org/licenses/.
+                </blockquote>
+              </div>
+            </li>
+            <li>
+              <div class="collapsible-header"><i class="material-icons">lightbulb_outline</i>Hints and tips</div>
+              <div class="collapsible-body">
+                <ul class="collection">
+                <li class="collection-item">I become more confident in recommending items the more you check them off your list.</li>
+                <li class="collection-item">If you check and uncheck an item on the same day, it won't count toward my recommendations. To ensure I remember when you checked something, use the Clean button to remove checked items before a new shop.</li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+          
           </div>  <!-- /section -->
         </div>  <!-- container -->
-  
+
       </div>  <!-- /app -->
 
       <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -100,27 +102,6 @@
       <script type="text/javascript" src="js/shopt.bind.js"></script>
       <script type="text/javascript" src="js/shopt.cordova.js"></script>
       <script type="text/javascript" src="cordova.js"></script>
-      
-      <!-- dev data -->
-      <script>
-        function addTestData() {
-          var text = prompt('name of item to generate');
-          if (text == undefined) return;
-          var avg = prompt('average purchase frequency in days');
-          if (avg == undefined) return;
-          var lastBought = prompt('how many days ago was the item last bought');
-          if (lastBought == undefined) return;
-          var lastDate = moment().subtract(parseInt(lastBought), 'days');
-          for (var i=12; i>-1; i--) {
-            Shopt.methods.addHistory(text, moment(lastDate).subtract(i*avg, 'days').format('YYYY-MM-DD'));
-            // add variance
-            if (Math.random() < 0.1) {
-              Shopt.methods.addHistory(text, moment(lastDate).subtract(i*avg-1, 'days').format('YYYY-MM-DD'));
-            }
-          }
-          Shopt.methods.predictFrequencies();
-        }
-      </script>
       
     </body>
 </html>

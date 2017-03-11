@@ -26,6 +26,8 @@
   
   graphs.loadGraphs = function () {
     
+    if (Shopt.data.prediction.length == 0) return;
+    
     // Most Chart
     var ctx = "mostChart";
     
@@ -102,7 +104,7 @@
           },
           title: {
             display: true,
-            text: 'Monthly Purchase Average',
+            text: 'Purchase Frequency',
             fontSize: 30
           }
         }

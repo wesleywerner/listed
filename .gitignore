@@ -4,3 +4,5 @@ www/
 node_modules/
 npm-debug.log
 source/
+icons/
+keystore/

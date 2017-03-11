@@ -49,29 +49,18 @@
         <div class="container" v-show="!loading" style="display:none">
           <div class="section">
 
-              <div class="row">
-                <div class="col s5 m6">
-                  <history-select
-                    autoclear="true"
-                    v-show="!sortedUnpickedHistory.length == 0"
-                    class="lighten-4"
-                    v-bind:data="sortedUnpickedHistory"
-                    title="Pick an item"
-                    v-on:input="addItem(arguments[0])"
-                    v-bind:class="color"></history-select>
-                </div>
-                <div class="col s3">
-                  <a class="waves-effect waves-light btn" href="#addItemModal" v-bind:class="color">+</a>
-                </div>
-                <!-- clear list action -->
-                <div class="col s3">
-                  <button type="button" 
-                    class="waves-effect waves-light btn-flat" 
-                    v-show="list.length > 0" 
-                    v-on:click="promptCleanList"><i class="material-icons">delete</i></button>
-                </div>
+              <!-- Floating action button -->
+              <div class="fixed-action-btn">
+                <a class="btn-floating btn-large" v-bind:class="color">
+                  <i class="large material-icons">edit</i>
+                </a>
+                <ul>
+                  <li v-show="list.length > 0"><a class="btn-floating green" href="#cleanListModal"><i class="material-icons">delete</i></a></li>
+                  <li v-show="history.length > 0"><a class="btn-floating red" href="graphs.html"><i class="material-icons">&#xE6C4;</i></a></li>
+                  <li><a class="btn-floating blue" href="#addItemModal"><i class="material-icons">add</i></a></li>
+                </ul>
               </div>
-              
+
               <!-- list of check items -->
               <div class="row">
                 <div class="col s12">
@@ -94,12 +83,12 @@
               <!-- no data information -->
               <transition name="howto-transition" enter-active-class="animated flipInX" leave-active-class="animated flipOutX">
                 <div class="row" v-show="hiliteRecommendations">
-                  <div class="col s12 m6">
+                  <div class="col s12 m8">
                     <div class="card blue lighten-4">
                       <div class="card-content black-text">
-                        <span class="card-title">How does this work?</span>
-                        <p>Add some items that you want to your list up above. I will remember the dates you check them off the list, and after about 2 rounds I can start predicting when you next need that nice something.</p>
-                        <p>Use the <i class="material-icons">stars</i> icon above to see my recommendations.</p>
+                        <span class="card-title">Quick Tip</span>
+                        <p v-show="history.length == 0">Add items with the <i class="material-icons">mode_edit</i> button below. I remember when you check them off the list, and can recommend items in the future.</p>
+                        <p v-show="history.length > 0">Use the <i class="material-icons">stars</i> icon above to see my recommendations.</p>
                       </div>
                     </div>
                   </div>
@@ -133,17 +122,38 @@
         </div>
 
         <!-- Add item modal -->
-        <div id="addItemModal" class="modal">
+        <div id="addItemModal" class="modal bottom-sheet">
           <div class="modal-content">
             <h4>Add</h4>
-            <div class="input-field col s6">
+            <div class="input-field col s12">
               <input id="new_item" type="text" v-model="newItemText" v-on:keyup.enter="addItemAndClearInput">
-              <label for="new_item">What do you want on your list?</label>
+              <label for="new_item">Add a new item to your list</label>
+            </div>
+            <div class="col s12">
+              <history-select
+                autoclear="true"
+                v-show="!sortedUnpickedHistory.length == 0"
+                class="lighten-4"
+                v-bind:data="sortedUnpickedHistory"
+                title="add an item from history"
+                v-on:input="addItemAndNotify(arguments[0])"></history-select>
             </div>
           </div>
           <div class="modal-footer">
             <a href="#!" class="modal-action waves-effect btn" v-bind:class="color" v-on:click="addItemAndClearInput">Add</a>
             <a href="#!" class="modal-action modal-close waves-effect btn-flat left">Close</a>
+          </div>
+        </div>
+
+        <!-- Clean list modal -->
+        <div id="cleanListModal" class="modal">
+          <div class="modal-content">
+            <h4>Clean List</h4>
+            <p>Remove all checked items?</p>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect btn-flat">No</a>
+            <a href="#!" class="modal-action modal-close waves-effect btn" v-bind:class="color" v-on:click="cleanAndSave">Yes</a>
           </div>
         </div>
 
@@ -159,6 +169,8 @@
       <script type="text/javascript" src="js/shopt.logic.js"></script>
       <script type="text/javascript" src="js/shopt.ui.js"></script>
       <script type="text/javascript" src="js/shopt.bind.js"></script>
+      <script type="text/javascript" src="js/shopt.cordova.js"></script>
+      <script type="text/javascript" src="cordova.js"></script>
       
     </body>
 </html>

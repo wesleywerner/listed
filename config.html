@@ -50,7 +50,7 @@
 
           <ul class="collapsible popout" data-collapsible="accordion">
             <li>
-              <div class="collapsible-header"><i class="material-icons">looks</i>Flavour</div>
+              <div class="collapsible-header active"><i class="material-icons">looks</i>Flavour</div>
               <div class="collapsible-body">
                 <div class="collection">
                   <a href="#!" v-on:click="setColor('red')" class="collection-item white-text red">Tomato</a>
@@ -64,39 +64,6 @@
                   <a href="#!" v-on:click="setColor('deep-orange')" class="collection-item white-text deep-orange">Guava</a>
                   <a href="#!" v-on:click="setColor('grey')" class="collection-item white-text grey">Neutral</a>
                 </div>
-              </div>
-            </li>
-            <li>
-              <div class="collapsible-header"><i class="material-icons">code</i>About</div>
-              <div class="collapsible-body">
-                <p>This app was created by Wesley Werner</p>
-                <p>
-                  If you like this project, star it. If you have a problem, report an issue.
-                </p>
-                <p>
-                  <a aria-label="Star wesleywerner/shopt on GitHub" data-style="mega" data-icon="octicon-star" href="https://github.com/wesleywerner/shopt" class="github-button">Star</a>
-                  <a aria-label="Issue wesleywerner/shopt on GitHub" data-style="mega" data-icon="octicon-issue-opened" href="https://github.com/wesleywerner/shopt/issues" class="github-button">Issue</a>
-                </p>
-                <p>
-                  All data is saved in the browser local storage. No data is sent into the cloud.
-                </p>
-                <blockquote>
-                  This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
-
-                  This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
-                  You should have received a copy of the GNU General Public License along with this program. If not, see http://www.gnu.org/licenses/.
-                </blockquote>
-                <p><a href="https://github.com/wesleywerner/shopt"></a></p>
-              </div>
-            </li>
-            <li>
-              <div class="collapsible-header"><i class="material-icons">lightbulb_outline</i>Hints and tips</div>
-              <div class="collapsible-body">
-                <ul class="collection">
-                <li class="collection-item">I become more confident in recommending items the more you check them off your list.</li>
-                <li class="collection-item">If you check and uncheck an item on the same day, it won't count toward my recommendations. To ensure I remember when you checked something, use the Clean button to remove checked items before a new shop.</li>
-                </ul>
               </div>
             </li>
           </ul>
@@ -116,7 +83,8 @@
       <script type="text/javascript" src="js/shopt.logic.js"></script>
       <script type="text/javascript" src="js/shopt.ui.js"></script>
       <script type="text/javascript" src="js/shopt.bind.js"></script>
-      <script async defer src="https://buttons.github.io/buttons.js"></script>
+      <script type="text/javascript" src="js/shopt.cordova.js"></script>
+      <script type="text/javascript" src="cordova.js"></script>
       
     </body>
 </html>

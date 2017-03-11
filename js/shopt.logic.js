@@ -91,14 +91,14 @@ Shopt.methods = {};
 
 Shopt.methods.findItemAt = function (text) {
   var idx = Shopt.data.list.findIndex( function(n) { 
-    return n.text == text 
+    return n.text.toLowerCase() == text.toLowerCase()
   });
   return idx;
 }
 
 Shopt.methods.findItem = function (text) {
   var idx = Shopt.data.list.find( function(n) { 
-    return n.text == text
+    return n.text.toLowerCase() == text.toLowerCase()
   });
   return idx;
 }
@@ -108,7 +108,9 @@ Shopt.methods.addItem = function (text) {
   if (Shopt.methods.findItemAt(text) == -1) {
     Shopt.data.list.splice(0, 0, {'text':text, 'checked': false});
     Shopt.methods.startSave();
+    return true;
   }
+  return false;
 }
 
 Shopt.methods.removeItem = function (text) {
@@ -137,14 +139,14 @@ Shopt.methods.cleanList = function () {
 
 Shopt.methods.findHistoryAt = function (text) {
   var idx = Shopt.data.history.findIndex( function(n) { 
-    return n.text == text 
+    return n.text.toLowerCase() == text.toLowerCase()
   });
   return idx;
 }
 
 Shopt.methods.findHistory = function (text) {
   var idx = Shopt.data.history.find( function(n) { 
-    return n.text == text
+    return n.text.toLowerCase() == text.toLowerCase()
   });
   return idx;
 }
@@ -289,12 +291,13 @@ Shopt.methods.startSave = function () {
   // signal changed state
   Shopt.data.saved = false;
   // ui notify on save
-  var notify = function() { Materialize.toast('saved', 1500); }
+  //var notify = function() { Materialize.toast('saved', 1500); }
+  var notify = null;
   // save timer
   Shopt.data.saveTimerId = setTimeout( function() {
     Shopt.methods.save( notify );
     Shopt.data.saveTimerId = null;
-    }, 2000 );
+    }, 1000 );
 }
 
 Shopt.methods.findPredictionAt = function (text) {
