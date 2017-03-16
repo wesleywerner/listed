@@ -27,7 +27,7 @@
     "cp:src": "cp -r source/* www/",
     "cp:icons": "cp -r icons www/",
     "build": "npm run clean && npm run cp:src && npm run cp:icons && npm run cp:jquery && npm run cp:vue && npm run cp:moment && npm run cp:materialize && npm run cp:animate && npm run cp:chartjs && npm run cp:zenscroll",
-    "release": "cordova run android --release -- --keystore=keystore/shopt-android-keystore.jks --alias='Shopt Playstore Key'"
+    "release": "cordova build android --release -- --keystore=keystore/shopt-android-keystore.jks --alias='Shopt Playstore Key'"
   },
   "author": "Wesley Werner",
   "license": "GPL-3.0",
