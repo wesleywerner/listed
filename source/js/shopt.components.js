@@ -18,11 +18,11 @@
  * A common page navigation bar.
  */
 Vue.component('navigation', {
-  props: ['view', 'color', 'saved', 'hiliteRecommendations'],
+  props: ['view', 'color', 'saved', 'jigglestar'],
   template: '<nav v-bind:class="color" role="navigation"> \
           <div class="nav-wrapper container"> \
             <a id="logo-container" href="#" class="brand-logo" v-on:click="titleClicked"> \
-              <i class="material-icons medium animated" v-bind:class="{ \'infinite tada\': hiliteRecommendations }">stars</i>Shopt</a> \
+              <i class="material-icons medium animated" v-bind:class="{ \'infinite jello\': jigglestar }">stars</i>Shopt</a> \
             <!-- mobile collapse hamburger --> \
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a> \
             <!-- navbar full and mobile links --> \

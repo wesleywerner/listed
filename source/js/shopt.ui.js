@@ -33,9 +33,6 @@
   state.loading = true;
   state.saveTimerId = null;
   
-  // bring attention to the recommended icon
-  state.hiliteRecommendations = true;
-  
   // adding a new item to the list
   state.newItemText = '';
   

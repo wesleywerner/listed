@@ -36,7 +36,7 @@ Shopt.data.color = 'red';
  
 // bring attention to the recommended icon if the list is empty
 Shopt.computed.hiliteRecommendations = function () {
-  return (Shopt.data.list.length == 0);
+  return (Shopt.data.list.length == 0 && Shopt.data.prediction.length > 0);
 }
 
 // list history items, in order, that are not in the main list

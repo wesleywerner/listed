@@ -41,7 +41,7 @@
           v-bind:view="'list'"
           v-bind:color="color"
           v-bind:saved="saved"
-          v-bind:hiliteRecommendations="hiliteRecommendations"
+          v-bind:jigglestar="hiliteRecommendations"
           v-on:navaction="showRecommendations"
           >
         </navigation>
@@ -80,15 +80,28 @@
                 </div>
               </div>
               
-              <!-- no data information -->
+              <!-- welcome message -->
               <transition name="howto-transition" enter-active-class="animated flipInX" leave-active-class="animated flipOutX">
-                <div class="row" v-show="hiliteRecommendations">
+                <div class="row" v-show="history.length == 0">
                   <div class="col s12 m8">
                     <div class="card blue lighten-4">
                       <div class="card-content black-text">
-                        <span class="card-title">Quick Tip</span>
-                        <p v-show="history.length == 0">Add items with the <i class="material-icons">mode_edit</i> button below. I remember when you check them off the list, and can recommend items in the future.</p>
-                        <p v-show="history.length > 0">Use the <i class="material-icons">stars</i> icon above to see my recommendations.</p>
+                        <span class="card-title">Welcome to Shopt!</span>
+                        <p>Add some items to your shopping list and go shopping!</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </transition>
+
+              <!-- recommendation tip -->
+              <transition name="howto-transition" enter-active-class="animated flipInX" leave-active-class="animated flipOutX">
+                <div class="row" v-show="hiliteRecommendations && Shopt.data.list.length == 0">
+                  <div class="col s12 m8">
+                    <div class="card blue lighten-4">
+                      <div class="card-content black-text">
+                        <span class="card-title">Recommendations</span>
+                        <p>Tap the star above to see your recommendations.</p>
                       </div>
                     </div>
                   </div>
