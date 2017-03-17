@@ -24,9 +24,10 @@
     "cp:animate": "cp node_modules/animate.css/animate.min.css www/css/",
     "cp:chartjs": "cp node_modules/chart.js/dist/Chart.min.js www/js/",
     "cp:zenscroll": "cp node_modules/zenscroll/zenscroll-min.js www/js/",
+    "cp:colorjs": "cp node_modules/color-js/color.js www/js/",
     "cp:src": "cp -r source/* www/",
     "cp:icons": "cp -r icons www/",
-    "build": "npm run clean && npm run cp:src && npm run cp:icons && npm run cp:jquery && npm run cp:vue && npm run cp:moment && npm run cp:materialize && npm run cp:animate && npm run cp:chartjs && npm run cp:zenscroll",
+    "build": "npm run clean && npm run cp:src && npm run cp:icons && npm run cp:jquery && npm run cp:vue && npm run cp:moment && npm run cp:materialize && npm run cp:animate && npm run cp:chartjs && npm run cp:zenscroll && npm run cp:colorjs",
     "release": "cordova build android --release -- --keystore=keystore/shopt-android-keystore.jks --alias='Shopt Playstore Key'"
   },
   "author": "Wesley Werner",
@@ -39,10 +40,11 @@
   "dependencies": {
     "animate.css": "^3.5.2",
     "chart.js": "^2.5.0",
+    "color-js": "^1.0.4",
+    "jquery": "2.1.1",
     "materialize-css": "^0.98.0",
     "moment": "^2.17.1",
     "vue": "^2.1.10",
-    "zenscroll": "^3.3.0",
-    "jquery": "2.1.1"
+    "zenscroll": "^3.3.0"
   }
 }
