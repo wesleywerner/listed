@@ -38,58 +38,43 @@
     var data = Shopt.data.prediction.map( function(h) {
         return Math.ceil(30 / h.frequency);
     });
+    
+    // create a color palette based on the current flavour.
+    // map each flavour to it's base color
+    var baseColors = {
+      'red': '#f44336',
+      'pink': '#e91e63',
+      'purple': '#9c27b0',
+      'indigo': '#3f51b5',
+      'cyan': '#00bcd4',
+      'green': '#4caf50',
+      'lime': '#cddc39',
+      'amber': '#ffc107',
+      'deep-orange': '#ff5722',
+      'brown': '#2196f3',
+      'grey': '#2196f3'
+      }
+
+    var palette = net.brehaut.Color(baseColors[Shopt.data.color] || baseColors['red']);
+    var backgroundColor = [];
+    var flip = false;
+    for(i=1; i<data.length+1; i++) {
+      if (flip) 
+        backgroundColor.push(palette.darkenByRatio(0.5).toCSS());
+      else
+        backgroundColor.push(palette.toCSS());
+      palette = palette.shiftHue(24);
+      // flip the palette affter n iterations for more variation
+      if (i%15==0) flip = !flip;
+    }
 
     var dataObj = {
         labels: labels,
         datasets: [
             {
                 data: data,
-                backgroundColor: [
-                    "#f44336", // red
-                    "#b71c1c", // darken red
-                    "#ffcdd2", // lighten red
-                    "#e91e63", // pink
-                    "#880e4f", // darken pink
-                    "#f8bbd0", // lighten pink
-                    "#9c27b0", // purple
-                    "#4a148c", // darken purple
-                    "#e1bee7", // lighten purple
-                    "#673ab7", // deep purple
-                    "#311b92", // darken deep purple
-                    "#d1c4e9", // lighten deep purple
-                    "#2196f3", // blue
-                    "#0d47a1", // darken blue
-                    "#bbdefb", // lighten blue
-                    "#00bcd4", // cyan
-                    "#006064", // darken cyan
-                    "#009688", // teal
-                    "#004d40", // darken teal
-                    "#b2dfdb", // lighten teal
-                    "#4caf50", // green
-                    "#1b5e20", // darken green
-                    "#c8e6c9", // lighten green
-                    "#cddc39", // lime
-                    "#827717", // darken lime
-                    "#f0f4c3", // lighten lime
-                    "#ffeb3b", // yellow
-                    "#fff59d", // lighten yellow
-                    "#ff9800", // orange
-                    "#e65100", // darken orange
-                    "#ffe0b2", // lighten orange
-                    "#795548", // brown
-                    "#3e2723", // darken brown
-                    "#a1887f", // lighten brown
-                    "#9e9e9e", // grey
-                    "#212121", // darken grey
-                    "#e0e0e0", // lighten grey 1
-                    "#bdbdbd", // lighten grey 2
-                    "#607d8b", // blue grey
-                    "#263238", // darken blue grey
-                    "#90a4ae" // lighten blue grey
-                ],
-                hoverBackgroundColor: [
-
-                ]
+                backgroundColor: backgroundColor,
+                hoverBackgroundColor: [ ]
             }]
     };
 
