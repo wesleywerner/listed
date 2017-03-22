@@ -64,11 +64,19 @@ describe('Shopt Test Suite', function() {
       Shopt.methods.addItem('item AG');
       Shopt.methods.addItem('item AH');
       Shopt.methods.removeItem('item AG');
-      // test length
-      expect(Shopt.data.list).to.have.lengthOf(2);
-      // test correct item got removed
       var idx = Shopt.methods.findItemAt('item AG');
       expect(idx).to.equal(-1);
+    });
+    
+    it('should return the removed item', function() {
+      Shopt.methods.addItem('item AG');
+      var removed = Shopt.methods.removeItem('item AG');
+      expect(removed.text).to.equal('item AG');
+    });
+
+    it('should return nothing when no item is removed', function() {
+      var removed = Shopt.methods.removeItem('item AG');
+      expect(removed).to.be.null;
     });
 
     it('should amend an item', function() {

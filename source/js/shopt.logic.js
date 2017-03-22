@@ -116,9 +116,11 @@ Shopt.methods.addItem = function (text) {
 Shopt.methods.removeItem = function (text) {
   var idx = Shopt.methods.findItemAt(text);
   if (idx > -1) {
-    Shopt.data.list.splice(idx, 1);
+    var removed = Shopt.data.list.splice(idx, 1);
     Shopt.methods.startSave();
+    if (removed.length == 1) return removed[0];
   }
+  return null;
 }
 
 Shopt.methods.amendItem = function (text, amendment) {
@@ -171,6 +173,11 @@ Shopt.methods.addHistory = function (text, date) {
     if (!dateExists) {
       item.dates.push(historyDate.format('YYYY-MM-DD'));
     }
+  }
+  // move the list item to the bottom
+  var listIdx = Shopt.methods.findItemAt(text);
+  if (listIdx) {
+    var listItem = Shopt.data.list
   }
   Shopt.methods.startSave();
 }
