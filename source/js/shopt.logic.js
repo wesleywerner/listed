@@ -133,6 +133,24 @@ Shopt.methods.amendItem = function (text, amendment) {
   }
 }
 
+Shopt.methods.lastCheckedPos = function () {
+  for (var i=Shopt.data.list.length-1; i>-1; i--) {
+    if (Shopt.data.list[i].checked == false) {
+      return i+1;
+    }
+  }
+  return 0;
+}
+
+Shopt.methods.firstCheckedPos = function () {
+  for (var i=0; i<Shopt.data.list.length; i++) {
+    if (Shopt.data.list[i].checked == true) {
+      return i-1;
+    }
+  }
+  return Shopt.data.list.length;
+}
+
 Shopt.methods.cleanList = function () {
   Shopt.data.list = Shopt.data.list.filter( function(n) {
     return n.checked == false;
@@ -175,9 +193,10 @@ Shopt.methods.addHistory = function (text, date) {
     }
   }
   // move the list item to the bottom
-  var listIdx = Shopt.methods.findItemAt(text);
-  if (listIdx) {
-    var listItem = Shopt.data.list
+  var removed = Shopt.methods.removeItem(text);
+  if (removed) {
+    var newPos = Shopt.methods.lastCheckedPos();
+    Shopt.data.list.splice(newPos, 0, removed);
   }
   Shopt.methods.startSave();
 }
@@ -206,15 +225,22 @@ Shopt.methods.undoHistory = function (text, date) {
   if (!date.isValid()) {
     date = moment();
   }
+  // remove the purchase date if it matches
   var formattedDate = date.format('YYYY-MM-DD');
   var item = Shopt.methods.findHistory(text);
   if (item != null) {
     var idx = item.dates.indexOf(formattedDate);
     if (idx == item.dates.length - 1) {
       item.dates.pop();
-      Shopt.methods.startSave();
     }
   }
+  // move the list item to the bottom
+  var removed = Shopt.methods.removeItem(text);
+  if (removed) {
+    var newPos = Shopt.methods.firstCheckedPos() + 1;
+    Shopt.data.list.splice(newPos, 0, removed);
+  }
+  Shopt.methods.startSave();
 }
 
 Shopt.methods.amendHistory = function (text, amendment) {
