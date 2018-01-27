@@ -23,6 +23,7 @@ var Shopt = { 'version': 1 };
 Shopt.factory = {};
 Shopt.computed = {};
 Shopt.data = {};
+Shopt.data.debug = true;
 Shopt.data.history = [];
 Shopt.data.list = [];
 Shopt.data.prediction = [];

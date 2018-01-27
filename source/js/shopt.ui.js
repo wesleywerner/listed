@@ -112,6 +112,24 @@
       Shopt.methods.refreshItemAutoComplete();
     }
   }
+
+  ui.addTestData = function () {
+    var text = prompt('name of item to generate');
+    if (text == undefined) return;
+    var avg = prompt('average purchase frequency in days');
+    if (avg == undefined) return;
+    var lastBought = prompt('how many days ago was the item last bought');
+    if (lastBought == undefined) return;
+    var lastDate = moment().subtract(parseInt(lastBought), 'days');
+    for (var i=12; i>-1; i--) {
+      Shopt.methods.addHistory(text, moment(lastDate).subtract(i*avg, 'days').format('YYYY-MM-DD'));
+      // add variance
+      if (Math.random() < 0.1) {
+        Shopt.methods.addHistory(text, moment(lastDate).subtract(i*avg-1, 'days').format('YYYY-MM-DD'));
+      }
+    }
+    Shopt.methods.predictFrequencies();
+  }
   
   jQuery.extend(Shopt.methods, ui);
   jQuery.extend(Shopt.data, state);

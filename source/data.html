@@ -50,7 +50,7 @@
 
             <ul class="collapsible popout" data-collapsible="accordion">
               <li>
-                <div class="collapsible-header active"><i class="material-icons">list</i>Purchase Data</div>
+                <div class="collapsible-header"><i class="material-icons">list</i>Purchase Data</div>
                 <div class="collapsible-body">
                   <table class="responsive-table bordered striped" v-show="!history.length == 0">
                     <thead>
@@ -68,7 +68,6 @@
                       </tr>
                     </tbody>
                   </table>
-                  <button type="button" class="btn waves-effect" onclick="addTestData()">Add Test Data</button>                
                 </div>
               </li>
               <li>
@@ -79,6 +78,12 @@
                     v-bind:data="sortedHistory"
                     v-bind:color="color" 
                     v-on:do-merge="promptMerge(arguments[0], arguments[1])"></merge-selection>
+                </div>
+              </li>
+              <li v-show="debug">
+                <div class="collapsible-header"><i class="material-icons">&#xE868;</i>Debug</div>
+                <div class="collapsible-body">
+                  <button type="button" class="btn waves-effect" v-on:click="addTestData">Add Test Data</button>
                 </div>
               </li>
             </ul> <!-- /collapsible -->
@@ -101,27 +106,6 @@
       <script type="text/javascript" src="js/shopt.data.js"></script>
       <script type="text/javascript" src="js/shopt.cordova.js"></script>
       <script type="text/javascript" src="cordova.js"></script>
-      
-      <!-- dev data -->
-      <script>
-        function addTestData() {
-          var text = prompt('name of item to generate');
-          if (text == undefined) return;
-          var avg = prompt('average purchase frequency in days');
-          if (avg == undefined) return;
-          var lastBought = prompt('how many days ago was the item last bought');
-          if (lastBought == undefined) return;
-          var lastDate = moment().subtract(parseInt(lastBought), 'days');
-          for (var i=12; i>-1; i--) {
-            Shopt.methods.addHistory(text, moment(lastDate).subtract(i*avg, 'days').format('YYYY-MM-DD'));
-            // add variance
-            if (Math.random() < 0.1) {
-              Shopt.methods.addHistory(text, moment(lastDate).subtract(i*avg-1, 'days').format('YYYY-MM-DD'));
-            }
-          }
-          Shopt.methods.predictFrequencies();
-        }
-      </script>
-      
+
     </body>
 </html>
