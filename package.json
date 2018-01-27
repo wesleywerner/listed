@@ -42,7 +42,7 @@
     "chart.js": "^2.5.0",
     "color-js": "^1.0.4",
     "jquery": "^3.3.1",
-    "materialize-css": "^0.98.0",
+    "materialize-css": "^0.100.2",
     "moment": "^2.20.1",
     "vue": "^2.5.13",
     "zenscroll": "^3.3.0"
