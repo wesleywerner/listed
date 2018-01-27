@@ -52,6 +52,12 @@ Note for adb to detect your device you should ensure the PTP usb mode is selecte
 
 For debugging ease with the emulator, or a real device that has usb debugging enabled, use Google's Chrome browser and navigate to chrome://inspect/#devices to get an inspector.
 
+### releasing
+
+* update version in shopt.logic.js
+* toggle the debug flag in shopt.logic.js
+* git tag the version
+
 # License
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
