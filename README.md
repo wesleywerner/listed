@@ -48,6 +48,8 @@ Finally to build and deploy on a connected device:
   cordova build
   adb install -r platforms/android/build/outputs/apk/android-debug.apk
 
+Note for adb to detect your device you should ensure the PTP usb mode is selected on your phone, and `adb start-server` was run.
+
 For debugging ease with the emulator, or a real device that has usb debugging enabled, use Google's Chrome browser and navigate to chrome://inspect/#devices to get an inspector.
 
 # License
