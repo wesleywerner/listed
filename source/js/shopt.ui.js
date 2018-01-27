@@ -91,17 +91,25 @@
     Shopt.data.color = color;
     Shopt.methods.startSave();
   }
+
+  // set up auto complete for adding items to your list
+  ui.refreshItemAutoComplete = function () {
+    $('#add-item-input').autocomplete({
+      data: Shopt.computed.keyedUnpickedHistory(),
+      limit: 3,
+      onAutocomplete: function(val) {
+        Shopt.data.newItemText = val;
+        Shopt.methods.addItemAndClearInput();
+      },
+      minLength: 1,
+    });
+  }
   
   ui.addItemAndClearInput = function () {
     if (Shopt.methods.addItem(Shopt.data.newItemText)) {
-      Materialize.toast('Added ' + Shopt.data.newItemText, 1000);
+      Materialize.toast('Added ' + Shopt.data.newItemText, 4000);
       Shopt.data.newItemText = '';
-    }
-  }
-  
-  ui.addItemAndNotify = function (text) {
-    if (Shopt.methods.addItem(text)) {
-      Materialize.toast('Added ' + text, 1000);
+      Shopt.methods.refreshItemAutoComplete();
     }
   }
   

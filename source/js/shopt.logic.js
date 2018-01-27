@@ -49,6 +49,21 @@ Shopt.computed.sortedUnpickedHistory = function () {
   return picks;
 }
 
+// keyed list of history items that are not in the main list.
+// used for autocomplete lists.
+Shopt.computed.keyedUnpickedHistory = function () {
+  var result = { };
+  var picks = Shopt.data.history.filter( function(h) {
+    return Shopt.methods.findItemAt(h.text) == -1;
+  });
+  // the key is the text to auto complete, the value is an optional
+  // icon url, or null.
+  picks.forEach(function(h) {
+    result[h.text] = null;
+  });
+  return result;
+}
+
 // list history items, in order, that are not in the main list
 Shopt.computed.sortedHistory = function () {
   var picks = Shopt.data.history.map( function(h) {

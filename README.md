@@ -48,7 +48,7 @@ Finally to build and deploy on a connected device:
   cordova build
   adb install -r platforms/android/build/outputs/apk/android-debug.apk
 
-For debugging ease with the emulator, or a real device that us usb debugging enabled, use Google's Chrome browser and navigate to chrome://inspect/#devices to get an inspector.
+For debugging ease with the emulator, or a real device that has usb debugging enabled, use Google's Chrome browser and navigate to chrome://inspect/#devices to get an inspector.
 
 # License
 
