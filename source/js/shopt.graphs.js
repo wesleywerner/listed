@@ -168,5 +168,21 @@
   }
   
   jQuery.extend(Shopt.methods, graphs);
+
+  // hook into native android back-button events.
+  // returns true if the back button was handled here.
+  Shopt.methods.backButton = function() {
+
+    var openModal = $('#helpModal').hasClass('open');
+    if (openModal) {
+       $('#helpModal').modal('close');
+      return true;
+    }
+
+    // navigate to the main page
+    window.location = 'index.html'
+    return true;
     
+  }
+
 }())

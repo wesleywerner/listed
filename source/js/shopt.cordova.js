@@ -38,7 +38,16 @@
   }
 
   methods.onBackKeyDown = function() {
-    navigator.app.exitApp();
+    // defer to the page action
+    if (typeof(Shopt.methods.backButton) == 'function') {
+      // this function returns true if it handled the back button.
+      if (!Shopt.methods.backButton()) {
+        navigator.app.exitApp();
+      }
+    }
+    else {
+      navigator.app.exitApp();
+    }
   }
 
   jQuery.extend(Shopt.methods, methods);
