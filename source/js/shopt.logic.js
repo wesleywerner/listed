@@ -19,11 +19,11 @@ if (typeof require != 'undefined') {
   var moment = require('moment');
 }
 
-var Shopt = { 'version': 1 };
+var Shopt = { 'version': 2 };
 Shopt.factory = {};
 Shopt.computed = {};
 Shopt.data = {};
-Shopt.data.debug = true;
+Shopt.data.debug = false;
 Shopt.data.history = [];
 Shopt.data.list = [];
 Shopt.data.prediction = [];
