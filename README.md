@@ -54,6 +54,7 @@ For debugging ease with the emulator, or a real device that has usb debugging en
 
 ### releasing
 
+* Add to CHANGES.md
 * Update version in shopt.logic.js
 * Toggle the debug flag in shopt.logic.js
 * git tag the version
