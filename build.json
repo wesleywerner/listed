@@ -1,0 +1,18 @@
+{
+    "android": {
+        "debug": {
+            "keystore": "",
+            "storePassword": "",
+            "alias": "",
+            "password" : "",
+            "keystoreType": ""
+        },
+        "release": {
+            "keystore": "keystore/shopt-android-keystore.jks",
+            "storePassword": "",
+            "alias": "Shopt Playstore Key",
+            "password" : "",
+            "keystoreType": ""
+        }
+    }
+}
