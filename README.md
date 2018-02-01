@@ -54,9 +54,12 @@ For debugging ease with the emulator, or a real device that has usb debugging en
 
 ### releasing
 
-* update version in shopt.logic.js
-* toggle the debug flag in shopt.logic.js
+* Update version in shopt.logic.js
+* Toggle the debug flag in shopt.logic.js
 * git tag the version
+* Build a signed APK
+
+    cordova build android --release
 
 # License
 
