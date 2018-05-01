@@ -370,7 +370,9 @@ Shopt.methods.predictFrequencies = function (compareDate) {
         // add avg frequency to the most recent history date
         var dueDate = moment(hist.dates.slice(-1)[0]);
         dueDate.add(avg, 'day');
-        // get the days from due date to the comparisson date
+        // get the days from due date to the comparisson date.
+        // positive values indicate an approaching day,
+        // negative values indicate days past due.
         var dueDays = dueDate.diff(cmpDate, 'days');
         // relative due date
         var relDate = dueDate.calendar(rightnow, {
@@ -381,7 +383,11 @@ Shopt.methods.predictFrequencies = function (compareDate) {
           lastWeek: '[Last] dddd',
           sameElse: 'ddd, Do MMM'
         });
-        predictedItems.push(new Shopt.factory.Prediction(hist.text, avg, relDate, dueDays));
+        // only consider items due in the future, and those recently past due.
+        // ignore items way overdue.
+        if (dueDays > -7) {
+          predictedItems.push(new Shopt.factory.Prediction(hist.text, avg, relDate, dueDays));
+        }
       }
     }
   });
