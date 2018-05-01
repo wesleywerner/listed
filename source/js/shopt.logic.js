@@ -46,7 +46,9 @@ Shopt.computed.sortedUnpickedHistory = function () {
     return Shopt.methods.findItemAt(h.text) == -1;
   }).map( function(h) {
     return h.text;
-  }).sort();
+  }).sort(function (a, b) {
+    return a.toLowerCase().localeCompare(b.toLowerCase());
+  });
   return picks;
 }
 
