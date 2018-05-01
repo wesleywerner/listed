@@ -138,10 +138,24 @@
         <div id="addItemModal" class="modal">
           <div class="modal-content">
 
-            <div class="input-field col s12">
-              <i class="material-icons prefix">&#xE854;</i>
-              <input type="text" id="add-item-input" class="autocomplete" v-model="newItemText" v-on:keyup.enter="addItemAndClearInput">
-              <label for="autocomplete-input">What do you need?</label>
+            <div class="row">
+
+              <div class="input-field col s12">
+                <i class="material-icons prefix">&#xE854;</i>
+                <input type="text" id="add-item-input" class="autocomplete" v-model="newItemText" v-on:keyup.enter="addItemAndClearInput">
+                <label for="autocomplete-input">What do you need?</label>
+              </div>
+              
+              <div class="col s12">
+                <history-select
+                autoclear="true"
+                v-show="!sortedUnpickedHistory.length == 0"
+                class="lighten-4"
+                v-bind:data="sortedUnpickedHistory"
+                title="pick a previous item"
+                v-on:input="addItemByText(arguments[0])"></history-select>
+              </div>
+
             </div>
 
           </div>

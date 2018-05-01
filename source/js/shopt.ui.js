@@ -65,7 +65,7 @@
     if (Shopt.methods.findHistoryAt(a) > -1 && Shopt.methods.findHistoryAt(b) > -1) {
       if (confirm('Merge history of '+b+' into '+a)) {
         Shopt.methods.mergeHistory(a, b);
-        Materialize.toast(a+' and '+b+' merged', 5000);
+        Shopt.methods.notify(a+' and '+b+' merged');
       }
     }
   }
@@ -80,9 +80,9 @@
     if (newText != undefined) {
       var success = Shopt.methods.rename(hist.text, newText);
       if (success) {
-        Materialize.toast('Rename Success', 5000);
+        Shopt.methods.notify('Rename Success');
       } else {
-        Materialize.toast('Rename failed. ' + newText + ' exists', 5000);
+        Shopt.methods.notify('Rename failed. ' + newText + ' exists');
       }
     }
   }
@@ -104,11 +104,22 @@
       minLength: 1,
     });
   }
+
+  ui.notify = function (text) {
+    Materialize.toast(text, 4000);
+  }
   
   ui.addItemAndClearInput = function () {
     if (Shopt.methods.addItem(Shopt.data.newItemText)) {
-      Materialize.toast('Added ' + Shopt.data.newItemText, 4000);
+      Shopt.methods.notify('Added ' + Shopt.data.newItemText);
       Shopt.data.newItemText = '';
+      Shopt.methods.refreshItemAutoComplete();
+    }
+  }
+
+  ui.addItemByText = function (item) {
+    if (Shopt.methods.addItem(item)) {
+      Shopt.methods.notify('Added ' + item);
       Shopt.methods.refreshItemAutoComplete();
     }
   }
