@@ -35,7 +35,7 @@
   "license": "GPL-3.0",
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^3.2.0",
+    "mocha": "^5.2.0",
     "npm-watch": "^0.1.8"
   },
   "dependencies": {
@@ -47,6 +47,10 @@
     "materialize-css": "^0.100.2",
     "moment": "^2.20.1",
     "vue": "^2.5.13",
-    "zenscroll": "^3.3.0"
+    "zenscroll": "^3.3.0",
+    "randomatic": ">=3.0.0",
+    "deep-extend": ">=0.5.1",
+    "growl": ">=1.10.0",
+    "brace-expansion": ">=1.1.7"
   }
 }
